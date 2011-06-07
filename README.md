@@ -2,6 +2,16 @@ MozSecWorld
 =======
 Built upon Mozilla's playdoh
 
+Requirements
+=======
+- Django
+
+Run
+=======
+./manage.py runserver
+
+In browser, go to http://127.0.0.1:8000/msw/
+
 playdoh
 =======
 
