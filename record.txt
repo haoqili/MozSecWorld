@@ -222,7 +222,7 @@ models.py:
 
 (playdoh)haoqili@host-5-236:14:14:24:~/dev/playdoh/playdoh/playdoh$ python manage.py syncdb
 
-(playdoh)haoqili@host-5-236:14:14:41:~/dev/playdoh/playdoh/playdoh$ python manage.py shell
+(playdoh)haoqili@host-5-236:15:47:21:~/dev/playdoh/playdoh/playdoh$ python manage.py shell
 Python 2.7.1 (r271:86832, Jun  6 2011, 13:57:48) 
 [GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
@@ -230,25 +230,17 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> from msw.models import Page
 >>> Page.objects.all()
 []
->>> p = Page(title="SQL Injection", summary="One of the worst attacks", description="sneaky stuff", prevention="escaping stuff", demo="cool stuff")
+>>> p = Page(urlname="sqlinjection", title="SQL Injection", summary="One of the worst attacks", description="sneaky stuff", prevention="escaping stuff", demo="cool stuff")
 >>> p.save()
 >>> p.id
 1L
 >>> p.title
 'SQL Injection'
->>> p.demo
-'cool stuff'
 >>> Page.objects.all()
 [<Page: SQL Injection>]
->>> p = Page(title="XSS", summary="Another one of the worst attacks", description="very sneaky", prevention="escaping and others", demo="awesome stuff!")
->>> Page.objects.all()[<Page: SQL Injection>]
->>> p.save()
->>> Page.objects.all()
-[<Page: SQL Injection>, <Page: XSS>]
->>> p.id
+>>> q = Page(urlname="xss", title="XSS", summary="Another one of the worst attacks", description="very sneaky", prevention="escaping and others", demo="awesome stuff!")
+>>> q.save()
+>>> q.id
 2L
->>> quit
-Use quit() or Ctrl-D (i.e. EOF) to exit
+>>> Page.objects.all()[<Page: SQL Injection>, <Page: XSS>]
 >>> quit()
-
-

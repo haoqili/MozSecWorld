@@ -1,6 +1,7 @@
 from django.db import models
 
 class Page(models.Model):
+    urlname = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     summary = models.CharField(max_length=1000)
     description = models.CharField(max_length=5000)
