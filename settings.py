@@ -20,12 +20,13 @@ ADMINS = ()
 MANAGERS = ADMINS
 
 # THIS IS AN EXAMPLE of what yours should look like
+# Put in real values in settings_local.py
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
-        'USER': 'root',
-        'PASSWORD': 'test1',
+        'NAME': 'the database name',
+        'USER': 'the user name',
+        'PASSWORD': 'the password',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
