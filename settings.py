@@ -13,7 +13,7 @@ ROOT_PACKAGE = os.path.basename(ROOT)
 # Is this a dev instance?
 DEV = False
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = ()
@@ -136,7 +136,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 TEMPLATE_DIRS = (
-    path('templates'),
+    #path('templates'),
+    "/Users/haoqili/dev/playdoh/playdoh/playdoh/templates",
 )
 
 def JINJA_CONFIG():
