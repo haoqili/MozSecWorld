@@ -1,0 +1,254 @@
+haoqili@host-5-236:10:12:52:~$ brew info mysql
+mysql 5.5.10
+http://dev.mysql.com/doc/refman/5.5/en/
+Depends on: cmake, readline, pidof
+/usr/local/Cellar/mysql/5.5.10 (6232 files, 219M)
+
+Set up databases to run AS YOUR USER ACCOUNT with:
+    unset TMPDIR
+    mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+
+To set up base tables in another folder, or use a differnet user to run
+mysqld, view the help for mysqld_install_db:
+    mysql_install_db --help
+
+and view the MySQL documentation:
+  * http://dev.mysql.com/doc/refman/5.5/en/mysql-install-db.html
+  * http://dev.mysql.com/doc/refman/5.5/en/default-privileges.html
+
+To run as, for instance, user "mysql", you may need to `sudo`:
+    sudo mysql_install_db ...options...
+
+Start mysqld manually with:
+    mysql.server start
+
+    Note: if this fails, you probably forgot to run the first two steps up above
+
+A "/etc/my.cnf" from another install may interfere with a Homebrew-built
+server starting up correctly.
+
+To connect:
+    mysql -uroot
+
+To launch on startup:
+* if this is your first install:
+    mkdir -p ~/Library/LaunchAgents
+    cp /usr/local/Cellar/mysql/5.5.10/com.mysql.mysqld.plist ~/Library/LaunchAgents/
+    launchctl load -w ~/Library/LaunchAgents/com.mysql.mysqld.plist
+
+* if this is an upgrade and you already have the com.mysql.mysqld.plist loaded:
+    launchctl unload -w ~/Library/LaunchAgents/com.mysql.mysqld.plist
+    cp /usr/local/Cellar/mysql/5.5.10/com.mysql.mysqld.plist ~/Library/LaunchAgents/
+    launchctl load -w ~/Library/LaunchAgents/com.mysql.mysqld.plist
+
+You may also need to edit the plist to use the correct "UserName".
+
+
+http://github.com/mxcl/homebrew/commits/master/Library/Formula/mysql.rb
+
+
+
+
+haoqili@host-5-236:10:20:16:~$ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+
+Installing MySQL system tables...
+OK
+Filling help tables...
+OK
+
+To start mysqld at boot time you have to copy
+support-files/mysql.server to the right place for your system
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:1
+
+/usr/local/Cellar/mysql/5.5.10/bin/mysqladmin -u root password 'new-password'
+/usr/local/Cellar/mysql/5.5.10/bin/mysqladmin -u root -h host-5-236.mv.mozilla.com password 'new-password'
+
+Alternatively you can run:
+/usr/local/Cellar/mysql/5.5.10/bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+You can start the MySQL daemon with:
+cd /usr/local/Cellar/mysql/5.5.10 ; /usr/local/Cellar/mysql/5.5.10/bin/mysqld_safe &
+
+You can test the MySQL daemon with mysql-test-run.pl
+cd /usr/local/Cellar/mysql/5.5.10/mysql-test ; perl mysql-test-run.pl
+
+Please report any problems with the /usr/local/Cellar/mysql/5.5.10/scripts/mysqlbug script!
+
+
+haoqili@host-5-236:10:26:27:~$ mysql.server start
+Starting MySQL.. SUCCESS! 
+
+(playdoh)haoqili@host-5-236:13:00:36:~/dev/playdoh/playdoh/playdoh$ python manage.py syncdb
+Traceback (most recent call last):
+  File "manage.py", line 61, in <module>
+    execute_manager(settings)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/__init__.py", line 438, in execute_manager
+    utility.execute()
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/__init__.py", line 379, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/base.py", line 191, in run_from_argv
+    self.execute(*args, **options.__dict__)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/base.py", line 220, in execute
+    output = self.handle(*args, **options)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/base.py", line 351, in handle
+    return self.handle_noargs(**options)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/commands/syncdb.py", line 56, in handle_noargs
+    cursor = connection.cursor()
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/db/backends/dummy/base.py", line 15, in complain
+    raise ImproperlyConfigured("You haven't set the database ENGINE setting yet.")
+
+DATABASES = { 
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test',
+        'USER': 'root',
+        'PASSWORD': 'test1',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': 'SET storage_engine=InnoDB',
+            'charset' : 'utf8',
+            'use_unicode' : True,
+        },  
+        'TEST_CHARSET': 'utf8',
+        'TEST_COLLATION': 'utf8_general_ci',
+    },  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+(playdoh)haoqili@host-5-236:13:34:34:~/dev/playdoh/playdoh/playdoh$ ./manage.py syncdb
+Creating tables ...
+Creating table djcelery_intervalschedule
+Creating table djcelery_crontabschedule
+Creating table djcelery_periodictasks
+Creating table djcelery_periodictask
+Creating table djcelery_workerstate
+Creating table djcelery_taskstate
+Creating table auth_permission
+Creating table auth_group_permissions
+Creating table auth_group
+Creating table auth_user_user_permissions
+Creating table auth_user_groups
+Creating table auth_user
+Creating table auth_message
+Creating table django_content_type
+Creating table msw_poll
+Creating table msw_choice
+
+You just installed Django's auth system, which means you don't have any superusers defined.
+Would you like to create one now? (yes/no): yes
+
+
+
+Username (Leave blank to use 'haoqili'): E-mail address: Error: That e-mail address is invalid.
+E-mail address: Error: That e-mail address is invalid.
+E-mail address: [-- taken out --]
+Password: 
+Password (again): 
+Traceback (most recent call last):
+  File "./manage.py", line 61, in <module>
+    execute_manager(settings)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/__init__.py", line 438, in execute_manager
+    utility.execute()
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/__init__.py", line 379, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/base.py", line 191, in run_from_argv
+    self.execute(*args, **options.__dict__)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/base.py", line 220, in execute
+    output = self.handle(*args, **options)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/base.py", line 351, in handle
+    return self.handle_noargs(**options)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/commands/syncdb.py", line 109, in handle_noargs
+    emit_post_sync_signal(created_models, verbosity, interactive, db)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/sql.py", line 190, in emit_post_sync_signal
+    interactive=interactive, db=db)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/dispatch/dispatcher.py", line 172, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/contrib/auth/management/__init__.py", line 70, in create_superuser
+    call_command("createsuperuser", interactive=True)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/__init__.py", line 166, in call_command
+    return klass.execute(*args, **defaults)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/management/base.py", line 220, in execute
+    output = self.handle(*args, **options)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/contrib/auth/management/commands/createsuperuser.py", line 134, in handle
+    User.objects.create_superuser(username, email, password)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/contrib/auth/models.py", line 140, in create_superuser
+    u = self.create_user(username, email, password)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/contrib/auth/models.py", line 135, in create_user
+    user.set_password(password)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django-sha2/django_sha2/auth.py", line 52, in set_password
+    self.password = bcrypt_auth.create_hash(raw_password)
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django-sha2/django_sha2/bcrypt_auth.py", line 14, in create_hash
+    raise ImportError('settings.HMAC_KEYS must not be empty. Read the '
+ImportError: settings.HMAC_KEYS must not be empty. Read the django_sha2 docs!
+(playdoh)haoqili@host-5-236:13:41:18:~/dev/playdoh/playdoh/playdoh$ ./manage.py syncdb
+Creating tables ...
+Installing custom SQL ...
+Installing indexes ...
+No fixtures found.
+
+
+
+models.py:
+  1 from django.db import models
+  2 
+  3 class Page(models.Model):
+  4     title = models.CharField(max_length=100)
+  5     summary = models.CharField(max_length=1000)
+  6     description = models.CharField(max_length=5000)
+  7     prevention = models.CharField(max_length=5000)
+  8     demo = models.CharField(max_length=2000)
+  9 
+ 10     def __unicode__(self):
+ 11         return self.title
+
+(playdoh)haoqili@host-5-236:14:14:24:~/dev/playdoh/playdoh/playdoh$ python manage.py syncdb
+
+(playdoh)haoqili@host-5-236:14:14:41:~/dev/playdoh/playdoh/playdoh$ python manage.py shell
+Python 2.7.1 (r271:86832, Jun  6 2011, 13:57:48) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from msw.models import Page
+>>> Page.objects.all()
+[]
+>>> p = Page(title="SQL Injection", summary="One of the worst attacks", description="sneaky stuff", prevention="escaping stuff", demo="cool stuff")
+>>> p.save()
+>>> p.id
+1L
+>>> p.title
+'SQL Injection'
+>>> p.demo
+'cool stuff'
+>>> Page.objects.all()
+[<Page: SQL Injection>]
+>>> p = Page(title="XSS", summary="Another one of the worst attacks", description="very sneaky", prevention="escaping and others", demo="awesome stuff!")
+>>> Page.objects.all()[<Page: SQL Injection>]
+>>> p.save()
+>>> Page.objects.all()
+[<Page: SQL Injection>, <Page: XSS>]
+>>> p.id
+2L
+>>> quit
+Use quit() or Ctrl-D (i.e. EOF) to exit
+>>> quit()
+
+

@@ -1,10 +1,11 @@
 from django.db import models
 
-class Poll(models.Model):
-    question = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+class Page(models.Model):
+    title = models.CharField(max_length=100)
+    summary = models.CharField(max_length=1000)
+    description = models.CharField(max_length=5000)
+    prevention = models.CharField(max_length=5000)
+    demo = models.CharField(max_length=2000)
 
-class Choice(models.Model):
-    poll = models.ForeignKey(Poll)
-    choice = models.CharField(max_length=200)
-    votes = models.IntegerField()
+    def __unicode__(self):
+        return self.title

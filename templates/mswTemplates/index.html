@@ -8,6 +8,16 @@
   
   Hi do I have a good title?
 
+    {% if all_pages_list %}
+        <ul>
+            {% for page in all_pages_list %}
+                <li>page title: {{ page.title }} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pages are available.</p>
+    {% endif %}
+
   </body>
 </html>
 
