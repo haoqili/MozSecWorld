@@ -1,4 +1,5 @@
 # Django settings file for a project based on the playdoh template.
+# manage.py replaces this with settings_local.py
 
 import os
 

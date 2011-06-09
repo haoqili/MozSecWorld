@@ -1,17 +1,27 @@
-# Create your views here.
-
 from msw.models import Page
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404
 
-def index(request):
-    # return HttpResponse("Hello, world. This is going to be where the Mozilla Secure World is going to be!")
+# urls.py's views. It renders the urls by putting in appropriate values into templates
+# each def 
+#       - corresponds to a template's html
+#       - must return a HttpResponse. Simplest one is `return HttpResponse("Hello World!")`
 
-    all_pages = Page.objects.all()
-    rendered = render_to_response('mswTemplates/index.html', {"title_chunk" : "barbari", "all_pages_list": all_pages})
+# The dictionary maps keys for the template's {{ matching_key }} to its value. 
+# The key/value can be for a list, because in the template, there is a for loop that goes through each value of the list.
+#       e.g. index's Page.objects.all() is a list of all page (xss, sqlinjection)s
+
+def index(request):
+    rendered = render_to_response('mswTemplates/index.html', {"title_chunk" : "barbari", "all_pages_list": Page.objects.all()})
     return rendered
 
 def detail(request, msw_urlname):
+    
+    # get_object_or_404( model name, model attribute = value to test)
+    # this function is analogous to Page.objects.filter(urlname=msw_urlname)
+    # "urlname" is the attribute of the model, i.e. the column in the db table
     p = get_object_or_404(Page, urlname=msw_urlname)
+
+
     return render_to_response('mswTemplates/detail.html', {'page':p})

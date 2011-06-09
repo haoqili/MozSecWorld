@@ -7,8 +7,8 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     # Example:
-    #(r'', include('examples.urls')),
-    (r'^msw/', include('msw.urls')),
+    #(r'', include('examples.urls')), # don't care about front mage
+    (r'^msw/', include('msw.urls')), # directs to msw/urls.py
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
