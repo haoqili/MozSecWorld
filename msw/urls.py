@@ -1,14 +1,16 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from msw.models import Page
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('msw.views',
     # Example:
-    #(r'', include('examples.urls')),
-    (r'^msw/', include('msw.urls')),
+    (r'^$', 'index'),
+    (r'^(?P<msw_urlname>\w+)/$', 'detail'),
+    #(r'^(?P<msw_id>\w+)/demo/$', 'demo'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),

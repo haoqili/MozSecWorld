@@ -12,4 +12,6 @@ def index(request):
     rendered = render_to_response('mswTemplates/index.html', {"title_chunk" : "barbari", "all_pages_list": all_pages})
     return rendered
 
-
+def detail(request, msw_urlname):
+    p = get_object_or_404(Page, urlname=msw_urlname)
+    return render_to_response('mswTemplates/detail.html', {'page':p})

@@ -244,3 +244,28 @@ Type "help", "copyright", "credits" or "license" for more information.
 2L
 >>> Page.objects.all()[<Page: SQL Injection>, <Page: XSS>]
 >>> quit()
+
+
+=====================
+Important commands
+=====================
+python manage.py syncdb
+python manage.py shell
+
+netstat -anl | grep 3306
+    to find *.3306 which is mysql
+
+
+----------------
+
+syncdb generates the structure of:
+
+mysql> select * from msw_page;
++----+--------------+---------------+----------------------------------+--------------+---------------------+----------------+
+| id | urlname      | title         | summary                          | description  | prevention          | demo           |
++----+--------------+---------------+----------------------------------+--------------+---------------------+----------------+
+|  1 | sqlinjection | SQL Injection | One of the worst attacks         | sneaky stuff | escaping stuff      | cool stuff     |
+|  2 | xss          | XSS           | Another one of the worst attacks | very sneaky  | escaping and others | awesome stuff! |
++----+--------------+---------------+----------------------------------+--------------+---------------------+----------------+
+
+
