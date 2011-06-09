@@ -15,7 +15,7 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     ## (?P<argument_name>regex) saves whatever matches in regex to argument_name
     ## to be put as an argument into the corresponding views.py's def.
     #####
-    (r'^(?P<msw_urlname>\w+)/$', 'detail'), # goes to views.py's "def detail" with msw_urlname as an argument.
+    (r'^(?P<input_slug>\w+)/$', 'detail'), # goes to views.py's "def detail" with input_slug as an argument.
 
     #(r'^(?P<msw_id>\w+)/demo/$', 'demo'), # to be implemented in the future
 

@@ -230,7 +230,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> from msw.models import Page
 >>> Page.objects.all()
 []
->>> p = Page(urlname="sqlinjection", title="SQL Injection", summary="One of the worst attacks", description="sneaky stuff", prevention="escaping stuff", demo="cool stuff")
+>>> p = Page(slug="sqlinjection", title="SQL Injection", summary="One of the worst attacks", description="sneaky stuff", prevention="escaping stuff", demo="cool stuff")
 >>> p.save()
 >>> p.id
 1L
@@ -238,7 +238,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 'SQL Injection'
 >>> Page.objects.all()
 [<Page: SQL Injection>]
->>> q = Page(urlname="xss", title="XSS", summary="Another one of the worst attacks", description="very sneaky", prevention="escaping and others", demo="awesome stuff!")
+>>> q = Page(slug="xss", title="XSS", summary="Another one of the worst attacks", description="very sneaky", prevention="escaping and others", demo="awesome stuff!")
 >>> q.save()
 >>> q.id
 2L

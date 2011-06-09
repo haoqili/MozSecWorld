@@ -14,15 +14,15 @@ from django.shortcuts import render_to_response, get_object_or_404
 #       e.g. index's Page.objects.all() is a list of all page (xss, sqlinjection)s
 
 def index(request):
-    rendered = jingo.render(request, 'msw/index.html', {"title_chunk" : "iiibarbari", "all_pages_list": Page.objects.all()})
+    rendered = jingo.render(request, 'msw/index.html', {"title_chunk" : "aaiiibarbari", "all_pages_list": Page.objects.all()})
     return rendered
 
-def detail(request, msw_urlname):
+def detail(request, input_slug):
     
     # get_object_or_404( model name, model attribute = value to test)
     # this function is analogous to Page.objects.filter(urlname=msw_urlname)
     # "urlname" is the attribute of the model, i.e. the column in the db table
-    p = get_object_or_404(Page, urlname=msw_urlname)
+    p = get_object_or_404(Page, slug=input_slug)
 
 
     return jingo.render(request, 'msw/detail.html', {'page':p})

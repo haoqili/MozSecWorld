@@ -11,7 +11,7 @@
     {% if all_pages_list %}
         <ul>
             {% for page in all_pages_list %}
-                <li><a href="/msw/{{ page.urlname }}/">page title: {{ page.title }}</a> </li>
+                <li><a href="/msw/{{ page.slug }}/">page title: {{ page.title }}</a> </li>
             {% endfor %}
         </ul>
     {% else %}
