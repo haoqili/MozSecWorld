@@ -247,11 +247,11 @@ INSTALLED_APPS = (
     'django_sha2',  # Load after auth to monkey-patch it.
 
     'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
+    'django.contrib.sessions',
     # 'django.contrib.sites',
     # 'django.contrib.messages',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
@@ -292,7 +292,7 @@ JAVA_BIN = '/usr/bin/java'
 ## Auth
 PWD_ALGORITHM = 'bcrypt'
 HMAC_KEYS = {
-    #'2011-01-01': 'cheesecake',
+    '2011-01-01': 'cheesecake',
 }
 
 ## Tests

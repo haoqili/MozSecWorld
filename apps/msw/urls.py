@@ -3,8 +3,8 @@ from django.conf.urls.defaults import *
 from msw.models import Page
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+#from django.contrib import admin
+#admin.autodiscover()
 
 urlpatterns = patterns('msw.views', # gets information from views.py
 
