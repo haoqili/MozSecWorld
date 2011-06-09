@@ -10,8 +10,8 @@ Project [Website](https://github.com/haoqili/MozSecWorld).
 `./manage.py runserver` starts the Django server so I can navigate to http://127.0.0.1:8000/msw/
 
 # overview of files
-    msw/models.py --> mysql
-    msw/urls.py --> msw/views.py --> templates/mswTemplates/*
+    apps/msw/models.py --> mysql
+    apps/msw/urls.py --> apps/msw/views.py --> apps/msw/templates/msw/*
 
 License
 -------

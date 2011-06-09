@@ -1,3 +1,4 @@
+import jingo
 from msw.models import Page
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -13,7 +14,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 #       e.g. index's Page.objects.all() is a list of all page (xss, sqlinjection)s
 
 def index(request):
-    rendered = render_to_response('mswTemplates/index.html', {"title_chunk" : "barbari", "all_pages_list": Page.objects.all()})
+    rendered = jingo.render(request, 'msw/index.html', {"title_chunk" : "iiibarbari", "all_pages_list": Page.objects.all()})
     return rendered
 
 def detail(request, msw_urlname):
@@ -24,4 +25,4 @@ def detail(request, msw_urlname):
     p = get_object_or_404(Page, urlname=msw_urlname)
 
 
-    return render_to_response('mswTemplates/detail.html', {'page':p})
+    return jingo.render(request, 'msw/detail.html', {'page':p})

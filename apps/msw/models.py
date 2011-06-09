@@ -7,8 +7,8 @@ class Page(models.Model):
     urlname = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     summary = models.CharField(max_length=1000)
-    description = models.CharField(max_length=5000)
-    prevention = models.CharField(max_length=5000)
+    description = models.TextField()
+    prevention = models.TextField()
     demo = models.CharField(max_length=2000)
 
     def __unicode__(self):
