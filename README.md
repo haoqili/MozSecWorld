@@ -1,5 +1,5 @@
 # MozSecWorld
-
+:D
 Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
 
 # How I start
