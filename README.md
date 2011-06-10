@@ -1,6 +1,6 @@
 # MozSecWorld
 
-Project [Website](https://github.com/haoqili/MozSecWorld).
+Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
 
 # How I start
 `workon playdoh` to go to Mozilla playdoh's environment
