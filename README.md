@@ -13,6 +13,9 @@ Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
     apps/msw/models.py --> mysql
     apps/msw/urls.py --> apps/msw/views.py --> apps/msw/templates/msw/*
 
+# Addons
+Add bleach: `pip install -e git://github.com/jsocol/bleach.git#egg=bleach`
+
 License
 -------
 TBD

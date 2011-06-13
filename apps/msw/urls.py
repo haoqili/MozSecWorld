@@ -19,6 +19,7 @@ urlpatterns = patterns('msw.views', # gets information from views.py
 
     (r'^cookie$', 'cookie'), # test cookie settings
     (r'^set_cookie$', 'set_cookie'), # test cookie settings
+    (r'^richtext$', 'richtext'), # test cookie settings
     #(r'^(?P<msw_id>\w+)/demo/$', 'demo'), # to be implemented in the future
 
 

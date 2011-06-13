@@ -1,4 +1,5 @@
 import jingo
+import bleach
 from msw.models import Page
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -35,3 +36,8 @@ def set_cookie(request):
     response = HttpResponse('')
     response.set_cookie('foo', 'bar')
     return response
+
+def richtext(request):
+    test = bleach.clean('an <script>evil()</script> example')
+    rendered = jingo.render(request, 'msw/richtext.html', {"title_chunk" : "Bleach Testing: "+test, "all_pages_list": Page.objects.all()})
+    return rendered 
