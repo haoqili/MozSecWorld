@@ -58,11 +58,3 @@ def richtext(request):
     #context_instance=RequestContext() is for the CSRF token
     rendered = jingo.render(request, file, {"form": form, "title_chunk" : "Bleach Testing: "+test, "all_richtext_list": RichText.objects.all().order_by('-id')})
     return rendered 
-
-
-def xhr_test(request):
-    if request.is_ajax():
-        message = "Hello AJAX"
-    else:
-        message = "Hello"
-    return HttpResponse(message)
