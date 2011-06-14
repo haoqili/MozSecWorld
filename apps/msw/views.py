@@ -1,7 +1,8 @@
 import jingo
 import bleach
-from msw.models import Page
+from msw.models import Page, RichText, RichTextForm
 from django.http import HttpResponse
+from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404
 
@@ -38,6 +39,28 @@ def set_cookie(request):
     return response
 
 def richtext(request):
+    #import pdb; pdb.set_trace() # debugging in the server outoputs
+    '''> /Users/haoqili/dev/playdoh/playdoh/playdoh/apps/msw/views.py(42)richtext()
+    -> test = bleach.clean('an <script>evil()</script> example')
+    (Pdb) request.method
+    'GET
+    '''
+    if request.method == "POST":
+        form = RichTextForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RichTextForm()
+        
     test = bleach.clean('an <script>evil()</script> example')
-    rendered = jingo.render(request, 'msw/richtext.html', {"title_chunk" : "Bleach Testing: "+test, "all_pages_list": Page.objects.all()})
+    #context_instance=RequestContext() is for the CSRF token
+    rendered = jingo.render(request, 'msw/richtext.html', {"form": form, "title_chunk" : "Bleach Testing: "+test, "all_richtext_list": RichText.objects.all()})
     return rendered 
+
+
+def xhr_test(request):
+    if request.is_ajax():
+        message = "Hello AJAX"
+    else:
+        message = "Hello"
+    return HttpResponse(message)

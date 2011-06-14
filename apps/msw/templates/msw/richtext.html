@@ -8,15 +8,21 @@
   
     Rich Text with Bleach
 
-    {% if all_pages_list %}
-        <ul>
-            {% for page in all_pages_list %}
-                <li><a href="/msw/{{ page.slug }}/">page title: {{ page.title }}</a> </li>
-            {% endfor %}
-        </ul>
+    <form action="" method="post">
+    {{ csrf() }}
+    {{ form.as_p() }}
+    <input type="submit" value="Submit" />
+    </form>
+
+
+    {% if all_richtext_list %}
+        {% for richtext in all_richtext_list %}
+            <p>Name title: <b>{{ richtext.name }}</b> says: <b>{{ richtext.comment }}</b></p>
+        {% endfor %}
     {% else %}
-        <p>No pages are available.</p>
+        <p>No iicomments are available.</p>
     {% endif %}
+    <!--<script>alert("hi");</script>-->
 
   </body>
 </html>

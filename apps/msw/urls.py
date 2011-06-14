@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from msw.models import Page
 
 # Uncomment the next two lines to enable the admin:
 #from django.contrib import admin
@@ -20,6 +19,8 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^cookie$', 'cookie'), # test cookie settings
     (r'^set_cookie$', 'set_cookie'), # test cookie settings
     (r'^richtext$', 'richtext'), # test cookie settings
+    (r'^xhr_test$', 'xhr_test'), # test cookie settings
+
     #(r'^(?P<msw_id>\w+)/demo/$', 'demo'), # to be implemented in the future
 
 
