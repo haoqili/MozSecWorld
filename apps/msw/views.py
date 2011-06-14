@@ -45,16 +45,18 @@ def richtext(request):
     (Pdb) request.method
     'GET
     '''
+    test = bleach.clean('an <script>evil()</script> example')
+    file = 'msw/richtext.html'
     if request.method == "POST":
         form = RichTextForm(request.POST)
         if form.is_valid():
             form.save()
+        file = 'msw/richtext_table.html'
     else:
         form = RichTextForm()
         
-    test = bleach.clean('an <script>evil()</script> example')
     #context_instance=RequestContext() is for the CSRF token
-    rendered = jingo.render(request, 'msw/richtext.html', {"form": form, "title_chunk" : "Bleach Testing: "+test, "all_richtext_list": RichText.objects.all()})
+    rendered = jingo.render(request, file, {"form": form, "title_chunk" : "Bleach Testing: "+test, "all_richtext_list": RichText.objects.all()})
     return rendered 
 
 
