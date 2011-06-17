@@ -1,9 +1,12 @@
 import urllib
 import bleach
+import socket           # validate server certificate
+from OpenSSL import SSL # validate server certificate
 from django.db import models
 from django.forms import ModelForm
 from django.template.defaultfilters import slugify
 from django.conf import settings
+
 
 # Django automatically creates a table for each "class" here, named "[app name]_[class name]"
 # so the table of "class Page" is "msw_page"
@@ -45,6 +48,64 @@ def urlCheck(url):
             return True 
     return False
 
+# ValidateHTTPS Server certificate from http://wiki.python.org/moin/SSL
+def validateCert(url):
+    print
+    print "------- Validating the Certificate of URL = " + str(url)
+    #url = "www.google.com"
+    PORT = 443
+
+    certValid = [False]
+
+    # replace host name with IP, this should fail connection attempt,
+    # but it doesn't by default
+    host = socket.getaddrinfo(url, PORT)[0][4][0]
+
+    # uses host
+    def verify_cb(conn, x509, errno, errdepth, retcode):
+        """
+        callback for certificate validation
+        should return true if verification passes and false otherwise
+        """
+        print "CA = " + str( x509.get_subject() )
+ 
+        if errno == 0:
+            if errdepth != 0:
+                # don't validate names of root certificates
+                certValid[0] = True
+                print "\t---> PASSED (just 1 pass is enough for now)"
+                return True
+            else:
+                if x509.get_subject().commonName != host:
+                    print "\t---> failed"
+                    return False
+        else:
+            print "\t---> failed"
+            return False
+
+    context = SSL.Context(SSL.SSLv23_METHOD)
+    context.set_verify(SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT, verify_cb)
+    context.load_verify_locations("apps/msw/files/cacerts.txt")
+
+    # create socket and connect to server
+    sock = socket.socket()
+    sock = SSL.Connection(context, sock)
+    sock.connect((host, PORT))
+    try:
+        sock.do_handshake()
+    except Exception as ec:
+        print ec
+    print "------- End Validating the Certificate of URL = " + str(url) + "\n"
+    return certValid
+
+# strips "http://" or "https://" 
+def getUrl(str):
+    if "http://" in str:
+        return str.replace("http://", "")
+    if "https://" in str:
+        return str.replace("https://", "")
+    return str
+
 # ModelForm https://docs.djangoproject.com/en/dev/topics/forms/modelforms/
 class RichTextForm(ModelForm):
     class Meta:
@@ -53,12 +114,24 @@ class RichTextForm(ModelForm):
     def clean_name(self):
         data = self.cleaned_data['name']
         #is it an URL?...does it have "http"
-        # ASSUMING the ENTIRE NAME FIELD is a URL that starts with http://...
+        # ASSUMING the ENTIRE NAME FIELD is a URL that starts with http:// or https://
+        # ASSUMING THAT THE URL IS VALID!!!!!!!! (or else validateCert hangs)
         if "http" in data:
             if urlCheck(data):
-                data = data
+                data = data # not adding any modifications to daat
+
+                # if check certificates
+                url = getUrl(data) # takes out "http://"
+                certValid = validateCert(url)
+
                 # adds href to data
                 data = bleach.linkify(data)
+    
+                # print the output of check certificates
+                if certValid[0]:
+                    data = data + " <-- url has valid certificate"
+                else:
+                    data = data + " <-- url does not have valide certificate"
             else:
                 data = data+"DANGEROUS LINK!!!!!!!"
         return bleach.clean(data)

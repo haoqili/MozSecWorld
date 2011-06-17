@@ -14,7 +14,11 @@ Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
     apps/msw/urls.py --> apps/msw/views.py --> apps/msw/templates/msw/*
 
 # Addons
-Add bleach: `pip install -e git://github.com/jsocol/bleach.git#egg=bleach`
+Add bleach: `pip install -e git://github.com/jsocol/bleach.git#egg=bleach` ... actually this has been updated to playdoh.
+
+# For HTTPS URL certificate checking
+- Use PyOpenSSL and sockets, not urllib, because urllib's urlopen does not check the SSL server certificates [warning on urllib documentation](http://docs.python.org/library/urllib.html), thus becoming vulnerable to Man-In-The-Middle attacks.
+--> PyOpenSSL install: `pip install pyopenssl`
 
 License
 -------
