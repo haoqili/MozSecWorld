@@ -310,5 +310,6 @@ CELERY_IGNORE_RESULT = True
 
 ## My own stuff
 GOOGLE_SAFEBROWSING_LOOKUP = True
-GSB_URL = "https://sb-ssl.google.com/safebrowsing/api/lookup"
+GSB_HOST = "https://sb-ssl.google.com"
+GSB_PATH = "/safebrowsing/api/lookup"
 GSB_API_KEY = None
