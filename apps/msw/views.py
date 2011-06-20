@@ -16,7 +16,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 #       e.g. index's Page.objects.all() is a list of all page (xss, sqlinjection)s
 
 def index(request):
-    rendered = jingo.render(request, 'msw/index.html', {"title_chunk" : "aaiiibarbari", "all_pages_list": Page.objects.all()})
+    rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
     return rendered
 
 def detail(request, input_slug):

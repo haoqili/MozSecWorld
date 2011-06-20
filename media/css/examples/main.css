@@ -1,15 +1,16 @@
 /* An example CSS file that will be minified. */
 body {
     font-family: sans-serif;
-    background-color: rgb(56,142,222);
-    background-image: -webkit-gradient(
+/*    background-color: rgb(56,142,222);
+    background-color: red;
+/*    background-image: -webkit-gradient(
       linear,
       left bottom,
       left top,
       color-stop(0.19, rgb(56,142,222)),
       color-stop(0.6, rgb(82,186,255))
     );
-    background-image: -moz-linear-gradient(
+*/    background-image: -moz-linear-gradient(
       center bottom,
       rgb(56,142,222) 19%,
       rgb(82,186,255) 60%
@@ -22,7 +23,7 @@ h1 {
     margin-left: 30px;
 }
 p { 
-    background-color: rgba(255,255,255,0.3);;
+    background-color: rgba(255,255,255,0.3);
     color: #333;
     font-family: Courier, serif; 
     line-height: 1.4;

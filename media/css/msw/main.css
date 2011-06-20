@@ -1,0 +1,84 @@
+/* some parts are copied from wiki.mozilla.org */
+
+body {
+    font-family: Helvetica, sans-serif; 
+}
+
+#titlePart {
+    background-color: #8BDEA7;
+    margin: 0 auto;
+}
+#mainPart {
+    width: 800px;
+    margin: 0 auto;
+
+    min-height: 400px;
+
+}
+
+.title_background {
+    width: 800px;
+    margin: 0 auto;
+    height: 140px;
+
+    background-color: #37DD6F;
+}
+.title_words {
+    width: 100%;
+    padding: 80px 500px 20px 30px;
+    color: #196733;
+    font-size: 2em;
+    font-weight: bold;
+
+}
+
+#leftPanel, #rightPanel {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+#leftPanel {
+    width: 120px;
+    float: left;
+}
+#rightPanel {
+    float: right;
+    /*padding: 10px 15px 40px;*/
+    width: 570px;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+    #leftPanel h2, #rightPanel h2 {
+        padding: 0;
+        margin: 0;
+        color: #196733;
+    }
+
+    #leftPanel ul {
+        padding-left: 0;
+    }
+    #leftPanel li {
+        list-style: none;
+        margin-left: 3px;
+        margin-bottom: 1.2em;
+        border-bottom: 1px solid #EAEAEA;
+    }
+    #leftPanel li a{
+        color: #196733;
+        text-decoration: none;
+        display: block;
+    }
+    #leftPanel li a:hover, #leftPanel li a:focus {
+        background-color: #8BDEA7;
+    }
+
+/*
+p { 
+    color: #333;
+    font-family: Courier, serif; 
+    line-height: 1.4;
+    margin-left: 30px;
+    padding: 5px;
+    width: 600px;
+}*/
