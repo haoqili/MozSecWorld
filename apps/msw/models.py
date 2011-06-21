@@ -16,10 +16,12 @@ from django.conf import settings
 class Page(models.Model):
     slug = models.SlugField()
     title = models.CharField(max_length=100)
-    summary = models.CharField(max_length=1000)
-    description = models.TextField()
-    prevention = models.TextField()
-    demo = models.CharField(max_length=2000)
+    category = models.CharField(max_length=100)
+    summary = models.CharField(max_length=1000)     # short summary
+    description = models.TextField()                # more detailed description
+    prevents = models.TextField()                   # what dangers are prevented
+    resources = models.TextField()                  # url resources
+    demo = models.URLField()                        # link to demo
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.slug)

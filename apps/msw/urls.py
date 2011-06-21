@@ -15,6 +15,7 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     ## to be put as an argument into the corresponding views.py's def.
     #####
     (r'^(?P<input_slug>\w+)/$', 'detail'), # goes to views.py's "def detail" with input_slug as an argument.
+    (r'^(?P<input_slug>\w+)/demo/$', 'demo'), # goes to views.py's "def detail" with input_slug as an argument.
 
     (r'^cookie$', 'cookie'), # test cookie settings
     (r'^set_cookie$', 'set_cookie'), # test cookie settings

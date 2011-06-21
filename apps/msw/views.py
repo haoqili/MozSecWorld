@@ -29,6 +29,13 @@ def detail(request, input_slug):
 
     return jingo.render(request, 'msw/detail.html', {'page':p})
 
+def demo(request, input_slug):
+    print "IIIIIIIIIIIIIIIIIIII"
+    print input_slug
+    rendered = jingo.render(request, 'msw/demos/'+input_slug+'.html', {})
+    return rendered
+    
+
 def cookie(request):
     rendered = jingo.render(request, 'msw/cookie.html', {"title_chunk" : "Cookie Testing", "all_pages_list": Page.objects.all()})
     return rendered
