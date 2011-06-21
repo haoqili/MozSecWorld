@@ -4,6 +4,8 @@
     </head>
     <body>
 
+    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+
     <h1>X-Frame_Options Demo</h1>
   
     <h2>What to do</h2>
@@ -68,5 +70,7 @@ def xframe_deny(view_fn):
         return response
     return _wrapped_view
         </pre>
+
+    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
 </html>
 

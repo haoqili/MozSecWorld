@@ -21,7 +21,6 @@ class Page(models.Model):
     description = models.TextField()                # more detailed description
     prevents = models.TextField()                   # what dangers are prevented
     resources = models.TextField()                  # url resources
-    demo = models.URLField()                        # link to demo
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.slug)

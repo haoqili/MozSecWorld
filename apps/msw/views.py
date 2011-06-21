@@ -30,9 +30,11 @@ def detail(request, input_slug):
     return jingo.render(request, 'msw/detail.html', {'page':p})
 
 def demo(request, input_slug):
-    print "IIIIIIIIIIIIIIIIIIII"
     print input_slug
-    rendered = jingo.render(request, 'msw/demos/'+input_slug+'.html', {})
+
+    p = get_object_or_404(Page, slug=input_slug)
+
+    rendered = jingo.render(request, 'msw/demos/'+input_slug+'.html', {'page':p})
     return rendered
     
 
