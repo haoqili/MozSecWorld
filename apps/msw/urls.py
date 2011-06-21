@@ -17,9 +17,11 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^(?P<input_slug>\w+)/$', 'detail'), # goes to views.py's "def detail" with input_slug as an argument.
     (r'^(?P<input_slug>\w+)/demo/$', 'demo'), 
 
-    (r'^cookie$', 'cookie'), # test cookie settings
-    (r'^set_cookie$', 'set_cookie'), # test cookie settings
+    (r'^cookie$', 'cookie'), # test cookie settings # TO-DELETE??
     (r'^richtext$', 'richtext'), # test cookie settings
+
+    # http-only stuff
+    (r'^set_cookie_httponly/demo/set_httponly$', 'set_httponly'), # HTTPOnly demo
 
 
     #### --- stuff they had before ----

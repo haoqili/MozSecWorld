@@ -42,8 +42,10 @@ def cookie(request):
     rendered = jingo.render(request, 'msw/cookie.html', {"title_chunk" : "Cookie Testing", "all_pages_list": Page.objects.all()})
     return rendered
 
-def set_cookie(request):
-    response = HttpResponse('')
+def set_httponly(request):
+    html = "<html><body><p>This is a wonderful demonstration of Set-Cookie: HTTPOnly.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET set_httponyl', and 'httponly;' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
+    response = HttpResponse(html)
+    #response = HttpResponse('')
     response.set_cookie('foo', 'bar')
     return response
 
