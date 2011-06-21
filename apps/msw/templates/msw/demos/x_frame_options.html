@@ -6,7 +6,19 @@
 
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
 
-    <h1>X-Frame_Options Demo</h1>
+    <h1>X-Frame-Options Demo</h1>
+
+    <h2>The demo!</h2>
+    <h3><a href="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</a></h3>
+    <h3><a href="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</a></h3>
+    <h3><a href="/msw/x_frame_options/demo/xfo_false">Demo of page with  'X-Frame-Options: FALSE'</a></h3>
+
+    
+    <iframe src="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</iframe>
+    <iframe src="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</iframe>
+    <iframe src="/msw/x_frame_options/demo/xfo_false">Demo of page with 'X-Frame-Options: FALSE'</iframe>
+
+    <p>Notice the "Back" in the iframe would lead you to blank pages. Can you figure out why?</p>
   
     <h2>What to do</h2>
         <p>Add in this line to your HTTP Response Headers: <code>X-Frame-Options: deny</code></p>
@@ -16,8 +28,22 @@
         <p>Terminal: <code>>telnet [insert IP-address of your site] 8000</code> Press enter and put in <code>GET /en-US/msw/ HTTP/1.1</code> Press enter twice, and scroll to the very top of the output, should see "x-frame-options: DENY".
 </p>
     <h2>What I did</h2>
-        <p>Playdoh automatically sets the "X-Frame-Options" to "deny".</p>
+        <p>Playdoh automatically sets the "X-Frame-Options" to "deny". But if you want to set it automatically in Django, use <code>response['x-frame-options'] = 'DENY'</code></p>
 
+In views.py:
+<pre>
+# X-Frame-Options
+def xfo_deny(request):
+    html = " ... my html stuff ... "
+    response = HttpResponse(html)
+    response['x-frame-options'] = 'DENY'
+    return response
+</pre>
+
+
+
+        <hr>
+        <p>Notes on how Django does x-frame-options</p>
         <p>In <i>vendor/src/commonware/commonware/response/middleware.py</i>:
         <pre>
 from django.conf import settings

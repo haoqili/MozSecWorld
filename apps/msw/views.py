@@ -42,15 +42,40 @@ def cookie(request):
     rendered = jingo.render(request, 'msw/cookie.html', {"title_chunk" : "Cookie Testing", "all_pages_list": Page.objects.all()})
     return rendered
 
+# X-Frame-Options
+def xfo_deny(request):
+    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
+    response = HttpResponse(html)
+    response['x-frame-options'] = 'DENY'
+    return response
+
+# X-Frame-Options
+def xfo_sameorigin(request):
+    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: SAMEORIGIN'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: SAMEORIGIN' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
+    response = HttpResponse(html)
+    response['x-frame-options'] = 'SAMEORIGIN'
+    return response
+
+# X-Frame-Options
+def xfo_false(request):
+    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: FALSE', i.e. it does NOT HAVE 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
+    response = HttpResponse(html)
+    response['x-frame-options'] = 'FALSE'
+    return response
+
+
+
+# HTTP Only Demo : Positive
 def set_httponly(request):
-    html = "<html><body><p>This is a demonstration of a page that has 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET set_httponyl', and 'httponly;' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
+    html = "<html><body><p>This is a demonstration of a page that has 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'httponly;' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
     response = HttpResponse(html)
     #response = HttpResponse('')
     response.set_cookie('foo', 'bar')
     return response
 
+# HTTP Only Demo : Negative
 def no_httponly(request):
-    html = "<html><body><p>This is a demonstration of a page that does not have 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET set_httponyl', and 'httponly;' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
+    html = "<html><body><p>This is a demonstration of a page that does not have 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'httponly;' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
     response = HttpResponse(html)
     #response = HttpResponse('')
     response.set_cookie('foo', 'bar', httponly=False)
