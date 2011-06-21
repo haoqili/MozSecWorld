@@ -43,10 +43,17 @@ def cookie(request):
     return rendered
 
 def set_httponly(request):
-    html = "<html><body><p>This is a wonderful demonstration of Set-Cookie: HTTPOnly.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET set_httponyl', and 'httponly;' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
+    html = "<html><body><p>This is a demonstration of a page that has 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET set_httponyl', and 'httponly;' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
     response = HttpResponse(html)
     #response = HttpResponse('')
     response.set_cookie('foo', 'bar')
+    return response
+
+def no_httponly(request):
+    html = "<html><body><p>This is a demonstration of a page that does not have 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET set_httponyl', and 'httponly;' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
+    response = HttpResponse(html)
+    #response = HttpResponse('')
+    response.set_cookie('foo', 'bar', httponly=False)
     return response
 
 def richtext(request):
