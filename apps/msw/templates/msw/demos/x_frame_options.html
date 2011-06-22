@@ -1,6 +1,14 @@
 <!DOCTYPE html>
     <head>
     <title>Mozilla Secure World -- X-Frame-Options Demo</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+        function checkUrl(){
+            var theurl = $("#inputUrl").val();
+            $("#outputIframe").attr('src', theurl);
+        }
+
+    </script>
     </head>
     <body>
 
@@ -9,14 +17,30 @@
     <h1>X-Frame-Options Demo</h1>
 
     <h2>The demo!</h2>
-    <h3><a href="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</a></h3>
-    <h3><a href="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</a></h3>
     <h3><a href="/msw/x_frame_options/demo/xfo_allow">Demo of page with  'X-Frame-Options: ALLOW'</a></h3>
+    <h3><a href="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</a></h3>
+    <h3><a href="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</a></h3>
 
     
-    <iframe src="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</iframe>
-    <iframe src="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</iframe>
     <iframe src="/msw/x_frame_options/demo/xfo_allow">Demo of page with 'X-Frame-Options: ALLOW'</iframe>
+    <iframe src="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</iframe>
+    <iframe src="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</iframe>
+    
+    <br />
+    <br />
+    <hr>
+    <br />
+    <br />
+
+    Put your URL here: <input id="inputUrl" type="text"></input>
+    <button onclick="checkUrl()">Click me to check it!</button>
+    <iframe id="outputIframe" src="http://www.cartoonlogodesigns.com/images/misc/Smiley%20faces/smiley%20face.jpg">Your site in this iframe</iframe>
+
+    <br />
+    <br />
+    <hr>
+    <br />
+    <br />
 
     <p>Notice the "Back" in the iframe would lead you to blank pages. Can you figure out why?</p>
   
