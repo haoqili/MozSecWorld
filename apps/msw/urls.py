@@ -26,9 +26,6 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^x_frame_options/demo/xfo_sameorigin$', 'xfo_sameorigin'), 
     (r'^x_frame_options/demo/xfo_allow$', 'xfo_allow'), 
 
-    # http-only stuff
-    (r'^set_cookie_httponly/demo/httponly_true$', 'httponly_true'), # HTTPOnly demo
-
 
     #### --- stuff they had before ----
 
