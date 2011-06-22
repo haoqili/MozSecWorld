@@ -1,6 +1,31 @@
 <!DOCTYPE html>
     <head>
     <title>Mozilla Secure World -- Set-Cookie: HTTPOnly Demo</title>
+    <script type="text/javascript">
+
+    // viewCookie() taken from getCookie() in http://www.java2s.com/Code/JavaScript/Development/Cookiesetdeletegetvalueandcreate.htm 
+    function getCookieVal (offset) {
+        var endstr = document.cookie.indexOf (";", offset);
+        if (endstr == -1) { endstr = document.cookie.length; }
+        return unescape(document.cookie.substring(offset, endstr));
+    }
+    function viewCookie (name) {
+        var arg = name + "=";
+        var alen = arg.length;
+        var clen = document.cookie.length;
+        var i = 0;
+        var cookie = "";
+        while (i < clen) {
+            var j = i + alen;
+            if (document.cookie.substring(i, j) == arg) {
+                 cookie = getCookieVal (j);
+            }
+            i = document.cookie.indexOf(" ", i) + 1;
+            if (i == 0) break; 
+        }
+        alert(cookie);
+    }
+    </script>
     </head>
     <body>
 
@@ -9,8 +34,9 @@
     <h1>Set-Cookie: HTTPOnly Demo</h1>
 
     <h2>The demo!</h2>
-        <h3><a href="/msw/{{ page.slug }}/demo/set_httponly">Demo of page with 'Set-Cookie: HTTPOnly'</a></h3></p>
-        <h3><a href="/msw/{{ page.slug }}/demo/no_httponly">Demo of page without 'Set-Cookie: HTTPOnly'</a></h3></p>
+        <p />
+        <button type="button" onclick="viewCookie('name1')">View cookie withOUT HTTPOnly</button>
+        <button type="button" onclick="viewCookie('name2')">View cookie with HTTPOnly</button>
   
     <h2>What to do</h2>
         <p>Add in this line to your HTTP Response Headers: <code>Set-Cookie: HTTPOnly</code></p>
@@ -39,7 +65,7 @@ I first Used <a href="http://portswigger.net/burp/proxy.html">Burp Proxy</a>&nbs
 To trigger the HTTPOnly response in Playdoh, just set any cookie in the response. Note that this has to be a cookie set on the server side, it would not work if the cookie is set on the client set (TODO: add in the diagram)<br />
 So I simply added this to the view of the demo page:<br /> 
 <pre>
-def set_httponly(request):
+def httponly_true(request):
     html = "... [html stuff] ..."
     response = HttpResponse(html)
     response.set_cookie('foo', 'bar')

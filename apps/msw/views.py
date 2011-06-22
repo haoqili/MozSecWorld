@@ -34,8 +34,13 @@ def demo(request, input_slug):
 
     p = get_object_or_404(Page, slug=input_slug)
 
-    rendered = jingo.render(request, 'msw/demos/'+input_slug+'.html', {'page':p})
-    return rendered
+    response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {'page':p})
+
+    if input_slug == "set_cookie_httponly":
+        response.set_cookie('name1', 'Alice', httponly=False)
+        response.set_cookie('name2', 'Bob', httponly=True)      # 'httponly=True' is optional since Playdoh automatically sets httponly to True
+
+    return response
     
 
 def cookie(request):
@@ -57,29 +62,13 @@ def xfo_sameorigin(request):
     return response
 
 # X-Frame-Options
-def xfo_false(request):
-    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: FALSE', i.e. it does NOT HAVE 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
+def xfo_allow(request):
+    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: ALLOW', i.e. it does NOT HAVE 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
     response = HttpResponse(html)
-    response['x-frame-options'] = 'FALSE'
+    response['x-frame-options'] = 'ALLOW'
     return response
 
 
-
-# HTTP Only Demo : Positive
-def set_httponly(request):
-    html = "<html><body><p>This is a demonstration of a page that has 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'httponly;' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
-    response = HttpResponse(html)
-    #response = HttpResponse('')
-    response.set_cookie('foo', 'bar')
-    return response
-
-# HTTP Only Demo : Negative
-def no_httponly(request):
-    html = "<html><body><p>This is a demonstration of a page that does not have 'Set-Cookie: HTTPOnly'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'httponly;' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/set_cookie_httponly/demo'>Back</a></h1></p></body></html>"
-    response = HttpResponse(html)
-    #response = HttpResponse('')
-    response.set_cookie('foo', 'bar', httponly=False)
-    return response
 
 def richtext(request):
     #import pdb; pdb.set_trace() # debugging in the server outoputs

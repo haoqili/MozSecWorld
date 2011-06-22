@@ -20,14 +20,14 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^cookie$', 'cookie'), # test cookie settings # TO-DELETE??
     (r'^richtext$', 'richtext'), # test cookie settings
 
+    # N.B.: didn't make '^.*/demo/(?P<slug>\w+)$' because each page has different httpresponse settings, i.e. each page has to have its own function in views.py
     # x-frame-options
     (r'^x_frame_options/demo/xfo_deny$', 'xfo_deny'), 
     (r'^x_frame_options/demo/xfo_sameorigin$', 'xfo_sameorigin'), 
-    (r'^x_frame_options/demo/xfo_false$', 'xfo_false'), 
+    (r'^x_frame_options/demo/xfo_allow$', 'xfo_allow'), 
 
     # http-only stuff
-    (r'^set_cookie_httponly/demo/set_httponly$', 'set_httponly'), # HTTPOnly demo
-    (r'^set_cookie_httponly/demo/no_httponly$', 'no_httponly'), # HTTPOnly demo
+    (r'^set_cookie_httponly/demo/httponly_true$', 'httponly_true'), # HTTPOnly demo
 
 
     #### --- stuff they had before ----
