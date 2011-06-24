@@ -1,0 +1,22 @@
+{% extends "msw/base.html" %}
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+
+    <h1>Set-Cookie: HTTPOnly Demo</h1>
+
+    <h2><a href="../../../msw/richtext">The demo!</a></h2>
+  
+    <h2>What to do</h2>
+        <p>Add bleach, add Google SafeBrowsing</p>
+
+    <h2>How to check</h2>
+        <p>Try to put in the "script" tag and it should be escaped.<br />
+           Try to put in a malicious link in the "name" field and it should be marked as dangerous"</p>
+    <h2>What I did</h2>
+        described above.
+
+    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+{% endblock %}
