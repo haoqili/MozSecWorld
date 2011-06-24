@@ -1,4 +1,5 @@
 {% extends "msw/base.html" %}
+
 {% block head_stuff %}
 {% endblock %}
 
@@ -7,8 +8,6 @@
 
     <h1>Set-Cookie: HTTPOnly Demo</h1>
 
-    <h2><a href="../../../msw/richtext">The demo!</a></h2>
-  
     <h2>What to do</h2>
         <p>Add bleach, add Google SafeBrowsing</p>
 
@@ -17,6 +16,35 @@
            Try to put in a malicious link in the "name" field and it should be marked as dangerous"</p>
     <h2>What I did</h2>
         described above.
+
+
+    <h2>The demo: </h2>
+
+    <!---------------->
+    <h1>Rich Text with Bleach {{ title_chunk }}</h1>
+    
+      Rich Text with Bleach
+
+      <form id="myform" action="" method="post">
+      {{ csrf() }}
+      {{ form.as_p() }}
+      <input type="submit" value="Submit" />
+      </form>
+
+      <div id="results">
+      {% include 'msw/demos/children/richtext_table.html' %}
+      </div>
+      <script type="text/javascript">
+          $("#myform").submit(function(){
+              $.post(location.href, $('#myform').serialize(), function(d) {
+  $('#results').html(d);
+                  
+  });
+              return false;
+                  })
+      </script>
+
+    <!---------------->
 
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
 {% endblock %}

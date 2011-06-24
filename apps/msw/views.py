@@ -36,11 +36,29 @@ def demo(request, input_slug):
 
     p = get_object_or_404(Page, slug=input_slug)
 
-    response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
-
     if input_slug == "set_cookie_httponly":
+        response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
         response.set_cookie('name1', 'Alice', httponly=False)
         response.set_cookie('name2', 'Bob', httponly=True)      # 'httponly=True' is optional since Playdoh automatically sets httponly to True
+
+
+    if input_slug == "richtext_and_safe_url":
+        test = bleach.clean('an <script>evil()</script> example')
+        file = 'msw/demos/richtext_and_safe_url.html'
+        if request.method == "POST":
+            form = RichTextForm(request.POST)
+            if form.is_valid():
+                form.save()
+            file = 'msw/demos/children/richtext_table.html'
+        else:
+            form = RichTextForm()
+            
+        #context_instance=RequestContext() is for the CSRF token
+        response = jingo.render(request, file, {"all_pages_list": Page.objects.all(), "form": form, "title_chunk" : "Bleach Testing: "+test, "all_richtext_list": RichText.objects.all().order_by('-id'), 'page':p})
+        return response
+
+
+    response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
     return response
 
@@ -97,26 +115,3 @@ def xfo_allow(request):
     response = HttpResponse(html)
     response['x-frame-options'] = 'ALLOW'
     return response
-
-
-
-def richtext(request):
-    #import pdb; pdb.set_trace() # debugging in the server outoputs
-    '''> /Users/haoqili/dev/playdoh/playdoh/playdoh/apps/msw/views.py(42)richtext()
-    -> test = bleach.clean('an <script>evil()</script> example')
-    (Pdb) request.method
-    'GET
-    '''
-    test = bleach.clean('an <script>evil()</script> example')
-    file = 'msw/richtext.html'
-    if request.method == "POST":
-        form = RichTextForm(request.POST)
-        if form.is_valid():
-            form.save()
-        file = 'msw/richtext_table.html'
-    else:
-        form = RichTextForm()
-        
-    #context_instance=RequestContext() is for the CSRF token
-    rendered = jingo.render(request, file, {"form": form, "title_chunk" : "Bleach Testing: "+test, "all_richtext_list": RichText.objects.all().order_by('-id')})
-    return rendered 
