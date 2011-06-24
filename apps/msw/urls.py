@@ -26,6 +26,8 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^x_frame_options/demo/xfo_sameorigin$', 'xfo_sameorigin'), 
     (r'^x_frame_options/demo/xfo_allow$', 'xfo_allow'), 
 
+    # sql
+    (r'^parameterized_sql/demo/sql_ajax_server$', 'sql_ajax_server'),
 
     #### --- stuff they had before ----
 

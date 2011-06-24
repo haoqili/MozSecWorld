@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404
+from django.db import connection, transaction
+from django.utils import simplejson
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -41,7 +43,35 @@ def demo(request, input_slug):
         response.set_cookie('name2', 'Bob', httponly=True)      # 'httponly=True' is optional since Playdoh automatically sets httponly to True
 
     return response
-    
+
+def sql_ajax_server(request):
+    if request.is_ajax():
+        usrInput = request.POST
+        myComment =  usrInput['comment']
+        cursor = connection.cursor()
+
+        # Data modifying operation - commit required
+        print "myComment = " + str(myComment)
+        cursor.execute("INSERT INTO msw_richtext SET name = 'sql_inj_test', comment = %s", [myComment])
+        transaction.commit_unless_managed()
+
+
+        # Data retrieval operation - no commit required
+        # send back to client last 5 rows of richtext
+        cursor.execute("SELECT name, comment from msw_richtext order by id desc limit 5", [])
+        rows = cursor.fetchall()
+        
+        # convert to json!
+        rows_json = simplejson.dumps(rows) 
+        print rows_json
+        return HttpResponse(rows_json)
+
+    else:
+        warning = "WARNING: SQL AJAX FAILED"        
+        print warning
+        return HttpResponse(warning)
+
+
 
 def cookie(request):
     rendered = jingo.render(request, 'msw/cookie.html', {"title_chunk" : "Cookie Testing", "all_pages_list": Page.objects.all()})
