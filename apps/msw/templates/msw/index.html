@@ -1,43 +1,8 @@
-<!DOCTYPE html>
-<head>
-    <title>Hi there</title>
-    {{ css('main_css') }}
-    {{ css('indexPage_css') }}
-</head>
+{% extends "msw/base.html" %}
 
-<body>
-
-
-    <div id="titlePart">
-    <div class="title_background">
-    <h1 class="title_words">Mozilla Secure World</h1>
-    </div>
-    </div><!-- titlePart -->
-  
-    <div id="mainPart">
-    <!-- left panel stuff -->
-
-    <div id="leftPanel">
-    <h2>Attacks</h2>
-    {% if all_pages_list %}
-        <ul>
-            {% for page in all_pages_list %}
-                <li><a href="/msw/{{ page.slug }}/"> {{ page.title }}</a> </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No pages are available.</p>
-    {% endif %}
-    </div><!-- leftPanel -->
-
-    <div id="rightPanel">
+{% block rightPanelText %}
     <h2>About</h2>
     
-        <p>Mozilla Secure World helps web developers to prevent major vulnerabities on the web from the demos.</p>
-
-    </div><!-- rightPanel -->
-
-    </div><!--mainPart-->
-</body>
-</html>
+        <p>Mozilla Secure World kindly helps web developers to prevent major vulnerabities on the web from the demos.</p>
+{% endblock %}
 
