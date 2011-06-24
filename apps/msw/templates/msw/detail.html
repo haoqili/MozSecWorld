@@ -4,26 +4,26 @@
     <h2>{{ page.title }}</h2>
   
     <p>
-    category: {{ page.category }}
+    <h3>category:</h3> {{ page.category }}
     </p>
 
     <p>
-    short summary: {{ page.summary|safe }}
+    <h3>short summary:</h3> {{ page.summary|safe }}
     </p>
 
     <p>
-    longer description: {{ page.description|safe }}
+    <h3>longer description:</h3> {{ page.description|safe }}
     </p>
 
     <p>
-    Prevents: {{ page.prevents|safe }}
+    <h3>Prevents:</h3> {{ page.prevents|safe }}
     </p>
 
     <p>
-    Resources: {{ page.resources|safe }}
+    <h3>Resources:</h3> {{ page.resources|safe }}
     </p>
 
     <p>
-    <a href="/msw/{{ page.slug }}/demo">Demo!</a>
+    <h2><a href="/msw/{{ page.slug }}/demo">Demo!</a></h2>
     </p>
 {% endblock %}

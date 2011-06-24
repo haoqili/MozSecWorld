@@ -55,6 +55,12 @@ body {
         color: #196733;
     }
 
+    #leftPanel h3, #rightPanel h3 {
+        padding: 0;
+        padding-bottom: 0.2em;
+        margin: 0;
+        color: #196733;
+    }
     #leftPanel ul {
         padding-left: 0;
     }

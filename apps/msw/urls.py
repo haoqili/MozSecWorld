@@ -17,9 +17,6 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^(?P<input_slug>\w+)/$', 'detail'), # goes to views.py's "def detail" with input_slug as an argument.
     (r'^(?P<input_slug>\w+)/demo/$', 'demo'), 
 
-    (r'^cookie$', 'cookie'), # test cookie settings # TO-DELETE??
-    (r'^richtext$', 'richtext'), # test cookie settings
-
     # N.B.: didn't make '^.*/demo/(?P<slug>\w+)$' because each page has different httpresponse settings, i.e. each page has to have its own function in views.py
     # x-frame-options
     (r'^x_frame_options/demo/xfo_deny$', 'xfo_deny'), 

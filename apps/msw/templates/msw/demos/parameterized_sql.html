@@ -44,11 +44,7 @@
 
 {% block rightPanelText %}
 
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
-
-    <h1>SQL Injection Demo</h1>
-
-    <h2>The demo!</h2>
+    <h2>Parameterized SQL Satements Demo</h2>
         {{ csrf() }}
         <p>Insert SQL Statement here: <input id="inputSql" type="text"></input></p>
         <button onclick="check()">Click me to check query</button>
@@ -63,12 +59,12 @@
 
         </p>
 
-    <h2>What to do</h2>
+    <h3>What to do</h3>
         <p>Read about SQL Injections and then go to "What I did"</p>
 
-    <h2>How to check</h2>
+    <h3>How to check</h3>
         <p>Set up an input text field and try if you can do some sql injection. Have the server print out the queries, everything should be parameterized.</p>
-    <h2>What I did</h2>
+    <h3>What I did</h3>
         <p><a href="https://docs.djangoproject.com/en/dev/topics/db/sql/#passing-parameters-into-raw">Django does parameterized statements for you</a>, but if you don't use Django for web development, you can <a href="http://rosettacode.org/wiki/Parametrized_SQL_statement#Ruby">see examples in different languages</a>.</p>
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
 {% endblock %}

@@ -4,27 +4,27 @@
 {% endblock %}
 
 {% block rightPanelText %}
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+    <h2>Richtext and Safe URL Demo</h2>
 
-    <h1>Set-Cookie: HTTPOnly Demo</h1>
+    <p />
+    <h3>What to do</h3>
+        <p>Add bleach, Google SafeBrowsing, add the 3 steps to check that there is no MITM for Google SafeBrowsing</p>
 
-    <h2>What to do</h2>
-        <p>Add bleach, add Google SafeBrowsing</p>
-
-    <h2>How to check</h2>
-        <p>Try to put in the "script" tag and it should be escaped.<br />
-           Try to put in a malicious link in the "name" field and it should be marked as dangerous"</p>
-    <h2>What I did</h2>
+    <h3>How to check</h3>
+        <p>
+        Name field: put in a safe or malicious link <em>MUST START with "http://" or "https://"</em>
+        </p>
+        <p>
+        Comment field: Try to put in a "script" tag, what happens? Try to put in a "i" tag, what happens?
+        </p>
+    <h3>What I did</h3>
+        <p>
         described above.
+        </p>
 
-
-    <h2>The demo: </h2>
+    <h3>The demo: </h3>
 
     <!---------------->
-    <h1>Rich Text with Bleach {{ title_chunk }}</h1>
-    
-      Rich Text with Bleach
-
       <form id="myform" action="" method="post">
       {{ csrf() }}
       {{ form.as_p() }}

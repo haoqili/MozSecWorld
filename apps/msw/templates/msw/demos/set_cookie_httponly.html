@@ -28,23 +28,19 @@
 {% endblock %}
 
 {% block rightPanelText %}
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
-
-    <h1>Set-Cookie: HTTPOnly Demo</h1>
-
-    <h2>The demo!</h2>
+    <h2>'Set-Cookie: HTTPOnly' Demo</h2>
         <p />
         <button type="button" onclick="viewCookie('name1')">View cookie withOUT HTTPOnly</button>
         <button type="button" onclick="viewCookie('name2')">View cookie with HTTPOnly</button>
   
-    <h2>What to do</h2>
+    <h3>What to do</h3>
         <p>Add in this line to your HTTP Response Headers: <code>Set-Cookie: HTTPOnly</code></p>
 
-    <h2>How to check</h2>
+    <h3>How to check</h3>
         <p>Firefox's Firebug or Chrome's "Inspect Elements": Go to "Net" option, refresh page, and click on the link that shows up, select "Headers" and you should see "httponly;" as an attribute of "Set-Cookie"" under "Response Headers"</p>
         <p>Terminal: <code>>telnet [insert IP-address of your site] 8000</code> Press enter and put in <code>GET /en-US/msw/ HTTP/1.1</code> Press enter twice, and scroll to the very top of the output, should look for the same thing as above.
 </p>
-    <h2>What I did</h2>
+    <h3>What I did</h3>
 
 Playdoh <a href="http://readthedocs.org/docs/playdoh/en/latest/bestpractices.html">best practices document</a>&nbsp;says:"to be secure by default, we use commonware&#8217;s cookies app. It makes secure and httponly cookies the default."<br /> 
 <br /> 
