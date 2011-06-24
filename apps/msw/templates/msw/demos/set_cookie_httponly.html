@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-    <head>
-    <title>Mozilla Secure World -- Set-Cookie: HTTPOnly Demo</title>
+{% extends "msw/base.html" %}
+{% block head_stuff %}
     <script type="text/javascript">
 
     // viewCookie() taken from getCookie() in http://www.java2s.com/Code/JavaScript/Development/Cookiesetdeletegetvalueandcreate.htm 
@@ -26,9 +25,9 @@
         alert(cookie);
     }
     </script>
-    </head>
-    <body>
+{% endblock %}
 
+{% block rightPanelText %}
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
 
     <h1>Set-Cookie: HTTPOnly Demo</h1>
@@ -138,4 +137,4 @@ Content-Type: text/html; charset=utf-8
 </pre>
 -->
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
-</html>
+{% endblock %}

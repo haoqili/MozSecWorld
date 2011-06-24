@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <head>
-    <title>Hi there</title>
+    <title>Mozilla Secure World</title>
     {{ css('main_css') }}
-    {{ css('indexPage_css') }}
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    {% block head_stuff %}
+    {% endblock %}
+
 </head>
 
 <body>
 
 
     <div id="titlePart">
-    <div class="title_background">
-    <h1 class="title_words">Mozilla Secure World</h1>
-    </div>
+    <a href="/msw/">
+        <div class="title_background">
+        <h1 class="title_words">Mozilla Secure World</h1>
+        </div>
+    </a>
     </div><!-- titlePart -->
   
     <div id="mainPart">
@@ -25,6 +31,7 @@
         <ul>
             {% for page in all_pages_list %}
                 <li><a href="/msw/{{ page.slug }}/"> {{ page.title }}</a> </li>
+                {# <li><a href="{{ url('detail', page.slug) }}"> {{ page.title }}</a> </li> // note: ask cvan about this #}
             {% endfor %}
         </ul>
     {% else %}

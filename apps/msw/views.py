@@ -29,14 +29,14 @@ def detail(request, input_slug):
     p = get_object_or_404(Page, slug=input_slug)
 
 
-    return jingo.render(request, 'msw/detail.html', {'page':p})
+    return jingo.render(request, 'msw/detail.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
 def demo(request, input_slug):
     print input_slug
 
     p = get_object_or_404(Page, slug=input_slug)
 
-    response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {'page':p})
+    response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
     if input_slug == "set_cookie_httponly":
         response.set_cookie('name1', 'Alice', httponly=False)

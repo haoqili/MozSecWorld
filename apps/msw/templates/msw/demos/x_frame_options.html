@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-    <head>
-    <title>Mozilla Secure World -- X-Frame-Options Demo</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+{% extends "msw/base.html" %}
+{% block head_stuff %}
     <script type="text/javascript">
         function checkUrl(){
             var theurl = $("#inputUrl").val();
@@ -9,9 +7,9 @@
         }
 
     </script>
-    </head>
-    <body>
+{% endblock %}
 
+{% block rightPanelText %}
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
 
     <h1>X-Frame-Options Demo</h1>
@@ -122,5 +120,5 @@ def xframe_deny(view_fn):
         </pre>
 
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
-</html>
+{% endblock %}
 
