@@ -71,7 +71,8 @@ def validateCert(url):
     certValid = [False]
 
     print "\n\n"
-    print "========= Validating Certificate for " + str(url) + "========"
+    print "==========================================================================="
+    print "========= Validating Certificate for " + str(url) + " ========"
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     #The ca_certs file must be valid or all cert checks will fail
     certFile = "apps/msw/files/ca-bundle.crt" # same idea as cacerts.txt, maybe same
@@ -119,15 +120,13 @@ def validateCert(url):
                 print "\r\n Certificate Check Step 2 Passed -- Certificate not expired, expiring in %s" % tillExpiration
 
     print "\n------- Step 3: Validating the chain of CAs  --------------"
-    # from: http://wiki.python.org/moin/SSL
-    #url = "sb-ssl.google.com"
+    # crucially MODIFIED from: http://wiki.python.org/moin/SSL
+    #url = "sb-ssl.google.com" # what the url should be
+    #url = "www.google.com" # for testing
     PORT = 443
 
-    # replace host name with IP, this should fail connection attempt,
-    # but it doesn't by default
-    url = "www.google.com"
-    host = socket.getaddrinfo(url, PORT)[0][4][0]
-    #print "host IP: " + str(host)
+    host = url
+    print "For host = " + str(host)
 
     # uses host
     def verify_cb(conn, x509, errno, errdepth, retcode):
@@ -140,15 +139,38 @@ def validateCert(url):
         if errno == 0:
             if errdepth != 0:
                 # don't validate names of root certificates
+                print "\t---> GOOD (root certificate)"
                 certValid[0] = True
-                print "\t---> PASSED (just 1 pass is enough for now)"
                 return True
             else:
-                if x509.get_subject().commonName != host:
-                    print "\t---> failed"
+                certComName = x509.get_subject().commonName
+                # the certComName might be like "*.google.com" ==> regex: .*\.google\.com
+                # Have to check that * does not contain any "." => regex: (.*)\.google\.com
+                #     e.g. (.*) can be "x" but not "x.y" (that way host name is different)
+                # change    "." --> "\."   "*" --> "(.*)" order matters
+                starNum = certComName.count("*") # number of asterisks
+                certComName = certComName.replace(".", "\.")
+                certComName = certComName.replace("*", "(.*)")
+                result = re.match(certComName, host) # certComName == host with * interpretation
+                if result:
+                    # If (.*) matches any dots, return False!
+                    # reference: http://docs.python.org/library/re.html#re.MatchObject.group
+                    for i in range(1, starNum+1):
+                        if "." in result.group(i):
+                            print "\t---> FAILED (cert commonName does not meet requirment)"
+                    # if got out of that for loop, that means * regions don't have any dots :D
+                    print "\t---> GOOD (cert commonName matched host name)"
+                    certValid[0] = True
+                    return True
+                else:
+                    print "\tcertCommonName: \t" + str(certComName)
+                    print "\thostName: \t\t" + str(host)
+                    print "\t---> FAILED (cert commonName did not match host name)"
+                    certValid[0] = False
                     return False
         else:
-            print "\t---> failed"
+            print "\t---> FAILED"
+            certValid[0] = False
             return False
 
     context = SSL.Context(SSL.SSLv23_METHOD)
@@ -166,10 +188,13 @@ def validateCert(url):
 
     if certValid[0]:
         print "\r\n Certificate Check Step 3 Passed -- Chain of CAs is valid"
+        print "\r\n HOST IS GOOD! :)"
     else:
         print "\r\n Certificate Check Step 3 FAILD -- Chain of CAs is NOT VALID"
+        print "\r\n HOST IS BAD! :("
 
-    print "\n------------- End Validating the Certificate of URL = " + str(url) + "\n"
+    print "\n=============== End Validating the Certificate of URL = " + str(url)
+    print "==========================================================================="
     return certValid
 
 # strips "http://" or "https://" 
