@@ -1,0 +1,52 @@
+{% extends "msw/base.html" %}
+{#{% load url from future %}#}
+
+{% block head_stuff %}     
+    <script type="text/javascript">                    
+        function checkUrl(){            
+            var theurl = $("#inputUrl").val();     
+            $("#outputIframe").attr('src', theurl);     
+        }                                                              
+                                                 
+    </script>                          
+{% endblock %}                    
+                                                               
+{% block rightPanelText %}  
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{{ form.errors }}
+  <h1>Log in</h1>
+  {% if error %}
+    <p><strong>Invalid credentials</strong></p>
+  {% endif %}
+
+  <form action="" method="post">
+{{ csrf() }}
+    <p><label>Username: <input type="text" name="username"></label></p>
+    <p><label>Password: <input type="password" name="password"></label></p>
+    <p><input type="submit" value="Let's do this"></p>
+  </form>
+
+{# above chunck stolen from brianloveswords
+<form method="post" action="{{ url('django.contrib.auth.views.login') }}">
+{{ csrf() }}
+<table>
+<tr>
+    <td>{{ form['username'].label_tag }}</td>
+    <td>{{ form['username'] }}</td>
+</tr>
+<tr>
+    <td>{{ form['password'].label_tag }}</td>
+    <td>{{ form['password'] }}</td>
+</tr>
+</table>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+#}
+
+{% endblock %}

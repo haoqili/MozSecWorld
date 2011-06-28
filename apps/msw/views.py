@@ -7,6 +7,9 @@ from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection, transaction
 from django.utils import simplejson
+# User Authentication / Login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -16,6 +19,51 @@ from django.utils import simplejson
 # The dictionary maps keys for the template's {{ matching_key }} to its value. 
 # The key/value can be for a list, because in the template, there is a for loop that goes through each value of the list.
 #       e.g. index's Page.objects.all() is a list of all page (xss, sqlinjection)s
+
+###########################
+#### Login / Authentication
+
+def login(request):
+    if request.user.is_authenticated():
+        print "\tUser already authenticated"
+        return HttpResponse("already authenticated")
+
+    if request.method == 'GET':
+        return jingo.render(request, 'msw/registration/login.html', {"all_pages_list": Page.objects.all()}) #?? context_instance=RequestContext(request)??
+
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    message = ""
+    if user is not None:
+        if user.is_active:
+            # Redirect to a success page.
+            login(request, user) # saves user ID in session
+            message = "\tProvided correct un and pw"
+        else:
+            # Return a 'disabled account' error message
+            message = "\tYour account has been disabled!"
+    else:
+        # Return an 'invalid login' error message.
+        message = "\tYour username and password were incorrect."
+    print message
+    return HttpResponse(message)
+
+# Decorators: https://docs.djangoproject.com/en/dev/topics/auth/#the-login-required-decorator
+@login_required
+def members_page(request):
+    return HttpResponse("You're a member!")
+
+def logout_page(request):
+    # https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
+    # When you call logout(), the session data for the current request is completely cleaned out. All existing data is removed.
+    logout(request)
+    return HttpResponse("You're logged out.")
+
+
+
+########################
+#### pages:
 
 def index(request):
     rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})

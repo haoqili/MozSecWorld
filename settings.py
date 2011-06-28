@@ -2,6 +2,7 @@
 # manage.py replaces this with settings_local.py
 
 import os
+import socket
 
 from django.utils.functional import lazy
 
@@ -291,6 +292,7 @@ JAVA_BIN = '/usr/bin/java'
 
 ## Auth
 PWD_ALGORITHM = 'bcrypt'
+BCRYPT_ROUNDS = 12
 HMAC_KEYS = {
     '2011-01-01': 'cheesecake',
 }
@@ -313,3 +315,18 @@ GOOGLE_SAFEBROWSING_LOOKUP = True
 GSB_HOST = "https://sb-ssl.google.com"
 GSB_PATH = "/safebrowsing/api/lookup"
 GSB_API_KEY = None
+
+## Accounts stuff
+AUTH_PROFILE_MODULE = 'msw.UserProfile'
+
+## Sessions 
+# copied from zamboni https://github.com/jbalogh/zamboni/blob/master/settings.py
+# Default to short expiration; check "remember me" to override
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1209600
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+HOSTNAME = socket.gethostname()
+DOMAIN = HOSTNAME
+SESSION_COOKIE_DOMAIN = ".%s" % DOMAIN 

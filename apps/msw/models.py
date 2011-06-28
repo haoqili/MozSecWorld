@@ -9,6 +9,10 @@ from django.db import models
 from django.forms import ModelForm
 from django.template.defaultfilters import slugify
 from django.conf import settings
+# User Profile / Authentication
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 
 # Django automatically creates a table for each "class" here, named "[app name]_[class name]"
 # so the table of "class Page" is "msw_page"
@@ -36,6 +40,8 @@ class RichText(models.Model):
     def __unicode__(self):
         return self.name + ": " + self.comment
 
+####################################################
+##### URL CHECK ####################################
 
 # returns True if url is checked to be non-malicious, else False
 # the 1 url's format must be "http://..."
@@ -229,9 +235,27 @@ class RichTextForm(ModelForm):
         data = self.cleaned_data['comment']
         return bleach.clean(data)
 
+##### URL CHECK ####################################
+####################################################
 
 
+####################################################
+##### User Profile / Authentication ################
 
+class UserProfile(models.Model):
+    # This field is required.
+    user = models.OneToOneField(User)
+
+    # Other fields here
+    my_activation_key = models.CharField(max_length=40)
+    my_key_expires = models.DateTimeField()
+    my_favorite_animal = models.CharField(max_length=20, default="Dragons.")
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
 
 
 ##########################################################################

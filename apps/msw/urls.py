@@ -9,6 +9,13 @@ urlpatterns = patterns('msw.views', # gets information from views.py
 
     (r'^$', 'index'), # goes to views.py's "def index"
 
+    #### Testing Login / Authentication
+    (r'^login', 'login'),
+    #(r'^login$', 'django.contrib.auth.views.login'),
+    #(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'myapp/login.html'}),
+    #(r'^logout', 'logout_page'),
+    
+
     #####
     ## Named groups, read more here: https://docs.djangoproject.com/en/1.3/topics/http/urls/#named-groups
     ## (?P<argument_name>regex) saves whatever matches in regex to argument_name
