@@ -23,6 +23,8 @@
     <p><strong>Invalid credentials</strong></p>
   {% endif %}
 
+
+<!-- form chunck stolen from brianloveswords -->
   <form action="" method="post">
 {{ csrf() }}
     <p><label>Username: <input type="text" name="username"></label></p>
@@ -31,15 +33,17 @@
   </form>
 
 {# above chunck stolen from brianloveswords
-<form method="post" action="{{ url('django.contrib.auth.views.login') }}">
+<!--<form method="post" action="{{ url('django.contrib.auth.views.login') }}">
+#}
+
+ {#
+<form method="post" action="">
 {{ csrf() }}
 <table>
 <tr>
-    <td>{{ form['username'].label_tag }}</td>
     <td>{{ form['username'] }}</td>
 </tr>
 <tr>
-    <td>{{ form['password'].label_tag }}</td>
     <td>{{ form['password'] }}</td>
 </tr>
 </table>

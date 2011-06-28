@@ -10,6 +10,7 @@ from django.utils import simplejson
 # User Authentication / Login
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import forms
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -29,7 +30,7 @@ def login(request):
         return HttpResponse("already authenticated")
 
     if request.method == 'GET':
-        return jingo.render(request, 'msw/registration/login.html', {"all_pages_list": Page.objects.all()}) #?? context_instance=RequestContext(request)??
+        return jingo.render(request, 'msw/registration/login.html', {"all_pages_list": Page.objects.all(), "form": forms.AuthenticationForm}) #?? context_instance=RequestContext(request)??
 
     username = request.POST['username']
     password = request.POST['password']
