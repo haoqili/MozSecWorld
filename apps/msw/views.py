@@ -1,7 +1,11 @@
 import jingo
 import bleach
 from msw.models import Page, RichText, RichTextForm
-from django.http import HttpResponse
+from msw import forms
+
+from commons.urlresolvers import reverse
+
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404
@@ -10,7 +14,6 @@ from django.utils import simplejson
 # User Authentication / Login
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import forms
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -28,32 +31,70 @@ def login(request):
     if request.user.is_authenticated():
         print "\tUser already authenticated"
         return HttpResponse("already authenticated")
-
-    if request.method == 'GET':
-        return jingo.render(request, 'msw/registration/login.html', {"all_pages_list": Page.objects.all(), "form": forms.AuthenticationForm}) #?? context_instance=RequestContext(request)??
-
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    message = ""
-    if user is not None:
-        if user.is_active:
-            # Redirect to a success page.
-            login(request, user) # saves user ID in session
-            message = "\tProvided correct un and pw"
+    errors = None
+    form = forms.AuthenticationForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        print "success"
+        '''
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                # Redirect to a success page.
+                login(request, user) # saves user ID in session
+                errors = "\tProvided correct un and pw"
+            else:
+                # Return a 'disabled account' error errors
+                errors = "\tYour account has been disabled!"
         else:
-            # Return a 'disabled account' error message
-            message = "\tYour account has been disabled!"
-    else:
-        # Return an 'invalid login' error message.
-        message = "\tYour username and password were incorrect."
-    print message
-    return HttpResponse(message)
+            # Return an 'invalid login' error.
+            errors = "\tYour username and password were incorrect."
+        '''
+        #print errors
+        #return HttpResponse(message)
+    #import pdb; pdb.set_trace()
+    ctx = {
+        'all_pages_list': Page.objects.all(),
+        'form': form,
+        'errors': errors
+    }
 
-# Decorators: https://docs.djangoproject.com/en/dev/topics/auth/#the-login-required-decorator
-@login_required
-def members_page(request):
-    return HttpResponse("You're a member!")
+    return jingo.render(request, 'msw/demos/auth/login.html', ctx)
+
+def register(request):
+    errors = ""
+    if request.user.is_authenticated():
+        messages.info(request, _("You are already logged in to an account."))
+        form = None
+    elif request.method == 'POST':
+
+        # "Handling Registration" http://www.djangobook.com/en/1.0/chapter12/        
+        form = forms.UserCreationForm(request.POST or None)
+        print "POST PPPPPPPPPPPPPPPPPPPPPPPPP"
+        print form.as_p()
+
+        if form.is_valid():
+            print "VALID FORM :D:D:D:D:D:D:D:D!"
+            # TODO: run authenticate on the user, so we automatically log them in.
+
+            #amo.utils.clear_messages(request)
+            return HttpResponseRedirect(reverse('login'))
+            # TODO POSTREMORA Replace the above two lines
+            # when remora goes away with this:
+            #return http.HttpResponseRedirect(reverse('users.login'))
+        else:
+            print "NOTTTTTTTTTTTT :(:(:(:(:("
+    else:
+        print "GET GGGGGGGGGGGGGGGGGGGGGGGGGGG"
+        form = forms.UserCreationForm()
+    ctx = {
+        'all_pages_list': Page.objects.all(),
+        'form': form,
+        'errors': errors
+    }
+    return jingo.render(request, 'msw/demos/auth/register.html', ctx)
+
 
 def logout_page(request):
     # https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
@@ -66,6 +107,7 @@ def logout_page(request):
 ########################
 #### pages:
 
+@login_required
 def index(request):
     rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
     return rendered

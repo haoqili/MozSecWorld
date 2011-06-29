@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 
+from . import views
+
 # Uncomment the next two lines to enable the admin:
 #from django.contrib import admin
 #admin.autodiscover()
@@ -10,9 +12,8 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^$', 'index'), # goes to views.py's "def index"
 
     #### Testing Login / Authentication
-    (r'^login', 'login'),
-    #(r'^login$', 'django.contrib.auth.views.login'),
-    #(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'myapp/login.html'}),
+    url(r'^login', views.login, name='login'),
+    (r'^register', 'register'),
     #(r'^logout', 'logout_page'),
     
 

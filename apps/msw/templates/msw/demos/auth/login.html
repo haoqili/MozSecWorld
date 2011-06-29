@@ -1,0 +1,22 @@
+{% extends "msw/base.html" %}
+{#{% load url from future %}#}
+
+{% block rightPanelText %}  
+{#
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+#}
+  <h1>Log in</h1>
+  {% if error %}
+    <p><strong>Invalid credentials</strong></p>
+  {% endif %}
+
+
+  <form action="" method="post">
+    {{ csrf() }}
+    {{ form.as_p() }}
+    <p><input type="submit" value="Let's do this"></p>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "msw/base.html" %}
+{#{% load url from future %}#}
+
+{% block rightPanelText %}  
+
+  <h1>Register</h1>
+  {% if error %}
+    <p><strong>Invalid credentials</strong></p>
+  {% endif %}
+
+
+  <form action="" method="post">
+    {{ csrf() }}
+    {{ form.as_p() }}
+    <p><input type="submit" value="Register me!"></p>
+  </form>
+
+{% endblock %}
