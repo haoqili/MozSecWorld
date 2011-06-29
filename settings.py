@@ -329,3 +329,5 @@ SESSION_COOKIE_HTTPONLY = True
 HOSTNAME = socket.gethostname()
 DOMAIN = HOSTNAME
 SESSION_COOKIE_DOMAIN = ".%s" % DOMAIN 
+
+LOGIN_URL = "/msw/login/"

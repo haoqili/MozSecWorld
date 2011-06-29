@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     # Example:
     #(r'', include('examples.urls')), # don't care about front mage
     (r'^msw/', include('msw.urls')), # directs to msw/urls.py
+    #(r'^accounts/', include('msw.urls')),
+    #(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'apps/msw/templates/msw/demos/login.html'}),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),

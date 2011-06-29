@@ -14,6 +14,7 @@ from django.utils import simplejson
 # User Authentication / Login
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from msw.utils import handle_login
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -28,40 +29,37 @@ from django.contrib.auth.decorators import login_required
 #### Login / Authentication
 
 def login(request):
+    """Try to log the user in. *copied from jsocol's kitsune*"""
+    redirect_to = request.REQUEST.get('next', '')
+
+    jumpto_url = reverse('mswindex')
+    print "IIIIIIIIIIII"
+    print jumpto_url
+    form = handle_login(request)
+
+    print request.user
     if request.user.is_authenticated():
-        print "\tUser already authenticated"
-        return HttpResponse("already authenticated")
-    errors = None
-    form = forms.AuthenticationForm(request.POST or None)
-    if request.method == 'POST' and form.is_valid():
-        print "success"
-        '''
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                # Redirect to a success page.
-                login(request, user) # saves user ID in session
-                errors = "\tProvided correct un and pw"
-            else:
-                # Return a 'disabled account' error errors
-                errors = "\tYour account has been disabled!"
-        else:
-            # Return an 'invalid login' error.
-            errors = "\tYour username and password were incorrect."
-        '''
-        #print errors
-        #return HttpResponse(message)
-    #import pdb; pdb.set_trace()
+        res = HttpResponseRedirect(redirect_to)
+        #res.set_cookie(settings.SESSION_EXISTS_COOKIE, '1', secure=False)
+        print "NNNNNNNNNNNNNNNNN"
+        print jumpto_url
+        return res 
+
     ctx = {
         'all_pages_list': Page.objects.all(),
         'form': form,
-        'errors': errors
+        'jumpto_url': jumpto_url
     }
 
     return jingo.render(request, 'msw/demos/auth/login.html', ctx)
 
+    #form = forms.AuthenticationForm(data=request.POST)
+    #ctx = {
+    #    'all_pages_list': Page.objects.all(),
+    #    'form': form
+    #}
+    #return jingo.render(request, 'msw/demos/auth/login.html', ctx)
+    
 def register(request):
     errors = ""
     if request.user.is_authenticated():
@@ -70,15 +68,17 @@ def register(request):
     elif request.method == 'POST':
 
         # "Handling Registration" http://www.djangobook.com/en/1.0/chapter12/        
-        form = forms.UserCreationForm(request.POST or None)
+        form = forms.UserCreationForm(data=request.POST)
         print "POST PPPPPPPPPPPPPPPPPPPPPPPPP"
-        print form.as_p()
 
         if form.is_valid():
             print "VALID FORM :D:D:D:D:D:D:D:D!"
             # TODO: run authenticate on the user, so we automatically log them in.
 
             #amo.utils.clear_messages(request)
+            print request.POST.user
+            #if request.user.is_authenticated():
+            #     print "@@@@@@@@@@@@@@ happy @@@@@@@@@@@@@@"
             return HttpResponseRedirect(reverse('login'))
             # TODO POSTREMORA Replace the above two lines
             # when remora goes away with this:
@@ -91,7 +91,6 @@ def register(request):
     ctx = {
         'all_pages_list': Page.objects.all(),
         'form': form,
-        'errors': errors
     }
     return jingo.render(request, 'msw/demos/auth/register.html', ctx)
 
@@ -109,7 +108,13 @@ def logout_page(request):
 
 @login_required
 def index(request):
-    rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
+    jumpto_url = reverse('mswindex')
+    print "YYYYYYYYYYYYYYYYYYYYYYYYY"
+    if request.method == "GET":
+        rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
+        if 'next' in request.GET:
+            print "XXXXXXXXXXXXXXXXXXXXXXXXXXX" 
+    rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all(), "jumto_url": jumpto_url})
     return rendered
 
 def detail(request, input_slug):
@@ -202,7 +207,7 @@ def xfo_sameorigin(request):
 
 # X-Frame-Options
 def xfo_allow(request):
-    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: ALLOW', i.e. it does NOT HAVE 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
+    html = """<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: ALLOW', i.e. it does NOT HAVE 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"""
     response = HttpResponse(html)
     response['x-frame-options'] = 'ALLOW'
     return response

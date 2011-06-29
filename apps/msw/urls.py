@@ -9,7 +9,7 @@ from . import views
 
 urlpatterns = patterns('msw.views', # gets information from views.py
 
-    (r'^$', 'index'), # goes to views.py's "def index"
+    url(r'^$', views.index, name="mswindex"), # goes to views.py's "def index"
 
     #### Testing Login / Authentication
     url(r'^login', views.login, name='login'),

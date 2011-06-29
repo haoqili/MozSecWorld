@@ -15,6 +15,7 @@
 
   <form action="" method="post">
     {{ csrf() }}
+    <input type="hidden" name="next" value="../msw" />
     {{ form.as_p() }}
     <p><input type="submit" value="Let's do this"></p>
   </form>
