@@ -31,6 +31,8 @@ from msw.utils import handle_login
 def login(request):
     """Try to log the user in. *copied from jsocol's kitsune*"""
     redirect_to = request.REQUEST.get('next', '')
+    "~~~~~~~~~~~~~~~~"
+    print redirect_to
 
     jumpto_url = reverse('mswindex')
     print "IIIIIIIIIIII"
@@ -76,7 +78,6 @@ def register(request):
             # TODO: run authenticate on the user, so we automatically log them in.
 
             #amo.utils.clear_messages(request)
-            print request.POST.user
             #if request.user.is_authenticated():
             #     print "@@@@@@@@@@@@@@ happy @@@@@@@@@@@@@@"
             return HttpResponseRedirect(reverse('login'))
