@@ -15,6 +15,8 @@ from django.utils import simplejson
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from msw.utils import handle_login
+# jsocol's ratelimiting https://github.com/jsocol/django-ratelimit
+from ratelimit.decorators import ratelimit
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -59,8 +61,12 @@ def login(request):
     #    'form': form
     #}
     #return jingo.render(request, 'msw/demos/auth/login.html', ctx)
-    
+
+@ratelimit(field='username')
 def register(request):
+    was_limited = getattr(request, 'limited', False)
+    print "WASSSSSSSSSS:"
+    print was_limited
     message = ""
     if request.user.is_authenticated():
         message = "You are already logged in to an account."
@@ -68,7 +74,10 @@ def register(request):
     elif request.method == 'POST':
 
         # "Handling Registration" http://www.djangobook.com/en/1.0/chapter12/        
-        form = forms.UserCreationForm(data=request.POST)
+        if was_limited: # exceeded threshold
+            form = forms.UserCreationCaptchaForm(data=request.POST)
+        else:
+            form = forms.UserCreationForm(data=request.POST)
 
         if form.is_valid():
             form.save()
@@ -83,7 +92,11 @@ def register(request):
             message = "invalid information"
     else:
         print "New registration form"
-        form = forms.UserCreationForm()
+        if was_limited: # exceeded threshold
+            form = forms.UserCreationCaptchaForm()
+        else:
+            form = forms.UserCreationForm()
+            
     ctx = {
         'all_pages_list': Page.objects.all(),
         'form': form,

@@ -48,8 +48,11 @@ class ReCaptcha(forms.widgets.Widget):
             data.get(self.recaptcha_response_name, None)]
 
 
-class UserCreationForm(auth_forms.UserCreationForm):
+class UserCreationCaptchaForm(auth_forms.UserCreationForm):
     recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
+
+class UserCreationForm(auth_forms.UserCreationForm):
+    pass
 
 #-------- end captcha stuff ------------------------------------------------------
 
