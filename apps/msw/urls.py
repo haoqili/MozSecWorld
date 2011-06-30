@@ -12,10 +12,10 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     url(r'^$', views.index, name="mswindex"), # goes to views.py's "def index"
 
     #### Testing Login / Authentication
-    url(r'^login', views.login, name='login'),
+    #url(r'^login', views.login, name='login'),
+    (r'^login/$', 'vendor.src.djang.django.contrib.auth.views.login'),
     (r'^register', 'register'),
     (r'^logout', 'logout'),
-    (r'^accounts/', include('registration.urls')),
     
 
     #####
