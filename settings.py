@@ -259,6 +259,7 @@ INSTALLED_APPS = (
 
     # L10n
     'product_details',
+    'registration', # http://www.stonemind.net/blog/2007/04/13/django-registration-for-newbies/
 
 )
 
@@ -330,4 +331,16 @@ HOSTNAME = socket.gethostname()
 DOMAIN = HOSTNAME
 SESSION_COOKIE_DOMAIN = ".%s" % DOMAIN 
 
-LOGIN_URL = "/msw/login/"
+# https://docs.djangoproject.com/en/dev/ref/settings/?from=olddocs#login-url
+
+# The URL where requests are redirected for login, especially when using the login_required() decorator.
+# Default: '/accounts/login/'
+LOGIN_URL = '/msw/login/'
+
+# The URL where requests are redirected after login when the contrib.auth.login view gets no next parameter.
+# Default: '/accounts/profile/'
+LOGIN_REDIRECT_URL = "/msw/"
+
+# recaptcha stuff http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = 

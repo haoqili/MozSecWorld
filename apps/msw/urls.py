@@ -15,6 +15,7 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     url(r'^login', views.login, name='login'),
     (r'^register', 'register'),
     (r'^logout', 'logout'),
+    (r'^accounts/', include('registration.urls')),
     
 
     #####
