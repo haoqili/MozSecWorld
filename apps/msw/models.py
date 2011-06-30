@@ -247,9 +247,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     # Other fields here
-    my_activation_key = models.CharField(max_length=40)
-    my_key_expires = models.DateTimeField()
-    my_favorite_animal = models.CharField(max_length=20, default="Dragons.")
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

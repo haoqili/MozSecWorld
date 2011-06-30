@@ -41,7 +41,7 @@ def login(request):
 
     print request.user
     if request.user.is_authenticated():
-        res = HttpResponseRedirect(redirect_to)
+        res = HttpResponseRedirect(jumpto_url)
         #res.set_cookie(settings.SESSION_EXISTS_COOKIE, '1', secure=False)
         print "NNNNNNNNNNNNNNNNN"
         print jumpto_url
@@ -74,8 +74,11 @@ def register(request):
         print "POST PPPPPPPPPPPPPPPPPPPPPPPPP"
 
         if form.is_valid():
-            print "VALID FORM :D:D:D:D:D:D:D:D!"
+            form.save()
+            print "REGISTER VALID FORM :D:D:D:D:D:D:D:D!"
+            login(request)
             # TODO: run authenticate on the user, so we automatically log them in.
+            #person = form.cleaned_data["username"]
 
             #amo.utils.clear_messages(request)
             #if request.user.is_authenticated():
@@ -107,7 +110,7 @@ def logout_page(request):
 ########################
 #### pages:
 
-@login_required
+#@login_required
 def index(request):
     jumpto_url = reverse('mswindex')
     print "YYYYYYYYYYYYYYYYYYYYYYYYY"
