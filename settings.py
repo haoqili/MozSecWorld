@@ -342,5 +342,6 @@ LOGIN_URL = '/msw/login/'
 LOGIN_REDIRECT_URL = "/msw/"
 
 # recaptcha stuff http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
+# create keys https://www.google.com/recaptcha/admin/create
 RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = 
+RECAPTCHA_PRIVATE_KEY = ''

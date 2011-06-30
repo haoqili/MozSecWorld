@@ -5,15 +5,14 @@ from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_lazy as _lazy
 
-# real captcha stuff http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
+# captcha stuff modified from 
+# http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
 from django.conf import settings
 from django import forms
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
-##from marcofucci_utils.widgets import ReCaptcha
-#from msw.recaptcha import captcha
-#from msw.recaptcha.captcha import submit, displayhtml
 from msw.captcha import submit, displayhtml
 
 class ReCaptchaField(forms.CharField):
@@ -30,42 +29,29 @@ class ReCaptchaField(forms.CharField):
         super(ReCaptchaField, self).clean(values[1])
         recaptcha_challenge_value = smart_unicode(values[0])
         recaptcha_response_value = smart_unicode(values[1])
-        #check_captcha = captcha.submit(recaptcha_challenge_value, 
         check_captcha = submit(recaptcha_challenge_value, 
             recaptcha_response_value, settings.RECAPTCHA_PRIVATE_KEY, {})
         if not check_captcha.is_valid:
             raise forms.util.ValidationError(self.error_messages['captcha_invalid'])
         return values[0]
 
-from django.utils.safestring import mark_safe
-from django.conf import settings
 
 class ReCaptcha(forms.widgets.Widget):
     recaptcha_challenge_name = 'recaptcha_challenge_field'
     recaptcha_response_name = 'recaptcha_response_field'
 
     def render(self, name, value, attrs=None):
-        #return mark_safe(u'%s' % captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY))
         return mark_safe(u'%s' % displayhtml(settings.RECAPTCHA_PUBLIC_KEY))
 
     def value_from_datadict(self, data, files, name):
         return [data.get(self.recaptcha_challenge_name, None), 
             data.get(self.recaptcha_response_name, None)]
 
-#-------------------------------------------------------------------------
-
-# for captcha http://stackoverflow.com/questions/2275806/easy-to-use-django-captcha-or-registration-app-with-captcha/2275996#2275996
-#from registration.backends.default import DefaultBackend
-#from registration.forms import RegistrationForm
 
 class UserCreationForm(auth_forms.UserCreationForm):
-    recaptcha = ReCaptchaField(label="I'm a human")
-    #email = forms.EmailField(required=False)
+    recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
 
-#class RecaptchaRegistrationBackend(DefaultBackend):
-#    def get_form_class(self, request):
-#       return UserCreationForm
-
+#-------- end captcha stuff ------------------------------------------------------
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
