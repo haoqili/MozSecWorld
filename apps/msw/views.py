@@ -30,21 +30,19 @@ from msw.utils import handle_login
 
 def login(request):
     """Try to log the user in. *copied from jsocol's kitsune*"""
-    redirect_to = request.REQUEST.get('next', '')
-    "~~~~~~~~~~~~~~~~"
-    print redirect_to
 
-    jumpto_url = reverse('mswindex')
-    print "IIIIIIIIIIII"
-    print jumpto_url
     form = handle_login(request)
+    #print request.user
 
-    print request.user
+    # redirect if it's authenticated, like it would be after a successful POST
+    jumpto_url = reverse('mswindex')
     if request.user.is_authenticated():
-        res = HttpResponseRedirect(jumpto_url)
+        res = HttpResponseRedirect(jumpto_url) # way 1
+
+        #redirect_to = request.REQUEST.get('next', '') # way 2
+        #res = HttpResponseRedirect(redirect_to)
+
         #res.set_cookie(settings.SESSION_EXISTS_COOKIE, '1', secure=False)
-        print "NNNNNNNNNNNNNNNNN"
-        print jumpto_url
         return res 
 
     ctx = {
@@ -63,47 +61,52 @@ def login(request):
     #return jingo.render(request, 'msw/demos/auth/login.html', ctx)
     
 def register(request):
-    errors = ""
+    message = ""
     if request.user.is_authenticated():
-        messages.info(request, _("You are already logged in to an account."))
+        message = "You are already logged in to an account."
         form = None
     elif request.method == 'POST':
 
         # "Handling Registration" http://www.djangobook.com/en/1.0/chapter12/        
         form = forms.UserCreationForm(data=request.POST)
-        print "POST PPPPPPPPPPPPPPPPPPPPPPPPP"
 
         if form.is_valid():
             form.save()
-            print "REGISTER VALID FORM :D:D:D:D:D:D:D:D!"
-            login(request)
-            # TODO: run authenticate on the user, so we automatically log them in.
             #person = form.cleaned_data["username"]
+            print "VALID REGISTER FORM :D:D:D:D:D:D:D:D!"
+            message = "registered"
 
-            #amo.utils.clear_messages(request)
-            #if request.user.is_authenticated():
-            #     print "@@@@@@@@@@@@@@ happy @@@@@@@@@@@@@@"
+            # TODO: run authenticate on the user, so we automatically log them in.
+            # redirect to login page
             return HttpResponseRedirect(reverse('login'))
-            # TODO POSTREMORA Replace the above two lines
-            # when remora goes away with this:
-            #return http.HttpResponseRedirect(reverse('users.login'))
         else:
-            print "NOTTTTTTTTTTTT :(:(:(:(:("
+            message = "invalid information"
     else:
-        print "GET GGGGGGGGGGGGGGGGGGGGGGGGGGG"
+        print "New registration form"
         form = forms.UserCreationForm()
     ctx = {
         'all_pages_list': Page.objects.all(),
         'form': form,
+        'message': message
     }
     return jingo.render(request, 'msw/demos/auth/register.html', ctx)
 
 
-def logout_page(request):
+def logout(request):
     # https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
     # When you call logout(), the session data for the current request is completely cleaned out. All existing data is removed.
-    logout(request)
-    return HttpResponse("You're logged out.")
+    if request.user.is_authenticated():
+        print "Logging out authenticated user"
+        logout(request)
+        message = "logged out!! :D"
+    else:
+        message =  "not logged in, so no need to log out"
+        print message
+    ctx = {
+        'all_pages_list': Page.objects.all(),
+        'message': message
+    }
+    return jingo.render(request, 'msw/demos/auth/logout.html', ctx)
 
 
 

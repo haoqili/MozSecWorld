@@ -14,7 +14,7 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     #### Testing Login / Authentication
     url(r'^login', views.login, name='login'),
     (r'^register', 'register'),
-    #(r'^logout', 'logout_page'),
+    (r'^logout', 'logout'),
     
 
     #####
