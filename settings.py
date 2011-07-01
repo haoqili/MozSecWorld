@@ -335,7 +335,7 @@ SESSION_COOKIE_DOMAIN = ".%s" % DOMAIN
 
 # The URL where requests are redirected for login, especially when using the login_required() decorator.
 # Default: '/accounts/login/'
-LOGIN_URL = '/msw/login/'
+LOGIN_URL = '/msw/templates'
 
 # The URL where requests are redirected after login when the contrib.auth.login view gets no next parameter.
 # Default: '/accounts/profile/'

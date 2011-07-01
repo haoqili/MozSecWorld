@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from django.contrib.auth.views import login as auth_login_view
 
 from . import views
 
@@ -12,8 +13,7 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     url(r'^$', views.index, name="mswindex"), # goes to views.py's "def index"
 
     #### Testing Login / Authentication
-    #url(r'^login', views.login, name='login'),
-    (r'^login/$', 'vendor.src.djang.django.contrib.auth.views.login'),
+    url(r'^login', views.login, name='login'),
     (r'^register', 'register'),
     (r'^logout', 'logout'),
     

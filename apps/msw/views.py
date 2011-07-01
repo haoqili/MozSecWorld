@@ -12,9 +12,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection, transaction
 from django.utils import simplejson
 # User Authentication / Login
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from msw.utils import handle_login
 # jsocol's ratelimiting https://github.com/jsocol/django-ratelimit
 from ratelimit.decorators import ratelimit
 
@@ -30,39 +29,35 @@ from ratelimit.decorators import ratelimit
 ###########################
 #### Login / Authentication
 
+# partially copied from default login view, vendor.src.django.django.cotrib.auth.views.py
 def login(request):
-    """Try to log the user in. *copied from jsocol's kitsune*"""
-
-    form = handle_login(request)
-    #print request.user
-
-    # redirect if it's authenticated, like it would be after a successful POST
-    jumpto_url = reverse('mswindex')
+    redirect_to = reverse('mswindex')
     if request.user.is_authenticated():
-        res = HttpResponseRedirect(jumpto_url) # way 1
+        print "Already logged in"
+    if request.method == "POST":
+        form = forms.AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            auth_login(request, form.get_user())
 
-        #redirect_to = request.REQUEST.get('next', '') # way 2
-        #res = HttpResponseRedirect(redirect_to)
+            if request.session.test_cookie_worked():
+                request.session.delete_test_cookie()    
 
-        #res.set_cookie(settings.SESSION_EXISTS_COOKIE, '1', secure=False)
-        return res 
+            return HttpResponseRedirect(redirect_to)
+    else: 
+        form = forms.AuthenticationForm()
+    
+    request.session.set_test_cookie()
 
     ctx = {
         'all_pages_list': Page.objects.all(),
         'form': form,
-        'jumpto_url': jumpto_url
+        'redirect_to': redirect_to
     }
 
     return jingo.render(request, 'msw/demos/auth/login.html', ctx)
 
-    #form = forms.AuthenticationForm(data=request.POST)
-    #ctx = {
-    #    'all_pages_list': Page.objects.all(),
-    #    'form': form
-    #}
-    #return jingo.render(request, 'msw/demos/auth/login.html', ctx)
 
-@ratelimit(field='username')
+@ratelimit(field='username', method='POST')
 def register(request):
     was_limited = getattr(request, 'limited', False)
     print "WASSSSSSSSSS:"
@@ -110,7 +105,7 @@ def logout(request):
     # When you call logout(), the session data for the current request is completely cleaned out. All existing data is removed.
     if request.user.is_authenticated():
         print "Logging out authenticated user"
-        logout(request)
+        auth_logout(request)
         message = "logged out!! :D"
     else:
         message =  "not logged in, so no need to log out"
@@ -128,13 +123,16 @@ def logout(request):
 
 #@login_required
 def index(request):
-    jumpto_url = reverse('mswindex')
+    if request.user.is_authenticated():
+        print "You're logged in :DDDDDDD"
+    else:
+        print "Not logged in :(:(:(:(:("
     print "YYYYYYYYYYYYYYYYYYYYYYYYY"
     if request.method == "GET":
         rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
         if 'next' in request.GET:
             print "XXXXXXXXXXXXXXXXXXXXXXXXXXX" 
-    rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all(), "jumto_url": jumpto_url})
+    rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
     return rendered
 
 def detail(request, input_slug):
