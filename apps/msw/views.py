@@ -1,3 +1,4 @@
+import pprint
 import jingo
 import bleach
 from msw.models import Page, RichText, RichTextForm
@@ -33,20 +34,67 @@ from ratelimit.decorators import ratelimit
 def login(request):
     redirect_to = reverse('mswindex')
     if request.user.is_authenticated():
-        print "Already logged in"
+        print "Welcome. You're already logged in. Username: "
+        print request.user
+    else:
+        print "New user, please log in. Username?:"
+        print request.user
+
     if request.method == "POST":
-        form = forms.AuthenticationForm(data=request.POST)
+        print "Inside POST"
+        # aeou
+        form = forms.AuthenticationForm(request=request, data=request.POST, only_active=True)
         if form.is_valid():
+            print "\n@ IS VALID"
+            print "isvaild ------------------------"
+            print request.session
+            print "isvalid - - - - - - -- - - - -"
+            print "isvaild keys:"
+            print request.session.keys()
+            print "isvalid items:"
+            print request.session.items()
+            print "isvalid &&&&&&&&&&&&&&&&&&&&&&&&"
             auth_login(request, form.get_user())
 
+            # Check that the test cookie worked (we set it below):
+            # for more info: http://www.djangobook.com/en/1.0/chapter12/
             if request.session.test_cookie_worked():
+                print "\n@ TEST COOKIE WORKED!!!"
+                print "cookWorked ------------------------"
+                print request.session
+                print "cookWorked - - - - - - -- - - - -"
+                print "cookWorked keys:"
+                print request.session.keys()
+                print "cookWorked items:"
+                print request.session.items()
+                print "cookWorked &&&&&&&&&&&&&&&&&&&&&&&&"
+                # The test cookie worked, so delete it.
                 request.session.delete_test_cookie()    
-
+                print "cookWorked after DELETED keys:"
+                print request.session.keys()
+                print "cookWorked after DELETED items:"
+                print request.session.items()
+                # the "else" case ... when test cookie failed case is at "def check_for_test_cookie()" in contrib/auth/forms.py?
+            else: # put it here just in case
+                print "Cookies NOT ENABLED! Should enable cookies and try again."
+                #return HttpResponse("Please enable cookies and try again.")
+            
             return HttpResponseRedirect(redirect_to)
     else: 
-        form = forms.AuthenticationForm()
+        form = forms.AuthenticationForm(request=request)
     
+    # If we didn't post, send the test cookie
+    # along with the login form (set above).
     request.session.set_test_cookie()
+    print "\n@ SET COOKIE"
+    print "setcook ------------------------"
+    print request.session
+    print "setcook - - - - - - -- - - - -"
+    print "setcook keys:"
+    print request.session.keys()
+    print "setcook items:"
+    print request.session.items()
+    print "setcook &&&&&&&&&&&&&&&&&&&&&&&&"
 
     ctx = {
         'all_pages_list': Page.objects.all(),
@@ -121,13 +169,25 @@ def logout(request):
 ########################
 #### pages:
 
-#@login_required
+@login_required
 def index(request):
+    print "^ ^ ^ ^ ^ Welcome to the Index Page ^ ^ ^ "
+    print "request.user: "
+    print request.user
     if request.user.is_authenticated():
-        print "You're logged in :DDDDDDD"
+        print "@ IndexPage and You're logged in :DDDDDDD"
     else:
-        print "Not logged in :(:(:(:(:("
-    print "YYYYYYYYYYYYYYYYYYYYYYYYY"
+        print "@ IndexPage and You're NOT LOGGED IN :( :(:(:("
+        print "\n@ Index page"
+        print "indexPage ------------------------"
+        print request.session
+        print "indexPage - - - - - - -- - - - -"
+        print "indexPage keys:"
+        print request.session.keys()
+        print "indexPafe items:"
+        print request.session.items()
+        print "&&&&&&&&&&&&&&&&&&&&&&&&"
+        print "@ IndexPage and Not logged in :(:(:(:(:("
     if request.method == "GET":
         rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
         if 'next' in request.GET:

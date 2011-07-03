@@ -12,6 +12,13 @@
     <p><strong>Invalid credentials</strong></p>
   {% endif %}
 
+{{ user }}
+ 
+  {% if user.is_authenticated() %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+  {% else %}
+    <p>Welcome, new user. Please log in.</p>
+  {% endif %}
 
   <form action="" method="post">
     {{ csrf() }}

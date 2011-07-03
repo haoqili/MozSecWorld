@@ -325,7 +325,11 @@ AUTH_PROFILE_MODULE = 'msw.UserProfile'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 1209600
-SESSION_COOKIE_SECURE = True
+
+
+# TODO: When we use SSL, enable this!
+SESSION_COOKIE_SECURE = False
+
 SESSION_COOKIE_HTTPONLY = True
 HOSTNAME = socket.gethostname()
 DOMAIN = HOSTNAME
