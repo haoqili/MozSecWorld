@@ -42,7 +42,8 @@ def login(request):
 
     if request.method == "POST":
         print "Inside POST"
-        # aeou
+        # this AuthenticationForm() takes care of a lot things, such as testing that the cookie worked
+        # TOASK: Does it take care of authenticate()? https://docs.djangoproject.com/en/dev/topics/auth/#django.contrib.auth.login see the note.
         form = forms.AuthenticationForm(request=request, data=request.POST, only_active=True)
         if form.is_valid():
             print "\n@ IS VALID"

@@ -1,5 +1,7 @@
 # Django settings file for a project based on the playdoh template.
-# manage.py replaces this with settings_local.py
+# settings_local.py (for private settings) will append to 
+# this file by doing "from settings import *"
+# and manage.py will just load settings_local.py
 
 import os
 import socket
@@ -21,25 +23,7 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = ()
 MANAGERS = ADMINS
 
-# THIS IS AN EXAMPLE of what yours should look like
-# Put in real values in settings_local.py
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'the database name',
-        'USER': 'the user name',
-        'PASSWORD': 'the password',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': 'SET storage_engine=InnoDB',
-            'charset' : 'utf8',
-            'use_unicode' : True,
-        },
-        'TEST_CHARSET': 'utf8',
-        'TEST_COLLATION': 'utf8_general_ci',
-    },
-}
+# DATABASES values set in settings_local.py
 
 # Recipients of traceback emails and other notifications.
 ADMINS = (
@@ -54,9 +38,6 @@ DEBUG = TEMPLATE_DEBUG = True
 # Is this a development instance? Set this to True on development/master
 # instances and False on stage/prod.
 DEV = True
-
-
-
 
 
 # Site ID is used by Django's Sites framework.
@@ -155,6 +136,7 @@ ADMIN_MEDIA_PREFIX = '/admin-media/'
 SECRET_KEY = '1iz#v0m55@h26^m6hxk3a7at*h$qj_2a$juu1#nv50548j(x1v'
 
 # List of callables that know how to import templates from various sources.
+# Template_loaders find templates in the app
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -174,8 +156,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 TEMPLATE_DIRS = (
-    #path('templates'),
-    "/Users/haoqili/dev/playdoh/playdoh/playdoh/templates",
+    path('templates'),
+    # change it to your own path
+    #"/Users/haoqili/dev/playdoh/playdoh/playdoh/templates",
 )
 
 def JINJA_CONFIG():
@@ -200,6 +183,9 @@ def JINJA_CONFIG():
 # and js files that can be bundled together by the minify app.
 MINIFY_BUNDLES = {
     'css': {
+        'main_css': (
+            'css/msw/main.css',
+        ),
         'example_css': (
             'css/examples/main.css',
         ),
@@ -219,6 +205,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # authenticationmiddleware must be after sessionmiddleware
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
@@ -228,7 +215,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = '%s.urls' % ROOT_PACKAGE
 
 INSTALLED_APPS = (
-    'msw',
+    'msw', # MozSecWorld! :D
     # Local apps
     'commons',  # Content common to most playdoh-based apps.
     'jingo_minify',
@@ -259,8 +246,6 @@ INSTALLED_APPS = (
 
     # L10n
     'product_details',
-    'registration', # http://www.stonemind.net/blog/2007/04/13/django-registration-for-newbies/
-
 )
 
 # Tells the extract script what files to look for L10n in and what function
@@ -292,10 +277,8 @@ JAVA_BIN = '/usr/bin/java'
 
 ## Auth
 PWD_ALGORITHM = 'bcrypt'
-BCRYPT_ROUNDS = 12
-HMAC_KEYS = {
-    '2011-01-01': 'cheesecake',
-}
+BCRYPT_ROUNDS = 12 # 12 is the default
+# HMAC_KEYS set in settings_local.py
 
 ## Tests
 TEST_RUNNER = 'test_utils.runner.RadicalTestSuiteRunner'
@@ -314,26 +297,25 @@ CELERY_IGNORE_RESULT = True
 GOOGLE_SAFEBROWSING_LOOKUP = True
 GSB_HOST = "https://sb-ssl.google.com"
 GSB_PATH = "/safebrowsing/api/lookup"
-GSB_API_KEY = None
+# GSB_API_KEY set in settings_local.py
 
 ## Accounts stuff
 AUTH_PROFILE_MODULE = 'msw.UserProfile'
 
 ## Sessions 
 # copied from zamboni https://github.com/jbalogh/zamboni/blob/master/settings.py
-# Default to short expiration; check "remember me" to override
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+#SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 1209600
-
-
-# TODO: When we use SSL, enable this!
+# TODO: When we use SSL, enable SESSION_COOKIE_SECURE!
 SESSION_COOKIE_SECURE = False
-
 SESSION_COOKIE_HTTPONLY = True
-HOSTNAME = socket.gethostname()
-DOMAIN = HOSTNAME
-SESSION_COOKIE_DOMAIN = ".%s" % DOMAIN 
+# incorrect SESSION_COOKIE_DOMAIN also causes browser doesn't ... have cookies enabled
+# hostname is "host-3-248.mv.mozilla.com", so can't use
+#HOSTNAME = socket.gethostname()
+#DOMAIN = HOSTNAME
+#SESSION_COOKIE_DOMAIN = ".%s" % DOMAIN 
 
 # https://docs.djangoproject.com/en/dev/ref/settings/?from=olddocs#login-url
 
@@ -347,5 +329,4 @@ LOGIN_REDIRECT_URL = "/msw/"
 
 # recaptcha stuff http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
 # create keys https://www.google.com/recaptcha/admin/create
-RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = ''
+# RECAPTCHA_*_KEY set in settings_local.py
