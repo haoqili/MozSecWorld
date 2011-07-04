@@ -1,4 +1,3 @@
-import pprint
 import jingo
 import bleach
 from msw.models import Page, RichText, RichTextForm
@@ -34,51 +33,21 @@ from ratelimit.decorators import ratelimit
 def login(request):
     redirect_to = reverse('mswindex')
     if request.user.is_authenticated():
-        print "Welcome. You're already logged in. Username: "
-        print request.user
+        print "Welcome " + str(request.user) + "! You're already logged in."
     else:
-        print "New user, please log in. Username?:"
-        print request.user
+        print "New " + str(request.user) + " please log in"
 
     if request.method == "POST":
-        print "Inside POST"
         # this AuthenticationForm() takes care of a lot things, such as testing that the cookie worked
-        # TOASK: Does it take care of authenticate()? https://docs.djangoproject.com/en/dev/topics/auth/#django.contrib.auth.login see the note.
         form = forms.AuthenticationForm(request=request, data=request.POST, only_active=True)
         if form.is_valid():
-            print "\n@ IS VALID"
-            print "isvaild ------------------------"
-            print request.session
-            print "isvalid - - - - - - -- - - - -"
-            print "isvaild keys:"
-            print request.session.keys()
-            print "isvalid items:"
-            print request.session.items()
-            print "isvalid &&&&&&&&&&&&&&&&&&&&&&&&"
             auth_login(request, form.get_user())
 
             # Check that the test cookie worked (we set it below):
             # for more info: http://www.djangobook.com/en/1.0/chapter12/
             if request.session.test_cookie_worked():
-                print "\n@ TEST COOKIE WORKED!!!"
-                print "cookWorked ------------------------"
-                print request.session
-                print "cookWorked - - - - - - -- - - - -"
-                print "cookWorked keys:"
-                print request.session.keys()
-                print "cookWorked items:"
-                print request.session.items()
-                print "cookWorked &&&&&&&&&&&&&&&&&&&&&&&&"
                 # The test cookie worked, so delete it.
                 request.session.delete_test_cookie()    
-                print "cookWorked after DELETED keys:"
-                print request.session.keys()
-                print "cookWorked after DELETED items:"
-                print request.session.items()
-                # the "else" case ... when test cookie failed case is at "def check_for_test_cookie()" in contrib/auth/forms.py?
-            else: # put it here just in case
-                print "Cookies NOT ENABLED! Should enable cookies and try again."
-                #return HttpResponse("Please enable cookies and try again.")
             
             return HttpResponseRedirect(redirect_to)
     else: 
@@ -87,15 +56,6 @@ def login(request):
     # If we didn't post, send the test cookie
     # along with the login form (set above).
     request.session.set_test_cookie()
-    print "\n@ SET COOKIE"
-    print "setcook ------------------------"
-    print request.session
-    print "setcook - - - - - - -- - - - -"
-    print "setcook keys:"
-    print request.session.keys()
-    print "setcook items:"
-    print request.session.items()
-    print "setcook &&&&&&&&&&&&&&&&&&&&&&&&"
 
     ctx = {
         'all_pages_list': Page.objects.all(),

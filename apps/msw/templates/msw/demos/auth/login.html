@@ -12,12 +12,10 @@
     <p><strong>Invalid credentials</strong></p>
   {% endif %}
 
-{{ user }}
- 
   {% if user.is_authenticated() %}
-    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+    <p>Welcome, <b>{{ user }}</b>. You're actually already logged in. </p>
   {% else %}
-    <p>Welcome, new user. Please log in.</p>
+    <p>Welcome, <b>{{ user }}</b>. Please log in.</p>
   {% endif %}
 
   <form action="" method="post">
