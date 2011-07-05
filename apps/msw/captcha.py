@@ -1,4 +1,4 @@
-# http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
+# http://curioushq.blogspot.com/2011/07/recaptcha-on-django.html
 # http://pypi.python.org/pypi/recaptcha-client
 
 import urllib2, urllib

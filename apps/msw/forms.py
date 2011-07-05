@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext_lazy as _lazy
 
-# captcha stuff modified from 
-# http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
+# captcha stuff read:
+# http://curioushq.blogspot.com/2011/07/recaptcha-on-django.html
 from django.conf import settings
 from django import forms
 from django.utils.encoding import smart_unicode

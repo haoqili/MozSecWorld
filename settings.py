@@ -327,6 +327,6 @@ LOGIN_URL = '/msw/templates'
 # Default: '/accounts/profile/'
 LOGIN_REDIRECT_URL = "/msw/"
 
-# recaptcha stuff http://www.marcofucci.com/tumblelog/26/jul/2009/integrating-recaptcha-with-django/
+# Recaptcha stuff http://curioushq.blogspot.com/2011/07/recaptcha-on-django.html
 # create keys https://www.google.com/recaptcha/admin/create
 # RECAPTCHA_*_KEY set in settings_local.py
