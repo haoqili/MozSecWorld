@@ -12,11 +12,6 @@ urlpatterns = patterns('msw.views', # gets information from views.py
 
     url(r'^$', views.index, name="mswindex"), # goes to views.py's "def index"
 
-    #### Testing Login / Authentication
-    url(r'^login', views.login, name='login'),
-    (r'^register', 'register'),
-    (r'^logout', 'logout'),
-    
 
     #####
     ## Named groups, read more here: https://docs.djangoproject.com/en/1.3/topics/http/urls/#named-groups
@@ -34,6 +29,13 @@ urlpatterns = patterns('msw.views', # gets information from views.py
 
     # sql
     (r'^parameterized_sql/demo/sql_ajax_server$', 'sql_ajax_server'),
+
+    #### Testing Login / Authentication
+    url(r'^good_auth/demo/login', views.login, name='login'),
+    url(r'^good_auth/demo/register', 'register'),
+    url(r'^good_auth/demo/logout', 'logout'),
+    url(r'^good_auth/demo/membersOnly', 'membersOnly', name='membersOnly'),
+    
 
     #### --- stuff they had before ----
 

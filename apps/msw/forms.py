@@ -48,34 +48,17 @@ class ReCaptcha(forms.widgets.Widget):
             data.get(self.recaptcha_response_name, None)]
 
 
-class UserCreationCaptchaForm(auth_forms.UserCreationForm):
-    recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
-
 class UserCreationForm(auth_forms.UserCreationForm):
     pass
+
+class UserCreationCaptchaForm(auth_forms.UserCreationForm):
+    recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
 
 #-------- end captcha stuff ------------------------------------------------------
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
-    # /src/django/django/contrib/auth/forms.py
-    #email = forms.EmailField()
-    
-    # from jsocol's kitsune
-    """Overrides the default django form.
+    pass
 
-    * Doesn't prefill password on validation error.
-    * Allows logging in inactive users (initialize with `only_active=False`).
-    """
-    password = forms.CharField(label=_lazy(u"Password"),
-                               widget=forms.PasswordInput(render_value=False))
-
-    def __init__(self, request=None, only_active=True, *args, **kwargs):
-        self.only_active = only_active
-        super(AuthenticationForm, self).__init__(request, *args, **kwargs)
-
-# Decorators: https://docs.djangoproject.com/en/dev/topics/auth/#the-login-required-decorator
-#@login_required
-#def members_page(request):
-#    return HttpResponse("You're a member!")
-
+class AuthenticationCaptchaForm(auth_forms.AuthenticationForm):
+    recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")

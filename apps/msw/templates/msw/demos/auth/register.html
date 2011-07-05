@@ -10,10 +10,13 @@
 
   <p>{{ message }}
 
-  <form action="" method="post">
-    {{ csrf() }}
-    {{ form.as_p() }}
-    <p><input type="submit" value="Register me!"></p>
-  </form>
-
+  {% if form %}
+    <form action="" method="post">
+      {{ csrf() }}
+      {{ form.as_p() }}
+      <p><input type="submit" value="Register me!"></p>
+    </form>
+  {% else %}
+     <p>You are logged in as <strong>{{ user }}</strong> </p>
+  {% endif %}
 {% endblock %}

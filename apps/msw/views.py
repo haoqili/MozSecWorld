@@ -30,16 +30,24 @@ from ratelimit.decorators import ratelimit
 #### Login / Authentication
 
 # partially copied from default login view, vendor.src.django.django.cotrib.auth.views.py
+@ratelimit(field='username', method='POST')
 def login(request):
-    redirect_to = reverse('mswindex')
+    was_limited = getattr(request, 'limited', False)
+    print "login was_limited = " + str(was_limited)
+    redirect_to = reverse('membersOnly')
     if request.user.is_authenticated():
         print "Welcome " + str(request.user) + "! You're already logged in."
     else:
         print "New " + str(request.user) + " please log in"
 
     if request.method == "POST":
-        # this AuthenticationForm() takes care of a lot things, such as testing that the cookie worked
-        form = forms.AuthenticationForm(request=request, data=request.POST, only_active=True)
+        #: if exceeded threshould of 5 POSTS from save IP OR same username
+        #:    then recaptcha is used
+        if was_limited: 
+            form = forms.AuthenticationCaptchaForm(request=request, data=request.POST)
+        else:
+            # this AuthenticationForm() takes care of a lot things, such as testing that the cookie worked
+            form = forms.AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
 
@@ -69,8 +77,7 @@ def login(request):
 @ratelimit(field='username', method='POST')
 def register(request):
     was_limited = getattr(request, 'limited', False)
-    print "WASSSSSSSSSS:"
-    print was_limited
+    print "register was_limited = " + str(was_limited)
     message = ""
     if request.user.is_authenticated():
         message = "You are already logged in to an account."
@@ -126,11 +133,19 @@ def logout(request):
     return jingo.render(request, 'msw/demos/auth/logout.html', ctx)
 
 
+@login_required
+def membersOnly(request):
+    message = "welcome to the super secret members-only page!"
+    ctx = {
+        'all_pages_list': Page.objects.all(),
+        'message': message
+    }
+    return jingo.render(request, 'msw/demos/auth/membersOnly.html', ctx)
+    
 
 ########################
 #### pages:
 
-@login_required
 def index(request):
     print "^ ^ ^ ^ ^ Welcome to the Index Page ^ ^ ^ "
     print "request.user: "

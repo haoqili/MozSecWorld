@@ -1,0 +1,29 @@
+{% extends "msw/base.html" %}
+
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+    <h2>Good Authentication Tools</h2>
+
+    <p />
+    <h3>What to do</h3>
+        <p>Get bcrypt password encryption with HMAC</p>
+        <p>Get ratelimit that prompts a ReCaptcha if an IP or username has more than 5 submissions per minute.</p>
+
+    <h3>How to check</h3>
+        <p>bcrypt: check in database that password is stored with "bcrypt"</p>
+        <p>ratelimit: do 5 submissions of the same username per minute and see if captcha appears. repeat with the same IP, different usernames</p>
+    <h3>What I did</h3>
+        <p>bcrypt is automatically turned on in Playdoh. 
+        </p>
+        <p>I got recaptcha from a blog post [TODO: insert blog url]and then added ratelimit to give me the boolean prompt to use the recaptcha</p>
+
+    <h3>The demo: </h3>
+    <p>Go to <a href="/msw/good_auth/demo/register">register</a> [TODO: make url into standard way]], to see the recaptcha, give 5 invalid submissions in a row (like leave out a password field)</p>
+    <p>Go to <a href="/msw/good_auth/demo/login">login</a> [TODO: make url into standard way]], to see the recaptcha, give 5 invalid submissions in a row (like leave out a password field)</p>
+    <p>Go to <a href="/msw/good_auth/demo/logout">logout</a> [TODO: make url into standard way]], to logout</p>
+
+    <p>Once you log in, you should get into the <a href="#">logged in page</a>[TOOD: make url into standard way]</p>
+    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+{% endblock %}
