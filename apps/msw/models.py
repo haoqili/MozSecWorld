@@ -254,6 +254,22 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
+# https://github.com/jbalogh/zamboni/blob/master/apps/users/models.py#L428
+# google for the top 100 or 200 passwords and put them into 
+#   your BlacklistedPassword table manually
+class BlacklistedPassword(models.Model):
+    """Blacklisted passwords"""
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    password = models.CharField(max_length=255, unique=True, blank=False)
+
+    def __unicode__(self):
+        return self.password
+
+    @classmethod
+    def blocked(cls, password):
+        return cls.objects.filter(password=password)
+
 
 ##########################################################################
 ##########################################################################

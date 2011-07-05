@@ -15,6 +15,9 @@ from django.utils.safestring import mark_safe
 
 from msw.captcha import submit, displayhtml
 
+# Blacklisted Password
+from .models import BlacklistedPassword
+
 class ReCaptchaField(forms.CharField):
     default_error_messages = {
         'captcha_invalid': _(u'Invalid captcha')
@@ -51,8 +54,26 @@ class ReCaptcha(forms.widgets.Widget):
 class UserCreationForm(auth_forms.UserCreationForm):
     pass
 
+    # overrides src/django/django/contrib/auth/forms.py's method
+    def clean_password2(self):
+        # check that password not in blacklist
+        pw = self.cleaned_data['password1']
+        if BlacklistedPassword.blocked(pw):
+            raise forms.ValidationError(_('Please pick a less commonly used password.'))
+        # super to check that passwords agree
+        return super(UserCreationForm, self).clean_password2()
+
 class UserCreationCaptchaForm(auth_forms.UserCreationForm):
     recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
+
+    # overrides src/django/django/contrib/auth/forms.py's method
+    def clean_password2(self):
+        # check that password not in blacklist
+        pw = self.cleaned_data['password1']
+        if BlacklistedPassword.blocked(pw):
+            raise forms.ValidationError(_('Please pick a less commonly used password.'))
+        # super to check that passwords agree
+        return super(UserCreationCaptchaForm, self).clean_password2()
 
 #-------- end captcha stuff ------------------------------------------------------
 
