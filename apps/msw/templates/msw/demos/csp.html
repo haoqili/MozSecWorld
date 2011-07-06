@@ -1,0 +1,26 @@
+{% extends "msw/base.html" %}
+
+{% block head_stuff %}
+<script type="text/javascript" src="{{media('js/msw/testjs.js') }}"></script>
+{% endblock %}
+
+{% block rightPanelText %}
+    <h2>Content Security Policy</h2>
+
+    <p />
+    <h3>What to do</h3>
+        <p>Externalize all of your javascript as <code>&lt;script type="text/javascript" src="you_js_source"&gt;&lt;/script&gt;</code></p>
+
+    <h3>How to check</h3>
+        <p>no javascript in the html body.</p>
+    <h3>What I did</h3>
+        <p>Put javascript in sources</p>
+
+    <h3>The demo: </h3>
+    <p>This page contains an example XSS, <br />
+    I have put in <code>&lt;script&gt;alert("You got XSS-ed");&lt;/script&gt;</code></p>
+    <script>alert("You got XSS-ed");</script>
+    <p>View this page in Firefox and Chrome.</p>
+
+    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+{% endblock %}
