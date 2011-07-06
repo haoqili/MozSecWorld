@@ -199,7 +199,7 @@ MINIFY_BUNDLES = {
     },
     'js': {
         'csp_js': (
-            'js/msw/testjs.js',
+            'js/msw/external.js',
         ),
         'example_js': (
             'js/libs/jquery-1.4.4.min.js',
