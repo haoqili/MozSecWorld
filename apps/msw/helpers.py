@@ -1,6 +1,8 @@
 import jinja2
 from jingo import register
 
+from msw import urlparams
+
 @register.function # kumar: register makes it available to jina templates
 @jinja2.contextfunction
 def media(context, url, key='MEDIA_URL'):
@@ -11,4 +13,4 @@ def media(context, url, key='MEDIA_URL'):
         build = context['BUILD_ID_CSS']
     else:
         build = context['BUILD_ID_IMG']
-    return context[key] + utils.urlparams(url, b=build)
+    return context[key] + urlparams(url, b=build)
