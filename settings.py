@@ -191,6 +191,9 @@ MINIFY_BUNDLES = {
         ),
     },
     'js': {
+        'msw': (
+            'js/msw/testjs.js',
+        ),
         'example_js': (
             'js/libs/jquery-1.4.4.min.js',
         ),
