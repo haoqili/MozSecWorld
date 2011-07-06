@@ -191,7 +191,7 @@ MINIFY_BUNDLES = {
         ),
     },
     'js': {
-        'msw': (
+        'csp_js': (
             'js/msw/testjs.js',
         ),
         'example_js': (
