@@ -21,6 +21,9 @@ Download recaptcha-client http://pypi.python.org/pypi/recaptcha-client read http
 - Use PyOpenSSL and sockets, not urllib, because urllib's urlopen does not check the SSL server certificates [warning on urllib documentation](http://docs.python.org/library/urllib.html), thus becoming vulnerable to Man-In-The-Middle attacks.
 --> PyOpenSSL install: `pip install pyopenssl`
 
+# Content security policy middleware:
+- `git clone https://github.com/mozilla/django-csp.git` and then `cd django-csp` and `python setup.py install`
+
 License
 -------
 TBD

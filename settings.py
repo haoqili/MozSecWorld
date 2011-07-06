@@ -116,6 +116,13 @@ LANGUAGES = lazy(lazy_langs, dict)()
 SUPPORTED_NONLOCALES = ['media']
 
 
+HOSTNAME = socket.gethostname()
+DOMAIN = HOSTNAME
+# Full base URL for your main site including protocol.  No trailing slash.
+#   Example: https://addons.mozilla.org
+SITE_URL = 'http://%s' % DOMAIN
+STATIC_URL = SITE_URL
+
 ## Media and templates.
 
 # Absolute path to the directory that holds media.
@@ -213,7 +220,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 
     'commonware.middleware.FrameOptionsHeader',
+
+    # content security policy: 
+    # https://github.com/mozilla/django-csp
+    'csp.middleware.CSPMiddleware',
 )
+
 
 ROOT_URLCONF = '%s.urls' % ROOT_PACKAGE
 
@@ -249,6 +261,9 @@ INSTALLED_APPS = (
 
     # L10n
     'product_details',
+
+    # Content security policy
+    'csp',
 )
 
 # Tells the extract script what files to look for L10n in and what function
@@ -316,8 +331,6 @@ SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = True
 # incorrect SESSION_COOKIE_DOMAIN also causes browser doesn't ... have cookies enabled
 # hostname is "host-3-248.mv.mozilla.com", so can't use
-#HOSTNAME = socket.gethostname()
-#DOMAIN = HOSTNAME
 #SESSION_COOKIE_DOMAIN = ".%s" % DOMAIN 
 
 # https://docs.djangoproject.com/en/dev/ref/settings/?from=olddocs#login-url
@@ -333,3 +346,31 @@ LOGIN_REDIRECT_URL = "/msw/"
 # Recaptcha stuff http://curioushq.blogspot.com/2011/07/recaptcha-on-django.html
 # create keys https://www.google.com/recaptcha/admin/create
 # RECAPTCHA_*_KEY set in settings_local.py
+
+
+# CSP Settings
+# based on zamboni
+#CSP_REPORT_URI = '/services/csp/report'
+#CSP_POLICY_URI = '/services/csp/policy?build=%s' % build_id
+#CSP_REPORT_ONLY = True 
+
+CSP_ALLOW = ("'self'",)
+#CSP_IMG_SRC = ("'self'", STATIC_URL,
+#               "https://www.google.com",  # Recaptcha comes from google
+#               "https://statse.webtrendslive.com",
+#               "https://www.getpersonas.com",
+#               "https://s3.amazonaws.com",  # getsatisfaction
+#              )    
+CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
+                  "https://www.google.com",  # Recaptcha
+                  )    
+#CSP_STYLE_SRC = ("'self'", STATIC_URL,)
+#CSP_OBJECT_SRC = ("'none'",)
+#CSP_MEDIA_SRC = ("'none'",)
+#CSP_FRAME_SRC = ("https://s3.amazonaws.com",  # getsatisfaction
+#                 "https://getsatisfaction.com",  # getsatisfaction
+#                )    
+#CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
+# self is needed for paypal which sends x-frame-options:allow when needed.
+# x-frame-options:DENY is sent the rest of the time.
+#CSP_FRAME_ANCESTORS = ("'self'",)
