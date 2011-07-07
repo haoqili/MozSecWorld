@@ -26,3 +26,7 @@
   </form>
 
 {% endblock %}
+
+{% block body_end %}
+{% include("msw/recaptcha_js.html") %}
+{% endblock %}

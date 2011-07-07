@@ -160,6 +160,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
     'commons.context_processors.i18n',
     'jingo_minify.helpers.build_ids',
+    
+    'msw.context_processors.global_settings',
 )
 
 TEMPLATE_DIRS = (
@@ -219,6 +221,9 @@ MINIFY_BUNDLES = {
         ),
         'csp_alert': (
             'js/msw/csp_external.js',
+        ),
+        'captcha_return': (
+            'js/ms/captcha_return.js',
         ),
     }
 }
@@ -361,7 +366,9 @@ LOGIN_REDIRECT_URL = "/msw/"
 
 # Recaptcha stuff http://curioushq.blogspot.com/2011/07/recaptcha-on-django.html
 # create keys https://www.google.com/recaptcha/admin/create
-# RECAPTCHA_*_KEY set in settings_local.py
+# RECAPTCHA_PUBLIC_KEY set in settings_local.py
+# RECAPTCHA_PRIVATE_KEY set in settings_local.py
+# RECAPTCHA_URL set in settings_local.py
 
 
 # CSP Settings
@@ -371,22 +378,23 @@ LOGIN_REDIRECT_URL = "/msw/"
 #CSP_REPORT_ONLY = True 
 
 CSP_ALLOW = ("'self'", "https://www.google.com", "http://www.google.com")
-#CSP_IMG_SRC = ("'self'", STATIC_URL,
-#               "https://www.google.com",  # Recaptcha comes from google
+CSP_IMG_SRC = ("'self'", STATIC_URL,
+               "https://www.google.com",  # Recaptcha comes from google
+               "http://www.google.com",  # Recaptcha comes from google
 #               "https://statse.webtrendslive.com",
 #               "https://www.getpersonas.com",
 #               "https://s3.amazonaws.com",  # getsatisfaction
-#              )    
+              )    
 CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                   "https://www.google.com",  # Recaptcha
                   "http://www.google.com",  # Recaptcha
                   )    
-#CSP_STYLE_SRC = ("'self'", STATIC_URL,)
-#CSP_OBJECT_SRC = ("'none'",)
-#CSP_MEDIA_SRC = ("'none'",)
+CSP_STYLE_SRC = ("'self'", STATIC_URL,)
+CSP_OBJECT_SRC = ("'none'",)
+CSP_MEDIA_SRC = ("'none'",)
 CSP_FRAME_SRC = ("*", # allow all for the x-frame-options demo
                 )    
-#CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
+CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
 # self is needed for paypal which sends x-frame-options:allow when needed.
 # x-frame-options:DENY is sent the rest of the time.
-#CSP_FRAME_ANCESTORS = ("'self'",)
+CSP_FRAME_ANCESTORS = ("'self'",)
