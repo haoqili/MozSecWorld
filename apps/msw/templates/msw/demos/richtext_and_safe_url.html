@@ -34,17 +34,11 @@
       <div id="results">
       {% include 'msw/demos/children/richtext_table.html' %}
       </div>
-      <script type="text/javascript">
-          $("#myform").submit(function(){
-              $.post(location.href, $('#myform').serialize(), function(d) {
-  $('#results').html(d);
-                  
-  });
-              return false;
-                  })
-      </script>
-
     <!---------------->
 
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+{% endblock %}
+
+{% block body_end %}
+{{ js('richtext_safeurl') }}
 {% endblock %}

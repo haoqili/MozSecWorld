@@ -3,7 +3,7 @@
     <title>Mozilla Secure World</title>
     {{ css('main_css') }}
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    {{ js('common') }}
     {% block head_stuff %}
     {% endblock %}
 
@@ -49,6 +49,8 @@
     </div><!-- rightPanel -->
 
     </div><!--mainPart-->
+    {% block body_end %}
+    {% endblock %}
 </body>
 </html>
 

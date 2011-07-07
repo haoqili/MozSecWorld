@@ -198,11 +198,27 @@ MINIFY_BUNDLES = {
         ),
     },
     'js': {
-        'csp_js': (
-            'js/msw/external.js',
-        ),
-        'example_js': (
+        # JS files common to the entire msw site.
+        'common': (
             'js/libs/jquery-1.4.4.min.js',
+        ),
+        'xframe_checkurl': (
+            'js/msw/xframe_checkurl.js',
+        ),
+        'httponly_viewcookie': (
+            'js/msw/httponly_viewcookie.js',
+        ),
+        'sql_ajax': (
+            'js/msw/sql_ajax.js',
+        ),
+        'sql_button': (
+            'js/msw/sql_button.js',
+        ),
+        'richtext_safeurl': (
+            'js/msw/richtext_safeurl.js',
+        ),
+        'csp_alert': (
+            'js/msw/csp_external.js',
         ),
     }
 }
@@ -367,9 +383,8 @@ CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
 #CSP_STYLE_SRC = ("'self'", STATIC_URL,)
 #CSP_OBJECT_SRC = ("'none'",)
 #CSP_MEDIA_SRC = ("'none'",)
-#CSP_FRAME_SRC = ("https://s3.amazonaws.com",  # getsatisfaction
-#                 "https://getsatisfaction.com",  # getsatisfaction
-#                )    
+CSP_FRAME_SRC = ("*", # allow all for the x-frame-options demo
+                )    
 #CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
 # self is needed for paypal which sends x-frame-options:allow when needed.
 # x-frame-options:DENY is sent the rest of the time.

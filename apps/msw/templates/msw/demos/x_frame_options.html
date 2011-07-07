@@ -1,12 +1,5 @@
 {% extends "msw/base.html" %}
 {% block head_stuff %}
-    <script type="text/javascript">
-        function checkUrl(){
-            var theurl = $("#inputUrl").val();
-            $("#outputIframe").attr('src', theurl);
-        }
-
-    </script>
 {% endblock %}
 
 {% block rightPanelText %}
@@ -31,7 +24,7 @@
     <br />
 
     Put your URL here: <input id="inputUrl" type="text"></input>
-    <button onclick="checkUrl()">Click me to check it!</button>
+    <button id="checkButton">Click me to check it!</button>
     <iframe id="outputIframe" src="http://www.cartoonlogodesigns.com/images/misc/Smiley%20faces/smiley%20face.jpg">Your site in this iframe</iframe>
 
     <br />
@@ -121,3 +114,6 @@ def xframe_deny(view_fn):
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
 {% endblock %}
 
+{% block body_end %}
+{{ js('xframe_checkurl') }}
+{% endblock %}

@@ -1,45 +1,5 @@
 {% extends "msw/base.html" %}
 {% block head_stuff %}
-    <script type="text/javascript">
-
-    function check(){
-        var inputSql = $("#inputSql").val();
-        //alert(inputSql);
-
-        var url = "sql_ajax_server";
-        //alert(url);
-
-        var csrfvalue = $('input[name=csrfmiddlewaretoken]').val();
-        //alert(csrfvalue);
-
-        var sendData = {comment: inputSql, csrfmiddlewaretoken: csrfvalue};
-
-        $.post(url, sendData,
-            function(data) {
-                //data modifications:
-                data = data.replace(/],/g, "<br />");
-                data = data.replace(/\[/g, "");
-                data = data.replace(/]]/g, "");
-                // Dump 
-                $('#output').html(data);
-
-                /*
-                // Prettier display CANNOT work because each char is an elet in array
-                // Clear current data
-                $('#output').html("");
-                alert(jsonData);
-                var data = $.parseJSON(jsonData); 
-                alert(data);
-                for (i=0; i<=5; i++){
-                    $('#output').append(data[i]);
-                }
-                */
-            }
-        );
-
-    }
-    </script>
-
 {% endblock %}
 
 {% block rightPanelText %}
@@ -47,7 +7,7 @@
     <h2>Parameterized SQL Satements Demo</h2>
         {{ csrf() }}
         <p>Insert SQL Statement here: <input id="inputSql" type="text"></input></p>
-        <button onclick="check()">Click me to check query</button>
+        <button id="checkButton">Click me to check query</button>
         <p>Last 5 results:</p>
         <p> <span id="output"></span></p>
         <p>Try these inputs and observe how parameterized statements take care of the different quotes:
@@ -67,4 +27,8 @@
     <h3>What I did</h3>
         <p><a href="https://docs.djangoproject.com/en/dev/topics/db/sql/#passing-parameters-into-raw">Django does parameterized statements for you</a>, but if you don't use Django for web development, you can <a href="http://rosettacode.org/wiki/Parametrized_SQL_statement#Ruby">see examples in different languages</a>.</p>
     <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+{% endblock %}
+
+{% block body_end %}
+{{ js('sql_ajax') }}
 {% endblock %}
