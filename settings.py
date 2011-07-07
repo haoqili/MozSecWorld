@@ -200,7 +200,7 @@ MINIFY_BUNDLES = {
     'js': {
         # JS files common to the entire msw site.
         'common': (
-            'js/libs/jquery-1.4.4.min.js',
+            'js/libs/jquery-1.6.2.min.js',
         ),
         'xframe_checkurl': (
             'js/msw/xframe_checkurl.js',
@@ -370,7 +370,7 @@ LOGIN_REDIRECT_URL = "/msw/"
 #CSP_POLICY_URI = '/services/csp/policy?build=%s' % build_id
 #CSP_REPORT_ONLY = True 
 
-CSP_ALLOW = ("'self'",)
+CSP_ALLOW = ("'self'", "https://www.google.com", "http://www.google.com")
 #CSP_IMG_SRC = ("'self'", STATIC_URL,
 #               "https://www.google.com",  # Recaptcha comes from google
 #               "https://statse.webtrendslive.com",
@@ -379,6 +379,7 @@ CSP_ALLOW = ("'self'",)
 #              )    
 CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                   "https://www.google.com",  # Recaptcha
+                  "http://www.google.com",  # Recaptcha
                   )    
 #CSP_STYLE_SRC = ("'self'", STATIC_URL,)
 #CSP_OBJECT_SRC = ("'none'",)
