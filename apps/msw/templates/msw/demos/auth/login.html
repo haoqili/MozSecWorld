@@ -28,5 +28,6 @@
 {% endblock %}
 
 {% block body_end %}
+{{ js('csp_alert') }}
 {% include("msw/recaptcha_js.html") %}
 {% endblock %}

@@ -373,21 +373,32 @@ LOGIN_REDIRECT_URL = "/msw/"
 
 # CSP Settings
 # based on zamboni
-#CSP_REPORT_URI = '/services/csp/report'
+#CSP_REPORT_URI = '/services/csp/repoyt'
+CSP_REPORT_URI = 'http://10.250.7.136:8010'
 #CSP_POLICY_URI = '/services/csp/policy?build=%s' % build_id
 #CSP_REPORT_ONLY = True 
 
-CSP_ALLOW = ("'self'", "https://www.google.com", "http://www.google.com")
+CSP_ALLOW = ("'self'", 
+            "https://www.google.com", 
+            "http://www.google.com", 
+            "http://haoqili.scripts.mit.edu",
+               "https://fpdownload.macromedia.com",
+               "http://www.adobe.com",
+        
+            )
 CSP_IMG_SRC = ("'self'", STATIC_URL,
                "https://www.google.com",  # Recaptcha comes from google
                "http://www.google.com",  # Recaptcha comes from google
-#               "https://statse.webtrendslive.com",
-#               "https://www.getpersonas.com",
-#               "https://s3.amazonaws.com",  # getsatisfaction
+               "http://haoqili.scripts.mit.edu",
+               "https://fpdownload.macromedia.com",
+               "http://www.adobe.com",
               )    
 CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                   "https://www.google.com",  # Recaptcha
                   "http://www.google.com",  # Recaptcha
+               "http://haoqili.scripts.mit.edu",
+               "https://fpdownload.macromedia.com",
+               "http://www.adobe.com",
                   )    
 CSP_STYLE_SRC = ("'self'", STATIC_URL,)
 CSP_OBJECT_SRC = ("'none'",)
