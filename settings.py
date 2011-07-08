@@ -223,7 +223,13 @@ MINIFY_BUNDLES = {
             'js/msw/csp_external.js',
         ),
         'captcha_return': (
-            'js/ms/captcha_return.js',
+            'js/msw/captcha_return.js',
+        ),
+        'google_recState': (
+            'js/google/recState.js',
+        ),
+        'google_recaptcha': (
+            'js/google/recaptcha.js',
         ),
     }
 }
@@ -378,7 +384,8 @@ CSP_REPORT_URI = 'http://10.250.7.136:8010'
 #CSP_POLICY_URI = '/services/csp/policy?build=%s' % build_id
 #CSP_REPORT_ONLY = True 
 
-CSP_ALLOW = ("'self'", 
+CSP_ALLOW = ("'self'",
+            "https://api-secure.recaptcha.net", 
             "https://www.google.com", 
             "http://www.google.com", 
             "http://haoqili.scripts.mit.edu",
@@ -387,6 +394,7 @@ CSP_ALLOW = ("'self'",
         
             )
 CSP_IMG_SRC = ("'self'", STATIC_URL,
+            "https://api-secure.recaptcha.net", 
                "https://www.google.com",  # Recaptcha comes from google
                "http://www.google.com",  # Recaptcha comes from google
                "http://haoqili.scripts.mit.edu",
@@ -394,6 +402,7 @@ CSP_IMG_SRC = ("'self'", STATIC_URL,
                "http://www.adobe.com",
               )    
 CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
+            "https://api-secure.recaptcha.net", 
                   "https://www.google.com",  # Recaptcha
                   "http://www.google.com",  # Recaptcha
                "http://haoqili.scripts.mit.edu",
@@ -404,6 +413,8 @@ CSP_STYLE_SRC = ("'self'", STATIC_URL,)
 CSP_OBJECT_SRC = ("'none'",)
 CSP_MEDIA_SRC = ("'none'",)
 CSP_FRAME_SRC = ("*", # allow all for the x-frame-options demo
+               "https://www.google.com",  # Recaptcha comes from google
+               "http://www.google.com",  # Recaptcha comes from google
                 )    
 CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
 # self is needed for paypal which sends x-frame-options:allow when needed.

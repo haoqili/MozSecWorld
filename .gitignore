@@ -2,6 +2,6 @@ settings_local.py
 *.pyc
 tmp*
 OpenSSL
-Google*
+GoogleSafe*
 Check*
 captchastuff

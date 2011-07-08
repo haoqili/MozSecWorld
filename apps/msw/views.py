@@ -47,8 +47,12 @@ def login(request):
             form = forms.AuthenticationCaptchaForm(request=request, data=request.POST)
         else:
             # this AuthenticationForm() takes care of a lot things, such as testing that the cookie worked
-            form = forms.AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
+            # TODO: CHANGE THIS BACK!!!!!!! DEBUGGING CSP AND RECAPTCHA ONLY!!!!!!!!!
+            #form = forms.AuthenticationCaptchaForm(request=request, data=request.POST)
+             form = forms.AuthenticationForm(request=request, data=request.POST)
+        # is_valid() executes cleaning methods
+        # https://docs.djangoproject.com/en/dev/ref/forms/validation/
+        if form.is_valid(): 
             auth_login(request, form.get_user())
 
             # Check that the test cookie worked (we set it below):

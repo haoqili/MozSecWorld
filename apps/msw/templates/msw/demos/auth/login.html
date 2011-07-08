@@ -28,6 +28,10 @@
 {% endblock %}
 
 {% block body_end %}
-{{ js('csp_alert') }}
-{% include("msw/recaptcha_js.html") %}
+testing: 
+{{ js('google_recState') }}
+{{ js('google_recaptcha') }}
+<hr />
+{# {{ js('csp_alert') }} #}
+{% include("msw/recaptcha_js.html") %} 
 {% endblock %}
