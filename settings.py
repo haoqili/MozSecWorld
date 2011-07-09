@@ -400,6 +400,10 @@ CSP_IMG_SRC = ("'self'", STATIC_URL,
                "http://haoqili.scripts.mit.edu",
                "https://fpdownload.macromedia.com",
                "http://www.adobe.com",
+                # WHAT IS THE CSP TO MAKE CAPTACH WORK?
+                "https://static-cdn.addons.mozilla.net",
+                "https://statse.webtrendslive.com", 
+                "https://www.getpersonas.com"
               )    
 CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
             "https://api-secure.recaptcha.net", 
@@ -408,13 +412,17 @@ CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                "http://haoqili.scripts.mit.edu",
                "https://fpdownload.macromedia.com",
                "http://www.adobe.com",
+                "https://static-cdn.addons.mozilla.net",
+                "https://www.paypalobjects.com",
                   )    
-CSP_STYLE_SRC = ("'self'", STATIC_URL,)
+CSP_STYLE_SRC = ("'self'", STATIC_URL,"https://static-cdn.addons.mozilla.net")
 CSP_OBJECT_SRC = ("'none'",)
 CSP_MEDIA_SRC = ("'none'",)
 CSP_FRAME_SRC = ("*", # allow all for the x-frame-options demo
                "https://www.google.com",  # Recaptcha comes from google
                "http://www.google.com",  # Recaptcha comes from google
+                "https://s3.amazonaws.com", 
+                "https://getsatisfaction.com",
                 )    
 CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
 # self is needed for paypal which sends x-frame-options:allow when needed.
