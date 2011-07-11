@@ -231,6 +231,9 @@ MINIFY_BUNDLES = {
         'google_recaptcha': (
             'js/google/recaptcha.js',
         ),
+        'moz_recaptcha': (
+            'js/msw/moz_recaptcha.js',
+        )
     }
 }
 

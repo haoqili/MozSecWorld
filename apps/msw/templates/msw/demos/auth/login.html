@@ -1,6 +1,14 @@
 {% extends "msw/base.html" %}
 {#{% load url from future %}#}
 
+{% block head_stuff %}
+{{ js('moz_recaptcha') }}  {#TODO: delete one #}
+{% if request.user.is_anonymous() %}
+  {# TODO: change to js('') format #}
+  <script type="text/javascript" src="{{ settings.RECAPTCHA_URL }}"></script>
+{% endif %}
+{% endblock %}
+
 {% block rightPanelText %}  
 {#
 {% if form.errors %}
@@ -8,6 +16,7 @@
 {% endif %}
 #}
   <h1>Log in</h1>
+{#
   {% if error %}
     <p><strong>Invalid credentials</strong></p>
   {% endif %}
@@ -25,13 +34,20 @@
     <p><input type="submit" value="Let's do this"></p>
   </form>
 
+#}
 {% endblock %}
-
 {% block body_end %}
+test moz:
+{% if form %}
+    {{ csrf() }}
+    {{ recaptcha(form) }}
+{% endif %}
+<hr />
 testing: 
 {{ js('google_recState') }}
 {{ js('google_recaptcha') }}
 <hr />
 {# {{ js('csp_alert') }} #}
 {% include("msw/recaptcha_js.html") %} 
+{{ js('moz_recaptcha') }} 
 {% endblock %}
