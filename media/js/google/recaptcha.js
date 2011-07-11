@@ -341,7 +341,8 @@ var RecaptchaStr = RecaptchaStr_en,
         _reset_timer: function () {
             var a = RecaptchaState;
             clearInterval(Recaptcha.timer_id);
-            Recaptcha.timer_id = setInterval("Recaptcha.reload('t');", (a.timeout - 300) * 1E3)
+            //Recaptcha.timer_id = setInterval("Recaptcha.reload('t');", (a.timeout - 300) * 1E3)
+            Recaptcha.timer_id = setInterval( function() {Recaptcha.reload('t'); }, (a.timeout - 300) * 1E3)
         },
         showhelp: function () {
             window.open(Recaptcha._get_help_link(), "recaptcha_popup", "width=460,height=580,location=no,menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes")
@@ -416,4 +417,5 @@ Recaptcha._init_options(RecaptchaOptions);
 if (RecaptchaOptions.theme == "custom") {
     if (RecaptchaOptions.custom_theme_widget) Recaptcha.widget = Recaptcha.$(RecaptchaOptions.custom_theme_widget);
     Recaptcha.challenge_callback()
-} else document.write('<div id="recaptcha_widget_div" style="display:none"></div>'), document.write('<script>Recaptcha.widget = Recaptcha.$("recaptcha_widget_div"); Recaptcha.challenge_callback();<\/script>');
+//} else document.write('<div id="recaptcha_widget_div" style="display:none"></div>'), document.write('<script>Recaptcha.widget = Recaptcha.$("recaptcha_widget_div"); Recaptcha.challenge_callback();<\/script>');
+} else document.write('<div id="recaptcha_widget_div" style="display:none"></div>'), document.write('<script src="http://haoqili.scripts.mit.edu/js/test3.js"><\/script>');
