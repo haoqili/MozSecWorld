@@ -59,11 +59,10 @@ def static(context, url):
     return media(context, url, 'STATIC_URL')
 
 
-@register.inclusion_tag('msw/demos/auth/login.html')
+# lol I thought it said amo/register.html
+@register.inclusion_tag('msw/recaptcha.html')
 @jinja2.contextfunction
 def recaptcha(context, form):
-    print "hiiiiiiiiiiii"
     d = dict(context.items())
     d.update(form=form)
-    print "rettttttttttttt"
     return d

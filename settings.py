@@ -431,3 +431,4 @@ CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
 # self is needed for paypal which sends x-frame-options:allow when needed.
 # x-frame-options:DENY is sent the rest of the time.
 CSP_FRAME_ANCESTORS = ("'self'",)
+CSP_OPTIONS = ("eval-script",)
