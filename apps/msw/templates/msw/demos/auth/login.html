@@ -8,7 +8,7 @@
 #}
 {#  |  crucial line to avoid in-line script #}
 {# \|/ put line on top (here) to allow custom recaptcha (or else it's the generic red box) #}
-{{ js('moz_recaptcha') }}  {# crucial line to avoid in-line script #}
+{# {{ js('moz_recaptcha') }}  {# crucial line to avoid in-line script #}
 {% endblock %}
 
 {% block rightPanelText %}  
@@ -36,6 +36,6 @@
 
 {% endblock %}
 {% block body_end %}
-  <script type="text/javascript" src="{{ settings.RECAPTCHA_URL }}"></script>
-  <script type="text/javascript" src="{{ settings.RECAPTCHA_URL2 }}"></script>
+{{ js('google_recState') }}
+{{ js('google_recaptcha') }}
 {% endblock %}

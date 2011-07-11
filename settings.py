@@ -382,10 +382,10 @@ LOGIN_REDIRECT_URL = "/msw/"
 
 # CSP Settings
 # based on zamboni
-CSP_REPORT_URI = '/services/csp/repoyt'
+#CSP_REPORT_URI = '/services/csp/repoyt'
 #CSP_REPORT_URI = 'http://10.250.7.136:8010'
-CSP_POLICY_URI = '/services/csp/policy?build=%s' % 1
-CSP_REPORT_ONLY = True
+#CSP_POLICY_URI = '/services/csp/policy?build=%s' % 1
+#CSP_REPORT_ONLY = True
 
 CSP_ALLOW = ("'self'",
             "https://api-secure.recaptcha.net", 
