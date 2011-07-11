@@ -35,6 +35,7 @@ from django.conf import settings
 #### Login / Authentication
 
 def recaptchaRefresh():
+    # test from recaptcha_refreshTest.py
     # get the Recaptcha state.
     url = "https://www.google.com/recaptcha/api/challenge?k=%s" % settings.RECAPTCHA_PUBLIC_KEY
     resock = urllib.urlopen(url)
@@ -51,7 +52,7 @@ def recaptchaRefresh():
     print "recaptcha!:"
     print recaptchaState 
 
-    f = open('../../media/js/google/recState.js', 'r+')
+    f = open('media/js/google/recState.js', 'r+')
     f.write(recaptchaState)
     f.close()
 

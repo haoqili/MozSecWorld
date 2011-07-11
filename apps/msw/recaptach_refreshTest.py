@@ -14,10 +14,6 @@ print docloc
 recaptchaState = data[:docloc]
 print recaptchaState
 
-f = open('tmp123.py', 'r+')
-f.write(recaptchaState)
-f.close()
-
-f = open('../../media/js/google/recState.js', 'r+')
+f = open('media/js/google/recState.js', 'r+')
 f.write(recaptchaState)
 f.close()
