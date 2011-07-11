@@ -1,5 +1,6 @@
 import jingo
 import bleach
+import urllib # to refresh recaptcha
 from msw.models import Page, RichText, RichTextForm
 from msw import forms
 
@@ -17,6 +18,10 @@ from django.contrib.auth.decorators import login_required
 # jsocol's ratelimiting https://github.com/jsocol/django-ratelimit
 from ratelimit.decorators import ratelimit
 
+#recaptcha refresh stuff:
+import urllib
+from django.conf import settings
+
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
 #       - corresponds to a template's html
@@ -29,9 +34,31 @@ from ratelimit.decorators import ratelimit
 ###########################
 #### Login / Authentication
 
+def recaptchaRefresh():
+    # get the Recaptcha state.
+    url = "https://www.google.com/recaptcha/api/challenge?k=%s" % settings.RECAPTCHA_PUBLIC_KEY
+    resock = urllib.urlopen(url)
+    data = resock.read()
+    resock.close()
+
+    # extract the recaptcha state part of the string
+    print "data"
+    print data
+    docloc = data.find("document.write")
+    print docloc 
+
+    recaptchaState = data[:docloc]
+    print "recaptcha!:"
+    print recaptchaState 
+
+    f = open('../../media/js/google/recState.js', 'r+')
+    f.write(recaptchaState)
+    f.close()
+
 # partially copied from default login view, vendor.src.django.django.cotrib.auth.views.py
 @ratelimit(field='username', method='POST')
 def login(request):
+    recaptchaRefresh()
     was_limited = getattr(request, 'limited', False)
     print "login was_limited = " + str(was_limited)
     redirect_to = reverse('membersOnly')
