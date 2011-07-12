@@ -11,12 +11,14 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 # User Profile / Authentication
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-
 
 # Django automatically creates a table for each "class" here, named "[app name]_[class name]"
 # so the table of "class Page" is "msw_page"
 # each attribute of a class corresponds to a column in its table
+
+####################################################
+##### Demo Pages ###################################
+
 class Page(models.Model):
     slug = models.SlugField()
     title = models.CharField(max_length=100)
@@ -33,12 +35,32 @@ class Page(models.Model):
     def __unicode__(self):
         return self.title
 
+##### Demo Pages ###################################
+####################################################
+
+
+####################################################
+##### Safe URL / RichText ##########################
+
 class RichText(models.Model):
     name = models.CharField(max_length=200)
     comment = models.TextField()
 
     def __unicode__(self):
         return self.name + ": " + self.comment
+
+##### Safe URL / RichText ##########################
+####################################################
+
+
+####################################################
+##### Access Control Members Post ##################
+
+
+
+##### Access Control Members Post ##################
+####################################################
+
 
 ####################################################
 ##### URL CHECK ####################################
@@ -242,18 +264,6 @@ class RichTextForm(ModelForm):
 ####################################################
 ##### User Profile / Authentication ################
 
-class UserProfile(models.Model):
-    # This field is required.
-    user = models.OneToOneField(User)
-
-    # Other fields here
-
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-post_save.connect(create_user_profile, sender=User)
-
 # https://github.com/jbalogh/zamboni/blob/master/apps/users/models.py#L428
 # google for the top 100 or 200 passwords and put them into 
 #   your BlacklistedPassword table manually
@@ -269,6 +279,10 @@ class BlacklistedPassword(models.Model):
     @classmethod
     def blocked(cls, password):
         return cls.objects.filter(password=password)
+
+##### User Profile / Authentication ################
+####################################################
+
 
 
 ##########################################################################

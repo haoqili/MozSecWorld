@@ -347,9 +347,6 @@ GSB_HOST = "https://sb-ssl.google.com"
 GSB_PATH = "/safebrowsing/api/lookup"
 # GSB_API_KEY set in settings_local.py
 
-## Accounts stuff
-AUTH_PROFILE_MODULE = 'msw.UserProfile'
-
 ## Sessions 
 # copied from zamboni https://github.com/jbalogh/zamboni/blob/master/settings.py
 #SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'

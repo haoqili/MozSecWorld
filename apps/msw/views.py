@@ -43,14 +43,9 @@ def recaptchaRefresh():
     resock.close()
 
     # extract the recaptcha state part of the string
-    print "data"
-    print data
     docloc = data.find("document.write")
-    print docloc 
 
     recaptchaState = data[:docloc]
-    print "recaptcha!:"
-    print recaptchaState 
 
     f = open('media/js/google/recState.js', 'r+')
     f.write(recaptchaState)
