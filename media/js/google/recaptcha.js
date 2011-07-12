@@ -388,7 +388,8 @@ var RecaptchaStr = RecaptchaStr_en,
             c.indexOf("https://") == 0 && (c = "http://" + c.substring(8));
             b = b.server + "/img/audiocaptcha.swf?v2";
             a = a._is_ie() ? '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="audiocaptcha" width="0" height="0" codebase="https://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab"><param name="movie" value="' + b + '" /><param name="quality" value="high" /><param name="bgcolor" value="#869ca7" /><param name="allowScriptAccess" value="always" /></object><br/>' : '<embed src="' + b + '" quality="high" bgcolor="#869ca7" width="0" height="0" name="audiocaptcha" align="middle" play="true" loop="false" quality="high" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer"></embed> ';
-            c = (Recaptcha.checkFlashVer() ? '<br/><a class="recaptcha_audio_cant_hear_link" href="#" onclick="Recaptcha.playAgain(); return false;">' + RecaptchaStr.play_again + "</a>" : "") + '<br/><a class="recaptcha_audio_cant_hear_link" target="_blank" href="' + c + '">' + RecaptchaStr.cant_hear_this + "</a>";
+            //c = (Recaptcha.checkFlashVer() ? '<br/><a class="recaptcha_audio_cant_hear_link" href="#" onclick="Recaptcha.playAgain(); return false;">' + RecaptchaStr.play_again + "</a>" : "") + '<br/><a class="recaptcha_audio_cant_hear_link" target="_blank" href="' + c + '">' + RecaptchaStr.cant_hear_this + "</a>";
+            c = (Recaptcha.checkFlashVer() ? '<br/><a id="audio_playagain_id" class="recaptcha_audio_cant_hear_link" href="#">' + RecaptchaStr.play_again + "</a>" : "") + '<br/><a class="recaptcha_audio_cant_hear_link" target="_blank" href="' + c + '">' + RecaptchaStr.cant_hear_this + "</a>";
             return a + c
         },
         gethttpwavurl: function () {

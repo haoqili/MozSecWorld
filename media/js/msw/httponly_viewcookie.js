@@ -22,4 +22,5 @@ function viewCookie (name) {
 }
 
 document.getElementById("name1").addEventListener('click', function(){ viewCookie("name1") }, false);
-document.getElementById("name2").addEventListener('click', function(){ viewCookie("name2") }, false);
+//document.getElementById("name2").addEventListener('click', function(){ viewCookie("name2") }, false);
+document.getElementById("name2").onclick = function(){ viewCookie("name2") };

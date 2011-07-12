@@ -233,7 +233,7 @@ MINIFY_BUNDLES = {
         ),
         'moz_recaptcha': (
             'js/msw/moz_recaptcha.js',
-        )
+        ),
     }
 }
 
@@ -383,7 +383,6 @@ LOGIN_REDIRECT_URL = "/msw/"
 # CSP Settings
 # based on zamboni
 #CSP_REPORT_URI = '/services/csp/repoyt'
-#CSP_REPORT_URI = 'http://10.250.7.136:8010'
 #CSP_POLICY_URI = '/services/csp/policy?build=%s' % 1
 #CSP_REPORT_ONLY = True
 
@@ -420,15 +419,25 @@ CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                   )    
 CSP_STYLE_SRC = ("'self'", STATIC_URL,"https://static-cdn.addons.mozilla.net")
 CSP_OBJECT_SRC = ("'none'",)
-CSP_MEDIA_SRC = ("'none'",)
+CSP_MEDIA_SRC = ("'none'",
+                  "https://www.google.com",  # Recaptcha
+                  "http://www.google.com",  # Recaptcha
+               "https://fpdownload.macromedia.com",
+               "http://www.adobe.com",
+                )
 CSP_FRAME_SRC = ("*", # allow all for the x-frame-options demo
                "https://www.google.com",  # Recaptcha comes from google
                "http://www.google.com",  # Recaptcha comes from google
                 "https://s3.amazonaws.com", 
                 "https://getsatisfaction.com",
+               "https://fpdownload.macromedia.com",
+               "http://www.adobe.com",
                 )    
 CSP_FONT_SRC = ("'self'", "fonts.mozilla.com", "www.mozilla.com", )
 # self is needed for paypal which sends x-frame-options:allow when needed.
 # x-frame-options:DENY is sent the rest of the time.
-CSP_FRAME_ANCESTORS = ("'self'",)
+CSP_FRAME_ANCESTORS = ("'self'",
+               "https://fpdownload.macromedia.com",
+               "http://www.adobe.com",
+                )
 #CSP_OPTIONS = ("eval-script",)
