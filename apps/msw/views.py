@@ -174,6 +174,13 @@ def membersOnly(request):
     }
     return jingo.render(request, 'msw/demos/auth/membersOnly.html', ctx)
     
+def membersPost(request):
+    message = "welcome to the super secret members-only posting page!"
+    ctx = {
+        'all_pages_list': Page.objects.all(),
+        'message': message
+    }
+    return jingo.render(request, 'msw/demos/auth/membersPost.html', ctx)
 
 ########################
 #### pages:

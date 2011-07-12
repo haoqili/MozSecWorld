@@ -1,0 +1,32 @@
+{% extends "msw/base.html" %}
+
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+    <h2>Access Control</h2>
+
+    <p />
+    <h3>What to do</h3>
+        <p>Separate Presentation (what users see), Business (what users do), and Data (what users act upon) layers.</p>
+
+    <h3>How to check</h3>
+        <p>Make sure that not logged in users (anonymous users), regular logged in users, and admin logged in users cannot see pages they're not supposed to see, cannot do actions that they're not authorized to do, and cannot get data they're not allowed to get.</p>
+    <h3>What I did</h3>
+        Make a posting comment page. Anonymous users cannot get into the page. Regular users can only post under their names. Admins can post under any one's name.
+        <p>
+        Presentation layer: Use @login_required to prevent anonymous users from getting into the posting comment page.  
+        </p>
+        <p>
+        </p>
+    <h3>The demo: </h3>
+    <p>Go to <a href="/msw/good_auth/demo/register">register</a> [TODO: make url into standard way]], to see the recaptcha, give 5 invalid submissions in a row (like leave out a password field)</p>
+    <p>Go to <a href="/msw/good_auth/demo/login">login</a> [TODO: make url into standard way]], to see the recaptcha, give 5 invalid submissions in a row (like leave out a password field)</p>
+    <p>Go to <a href="/msw/good_auth/demo/logout">logout</a> [TODO: make url into standard way]], to logout</p>
+
+    <p>TODO: page to make admins??</p>
+
+    <p>If you are logged in, you should be able to access the <a href="membersPost">Members Posting Page.</a> and see what you can post!</p>
+    <p>If you are an Admin, you can post as any other users!</p>
+    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+{% endblock %}

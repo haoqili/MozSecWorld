@@ -11,6 +11,7 @@
         <p>no javascript in the html body.</p>
     <h3>What I did</h3>
         <p>I added the <a href="https://github.com/mozilla/django-csp" target="_blank">django-csp</a> middleware to Django that adds 'X-Content-Security-Policy' to the HTTP Response Header</p>
+        <p>Have to make sure you have appropriate CSP policies, CSP_* settings in settings.py, so that you can retrieve javascript from external websites that you approve. Read the README of django-csp for details.</p>
 
     <h3>The demo: </h3>
     <p>This page contains 2 pieces of javascript:<br />
