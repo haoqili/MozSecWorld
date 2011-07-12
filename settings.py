@@ -418,7 +418,10 @@ CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                 "https://www.paypalobjects.com",
                   )    
 CSP_STYLE_SRC = ("'self'", STATIC_URL,"https://static-cdn.addons.mozilla.net")
-CSP_OBJECT_SRC = ("'none'",)
+CSP_OBJECT_SRC = ("'none'",
+                  "https://www.google.com",  # Recaptcha
+                  "http://www.google.com",  # Recaptcha
+                )
 CSP_MEDIA_SRC = ("'none'",
                   "https://www.google.com",  # Recaptcha
                   "http://www.google.com",  # Recaptcha
