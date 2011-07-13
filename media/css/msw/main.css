@@ -31,6 +31,13 @@ body {
     font-weight: bold;
 
 }
+#auth_container {
+    width: 800px;
+    margin: 0 auto; 
+}
+#auth {
+    float: right;
+}
 
 #leftPanel, #rightPanel {
     margin-top: 20px;
@@ -47,6 +54,7 @@ body {
     width: 570px;
     border-radius: 10px 10px 10px 10px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 0px;
 }
 
     #leftPanel h2, #rightPanel h2 {
