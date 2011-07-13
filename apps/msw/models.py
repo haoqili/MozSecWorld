@@ -56,7 +56,17 @@ class RichText(models.Model):
 ####################################################
 ##### Access Control Members Post ##################
 
+class MembersPostUser(models.Model):
+    user = models.CharField(max_length=50)
 
+    def __unicode__(self):
+        return self.user
+
+class MembersPostText(models.Model):
+    text = models.TextField()
+
+    def __unicode__(self):
+        return self.text
 
 ##### Access Control Members Post ##################
 ####################################################

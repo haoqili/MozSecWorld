@@ -2,6 +2,7 @@ import jingo
 import bleach
 import urllib # to refresh recaptcha
 from msw.models import Page, RichText, RichTextForm
+from msw.models import MembersPostUser, MembersPostText
 from msw import forms
 
 from commons.urlresolvers import reverse
@@ -173,6 +174,8 @@ def membersPost(request):
     message = "welcome to the super secret members-only posting page!"
     ctx = {
         'all_pages_list': Page.objects.all(),
+        'all_users_list': MembersPostUser.objects.all(),
+        'all_texts_list': MembersPostText.objects.all(),        
         'message': message
     }
     return jingo.render(request, 'msw/demos/auth/membersPost.html', ctx)

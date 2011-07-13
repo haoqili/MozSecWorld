@@ -1,4 +1,4 @@
-from msw.models import Page, RichText
+from msw.models import Page, RichText, MembersPostUser, MembersPostText
 from django.contrib import admin
 
 # could add more complicated stuff here consult:
@@ -7,3 +7,5 @@ from django.contrib import admin
 
 admin.site.register(Page)
 admin.site.register(RichText)
+admin.site.register(MembersPostUser)
+admin.site.register(MembersPostText)

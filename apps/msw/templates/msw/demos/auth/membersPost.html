@@ -2,9 +2,30 @@
 
 {% block rightPanelText %}  
 
-  <h1>Members Posting Page!</h1>
+    <h1>Members Posting Page!</h1>
 
-  <p>{{ message }}</p>
+    <p>{{ message }}</p>
 
+    <h2>Users</h2>
+    {% if all_users_list %}
+        <select>
+            {% for oneUser in all_users_list %}
+                <option value="{{ oneUser.user }}">{{ oneUser.user }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <p>No users yet.</p>
+    {% endif %}
 
+    <p />
+    <h2>Texts</h2>
+    {% if all_texts_list %}
+        <select>
+            {% for oneText in all_texts_list %}
+                <option value="{{ oneText.text }}">{{ oneText.text }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <p>No texts yet.</p>
+    {% endif %}
 {% endblock %}
