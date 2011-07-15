@@ -6,11 +6,19 @@
 
     <p>{{ message }}</p>
 
+    <p>
+    {% if perms.msw.superuser_display %}
+        You are super! :D (This line is an example of presentation layer)
+    {% else %}
+        YOU are NOT super! :( (This line is an example of presentation layer)
+    {% endif %}
+    </p>
+
     <h2>Users</h2>
-    {% if all_users_list %}
-        <select>
-            {% for oneUser in all_users_list %}
-                <option value="{{ oneUser.user }}">{{ oneUser.user }}</option>
+    {% if users_list %}
+        <select id="theName">
+            {% for oneUser in users_list %}
+                <option  value="{{ oneUser.user }}">{{ oneUser.user }}</option>
             {% endfor %}
         </select>
     {% else %}
@@ -20,7 +28,7 @@
     <p />
     <h2>Texts</h2>
     {% if all_texts_list %}
-        <select>
+        <select id="theText" >
             {% for oneText in all_texts_list %}
                 <option value="{{ oneText.text }}">{{ oneText.text }}</option>
             {% endfor %}
@@ -28,4 +36,15 @@
     {% else %}
         <p>No texts yet.</p>
     {% endif %}
+    <p>
+    {{ csrf() }} 
+    <button id="memPostButton">Click me to post</button>
+    </p>
+
+    <div id="output"></div>
+
+{% endblock %}
+
+{% block body_end %}
+{{ js('ac_ajax') }}
 {% endblock %}

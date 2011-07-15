@@ -2,7 +2,6 @@ import jingo
 import bleach
 import urllib # to refresh recaptcha
 from msw.models import Page, RichText, RichTextForm
-from msw.models import MembersPostUser, MembersPostText
 from msw import forms
 
 from commons.urlresolvers import reverse
@@ -13,6 +12,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection, transaction
 from django.utils import simplejson
+import json
 # User Authentication / Login
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -22,6 +22,11 @@ from ratelimit.decorators import ratelimit
 #recaptcha refresh stuff:
 import urllib
 from django.conf import settings
+
+# Access control stuff:
+from django.contrib.auth.decorators import permission_required
+from msw.models import MembersPostUser, MembersPostText
+
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -170,15 +175,66 @@ def membersOnly(request):
     }
     return jingo.render(request, 'msw/demos/auth/membersOnly.html', ctx)
     
-def membersPost(request):
-    message = "welcome to the super secret members-only posting page!"
+@permission_required('msw.superuser_display')
+def membersPostSuper(request):
+    print "YIPEEEEEE"
+    message = "welcome to the ultra super secret ultra super members-only posting page!"
     ctx = {
         'all_pages_list': Page.objects.all(),
-        'all_users_list': MembersPostUser.objects.all(),
+        'users_list': MembersPostUser.objects.all(),
         'all_texts_list': MembersPostText.objects.all(),        
         'message': message
     }
     return jingo.render(request, 'msw/demos/auth/membersPost.html', ctx)
+    
+def membersPost(request):
+    if request.user.has_perm('msw.superuser_display'):
+        print "YEAH!!!!!!!"
+        return membersPostSuper(request)
+    print "NOOOOOOO"
+    message = "welcome to the super secret members-only posting page!"
+    print "username:"
+    print request.user.username
+    print "users list:"
+    print MembersPostUser.objects.all()
+    print "------"
+    oneUserList = set()
+    #TODO: ask webdev how to do this better
+    for person in MembersPostUser.objects.all():
+        print person.user
+        if person.user == request.user.username:
+            oneUserList.add(person)
+    ctx = {
+        'all_pages_list': Page.objects.all(),
+        'users_list': oneUserList,
+        #'users_list': MembersPostUser.objects.get(username=request.user.username),
+        #'users_list': MembersPostUser.objects.all(),
+        'all_texts_list': MembersPostText.objects.all(),        
+        'message': message
+    }
+    return jingo.render(request, 'msw/demos/auth/membersPost.html', ctx)
+
+def ac_ajax_server(request):
+    if request.is_ajax():
+        usrInput = request.POST
+        theName =  usrInput['inpName']
+        theText =  usrInput['inpText']
+
+        print "####################"
+        texts = MembersPostText.objects.values();
+        print texts
+        print "&&&&&&&&&&&&&&&&&&&"
+        #import pdb; pdb.set_trace()
+        jsontexts = json.dumps(texts)
+        print "*****************************" 
+        print jsontexts
+        return HttpResponse( jsontexts)
+
+    else:
+        warning = "WARNING: SQL AJAX FAILED"        
+        print warning
+        return HttpResponse(warning)
+
 
 ########################
 #### pages:

@@ -63,10 +63,11 @@ class MembersPostUser(models.Model):
         return self.user
 
 class MembersPostText(models.Model):
+    user = models.ForeignKey(MembersPostUser)
     text = models.TextField()
 
     def __unicode__(self):
-        return self.text
+        return self.name + ": " + self.text
 
 ##### Access Control Members Post ##################
 ####################################################

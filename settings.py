@@ -234,6 +234,9 @@ MINIFY_BUNDLES = {
         'moz_recaptcha': (
             'js/msw/moz_recaptcha.js',
         ),
+        'ac_ajax': (
+            'js/msw/ac_ajax.js',
+        ),
     }
 }
 

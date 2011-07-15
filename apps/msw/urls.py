@@ -38,6 +38,7 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     
     #### Access Control
     url(r'^accesscontrol/demo/membersPost', 'membersPost'),
+    url(r'^accesscontrol/demo/ac_ajax_server', 'ac_ajax_server', name='ac_ajax_server'),
 
     #### --- stuff they had before ----
 
