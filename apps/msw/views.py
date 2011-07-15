@@ -69,6 +69,7 @@ def login(request):
     else:
         print "New " + str(request.user) + " please log in"
 
+    hasRecaptcha = True
     if request.method == "POST":
         #: if exceeded threshould of 5 POSTS from save IP OR same username
         #:    then recaptcha is used
@@ -76,9 +77,8 @@ def login(request):
             form = forms.AuthenticationCaptchaForm(request=request, data=request.POST)
         else:
             # this AuthenticationForm() takes care of a lot things, such as testing that the cookie worked
-            # TODO: CHANGE THIS BACK!!!!!!! DEBUGGING CSP AND RECAPTCHA ONLY!!!!!!!!!
-            #form = forms.AuthenticationCaptchaForm(request=request, data=request.POST)
-             form = forms.AuthenticationForm(request=request, data=request.POST)
+            hasRecaptcha = False
+            form = forms.AuthenticationForm(request=request, data=request.POST)
         # is_valid() executes cleaning methods
         # https://docs.djangoproject.com/en/dev/ref/forms/validation/
         if form.is_valid(): 
@@ -92,6 +92,7 @@ def login(request):
             
             return HttpResponseRedirect(redirect_to)
     else: 
+        hasRecaptcha = False
         form = forms.AuthenticationForm(request=request)
     
     # If we didn't post, send the test cookie
@@ -101,7 +102,8 @@ def login(request):
     ctx = {
         'all_pages_list': Page.objects.all(),
         'form': form,
-        'redirect_to': redirect_to
+        'redirect_to': redirect_to,
+        'has_recaptcha': hasRecaptcha,
     }
 
     return jingo.render(request, 'msw/demos/auth/login.html', ctx)

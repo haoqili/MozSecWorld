@@ -1,11 +1,6 @@
 {% extends "msw/base.html" %}
-{#{% load url from future %}#}
 
 {% block head_stuff %}
-{# {% if request.user.is_anonymous() %}
-  <script type="text/javascript" src="{{ settings.RECAPTCHA_URL }}"></script>
-{% endif %}
-#}
 {% endblock %}
 
 {% block rightPanelText %}  
@@ -27,14 +22,18 @@
     {{ csrf() }}
     <input type="hidden" name="next" value={{ jumpto_url }} />
     {{ form.as_p() }}
-    {{ recaptcha(form) }}
+    {% if has_recaptcha %}
+        {{ recaptcha(form) }}
+    {% endif %}
     <p><input type="submit" value="Let's do this"></p>
   </form>
 
 {% endblock %}
 {% block body_end %}
-{{ js('moz_recaptcha') }}  {# crucial line to avoid in-line script #}
-{{ js('google_recState') }}
-{{ js('google_recaptcha') }}
+{% if has_recaptcha %}
+    {{ js('moz_recaptcha') }}  {# crucial line to avoid in-line script #}
+    {{ js('google_recState') }}
+    {{ js('google_recaptcha') }}
+{% endif %}
 <script type="text/javascript" src="http://haoqili.scripts.mit.edu/js/test4.js"></script>
 {% endblock %}

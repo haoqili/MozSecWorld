@@ -80,12 +80,8 @@ class UserCreationCaptchaForm(auth_forms.UserCreationForm):
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
     #TODO: delete recaptcha from this form once recaptcha works
-    recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
+    #recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
+    pass
 
 class AuthenticationCaptchaForm(auth_forms.AuthenticationForm):
     recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
-    def __init__(self, *args, **kwargs):
-        super(AuthenticationCaptchaForm, self).__init__(*args, **kwargs)
-
-        if self.fields.get('recaptcha'):
-            del self.fields['recaptcha']
