@@ -219,18 +219,34 @@ def membersPost(request):
 def ac_ajax_server(request):
     if request.is_ajax():
         usrInput = request.POST
+
         theName =  usrInput['inpName']
+        # Get the User, since the 2 tables are linked, must get user object!
+        theUser = MembersPostUser.objects.get(user=theName)
+
         theText =  usrInput['inpText']
 
+        # TODO: check new entry
+
+        # put new entry into database
+        MembersPostText.objects.create(text=theText, user=theUser)
+        
+        # publish it
+        file = 'msw/demos/children/ac_ajax_table.html'
         print "####################"
-        texts = MembersPostText.objects.values();
-        print texts
-        print "&&&&&&&&&&&&&&&&&&&"
+        ctx = {
+            "all_posttext_list": MembersPostText.objects.all().order_by('-id')
+        }
+        response = jingo.render(request, file, ctx)
+        return response
+
+        # Attempting JSON
+        #print "&&&&&&&&&&&&&&&&&&&"
         #import pdb; pdb.set_trace()
-        jsontexts = json.dumps(texts)
-        print "*****************************" 
-        print jsontexts
-        return HttpResponse( jsontexts)
+        #jsontexts = json.dumps(texts)
+        #print "*****************************" 
+        #print jsontexts
+        #return HttpResponse( jsontexts)
 
     else:
         warning = "WARNING: SQL AJAX FAILED"        

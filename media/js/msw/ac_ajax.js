@@ -1,8 +1,8 @@
     function postme(){
         var theName = $('#theName option:selected').text();
-        alert(theName);
+        //alert(theName);
         var theText = $('#theText option:selected').text();
-        alert(theText);
+        //alert(theText);
 
         url = "ac_ajax_server";
 

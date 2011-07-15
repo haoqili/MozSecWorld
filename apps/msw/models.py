@@ -67,7 +67,7 @@ class MembersPostText(models.Model):
     text = models.TextField()
 
     def __unicode__(self):
-        return self.name + ": " + self.text
+        return str(self.user) + ": " + self.text
 
 ##### Access Control Members Post ##################
 ####################################################
