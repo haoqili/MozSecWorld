@@ -1,6 +1,6 @@
-    {% if all_posttext_list %}
-        {% for posttext in all_posttext_list %}
-            <p>{{ posttext.user|safe }} : {{ posttext.text|safe }}</p>
+    {% if all_postsay_list %}
+        {% for postsay in all_postsay_list %}
+            <p>{{ postsay.mpuser|safe }} : {{ postsay.mptext|safe }}</p>
         {% endfor %}
     {% else %}
         <p>Nobody has posted anything yet</p>

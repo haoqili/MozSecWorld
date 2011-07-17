@@ -25,7 +25,7 @@ from django.conf import settings
 
 # Access control stuff:
 from django.contrib.auth.decorators import permission_required
-from msw.models import MembersPostUser, MembersPostText
+from msw.models import MembersPostUser, MembersPostText, MembersPostSay
 
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
@@ -220,22 +220,24 @@ def ac_ajax_server(request):
     if request.is_ajax():
         usrInput = request.POST
 
-        theName =  usrInput['inpName']
         # Get the User, since the 2 tables are linked, must get user object!
-        theUser = MembersPostUser.objects.get(user=theName)
+        inpUser=  usrInput['inpName']
+        theUser = MembersPostUser.objects.get(user=inpUser)
 
-        theText =  usrInput['inpText']
+        # Get the Text, since the 2 tables are linked, must get text object!
+        inpText =  usrInput['inpText']
+        theText = MembersPostText.objects.get(text=inpText)
 
         # TODO: check new entry
 
         # put new entry into database
-        MembersPostText.objects.create(text=theText, user=theUser)
+        MembersPostSay.objects.create(mpuser=theUser, mptext=theText)
         
         # publish it
         file = 'msw/demos/children/ac_ajax_table.html'
         print "####################"
         ctx = {
-            "all_posttext_list": MembersPostText.objects.all().order_by('-id')
+            "all_postsay_list": MembersPostSay.objects.all().order_by('-id')
         }
         response = jingo.render(request, file, ctx)
         return response
