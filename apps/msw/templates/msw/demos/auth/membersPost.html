@@ -14,11 +14,11 @@
     {% endif %}
     </p>
 
-    <h2>Users</h2>
+    <h2>Select a user</h2>
     {% if users_list %}
         <select id="theName">
             {% for oneUser in users_list %}
-                <option  value="{{ oneUser.user }}">{{ oneUser.user }}</option>
+                <option  value="{{ oneUser.id }}">{{ oneUser.user }}</option>
             {% endfor %}
         </select>
     {% else %}
@@ -26,11 +26,11 @@
     {% endif %}
 
     <p />
-    <h2>Texts</h2>
+    <h2>Select what to say</h2>
     {% if all_texts_list %}
         <select id="theText" >
             {% for oneText in all_texts_list %}
-                <option value="{{ oneText.text }}">{{ oneText.text }}</option>
+                <option value="{{ oneText.id }}">{{ oneText.text }}</option>
             {% endfor %}
         </select>
     {% else %}

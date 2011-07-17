@@ -218,27 +218,53 @@ def membersPost(request):
 
 def ac_ajax_server(request):
     if request.is_ajax():
+        print "in ac_ajax_server"
+        tamperBoo = False
+
         usrInput = request.POST
 
-        # Get the User, since the 2 tables are linked, must get user object!
-        inpUser=  usrInput['inpName']
-        theUser = MembersPostUser.objects.get(user=inpUser)
+        # Get the user from user id
+        inpUserId = usrInput['inpNameId']
+        # check that the UserId is valid
+        # step_0. get the user's id from server side
+        serversUser = MembersPostUser.objects.get(user = request.user.username)
+        serversUserId = serversUser.id
+        # step_1. If user is super, ID must be within the range of ids
+        addUser = ""
+        if request.user.has_perm('msw.superuser_display'):
+            try:
+                addUser = MembersPostUser.objects.get(id = inpUserId)
+            except:
+                tamperBoo = True
+        # step_2. If user is not super, ID must match its userid
+        else:
+            if int(serversUserId) == int(inpUserId):
+                addUser = MembersPostUser.objects.get(id = inpUserId)
+            else:
+                tamperBoo = True
 
         # Get the Text, since the 2 tables are linked, must get text object!
-        inpText =  usrInput['inpText']
-        theText = MembersPostText.objects.get(text=inpText)
-
-        # TODO: check new entry
+        inpTextId = usrInput['inpTextId']
+        # check that it's in range
+        try:
+            addText = MembersPostText.objects.get(id = inpTextId)
+        except:
+            tamperBoo = True
 
         # put new entry into database
-        MembersPostSay.objects.create(mpuser=theUser, mptext=theText)
+        if not tamperBoo:
+            MembersPostSay.objects.create(mpuser=addUser, mptext=addText)
         
         # publish it
         file = 'msw/demos/children/ac_ajax_table.html'
-        print "####################"
-        ctx = {
-            "all_postsay_list": MembersPostSay.objects.all().order_by('-id')
-        }
+        if tamperBoo:
+            ctx = {
+                "tamper_msg": "Please stop tampering"
+            }
+        else:
+            ctx = {
+                "all_postsay_list": MembersPostSay.objects.all().order_by('-id')
+            }
         response = jingo.render(request, file, ctx)
         return response
 

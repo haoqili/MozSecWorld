@@ -1,8 +1,14 @@
-    {% if all_postsay_list %}
-        {% for postsay in all_postsay_list %}
-            <p>{{ postsay.mpuser|safe }} : {{ postsay.mptext|safe }}</p>
-        {% endfor %}
+    {% if tamper_msg %}
+        {{ tamper_msg }}
     {% else %}
-        <p>Nobody has posted anything yet</p>
+
+        {% if all_postsay_list %}
+            {% for postsay in all_postsay_list %}
+                <p>{{ postsay.mpuser|safe }} : {{ postsay.mptext|safe }}</p>
+            {% endfor %}
+        {% else %}
+            <p>Nobody has posted anything yet</p>
+        {% endif %}
+
     {% endif %}
 

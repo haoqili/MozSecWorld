@@ -1,16 +1,14 @@
     function postme(){
-        var theName = $('#theName option:selected').text();
-        //alert(theName);
-        var theText = $('#theText option:selected').text();
-        //alert(theText);
+        var theNameId = $('#theName option:selected').val();
+        var theTextId = $('#theText option:selected').val();
 
         url = "ac_ajax_server";
 
         var csrfvalue = $('input[name=csrfmiddlewaretoken]').val();
 
         var sendData = {
-            inpName: theName,
-            inpText: theText,
+            inpNameId: theNameId,
+            inpTextId: theTextId,
             csrfmiddlewaretoken: csrfvalue
         };
 
