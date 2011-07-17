@@ -218,7 +218,7 @@ def membersPost(request):
 
 def ac_ajax_server(request):
     if request.is_ajax():
-        print "in ac_ajax_server"
+        print "at ac_ajax_server"
         tamperBoo = False
 
         usrInput = request.POST
