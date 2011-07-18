@@ -1,22 +1,20 @@
 {% extends "msw/base.html" %}
-{#{% load url from future %}#}
 
 {% block rightPanelText %}  
 
-  <h1>Register</h1>
-  {% if error %}
-    <p><strong>Invalid credentials</strong></p>
-  {% endif %}
+    <h1>Register</h1>
 
-  <p>{{ message }}
+    <p>{{ message }}</p>
 
-  {% if form %}
-    <form action="" method="post">
-      {{ csrf() }}
-      {{ form.as_p() }}
-      <p><input type="submit" value="Register me!"></p>
-    </form>
-  {% else %}
-     <p>You are logged in as <strong>{{ user }}</strong> </p>
-  {% endif %}
+    {% if form %}
+        <p>You are currently <strong>{{ user }}</strong>.</p>
+        <form action="" method="post">
+            {{ csrf() }}
+            {{ form.as_p() }}
+            <p><input type="submit" value="Register me!"></p>
+        </form>
+    {% else %}
+        <p>You are logged in as <strong>{{ user }}</strong> </p>
+    {% endif %}
+
 {% endblock %}

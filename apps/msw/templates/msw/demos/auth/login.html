@@ -4,36 +4,37 @@
 {% endblock %}
 
 {% block rightPanelText %}  
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-  <h1>Log in</h1>
-  {% if error %}
-    <p><strong>Invalid credentials</strong></p>
-  {% endif %}
 
-  {% if user.is_authenticated() %}
-    <p>Welcome, <b>{{ user }}</b>. You're actually already logged in. </p>
-  {% else %}
-    <p>Welcome, <b>{{ user }}</b>. Please log in.</p>
-  {% endif %}
+    <h1>Log in</h1>
 
-  <form action="" method="post">
-    {{ csrf() }}
-    <input type="hidden" name="next" value={{ jumpto_url }} />
-    {{ form.as_p() }}
-    {% if has_recaptcha %}
-        {{ recaptcha(form) }}
+    {% if user.is_authenticated() %}
+        <p>Welcome, <b>{{ user }}</b>. You're actually already logged in. 
+        If you would like to switch users, please fill out the form below. </p>
+    {% else %}
+        <p>Hey <b>{{ user }}</b>, you're not logged in. Please log in.</p>
     {% endif %}
-    <p><input type="submit" value="Let's do this"></p>
-  </form>
+
+    <form action="" method="post">
+        {{ csrf() }}
+        <input type="hidden" name="next" value={{ jumpto_url }} />
+        {{ form.as_p() }}
+        {% if has_recaptcha %}
+            {{ recaptcha(form) }}
+        {% endif %}
+        <p><input type="submit" value="Let's do this"></p>
+    </form>
 
 {% endblock %}
+
+
 {% block body_end %}
-{% if has_recaptcha %}
-    {{ js('moz_recaptcha') }}  {# crucial line to avoid in-line script #}
-    {{ js('google_recState') }}
-    {{ js('google_recaptcha') }}
-{% endif %}
-<script type="text/javascript" src="http://haoqili.scripts.mit.edu/js/test4.js"></script>
+
+    {% if has_recaptcha %}
+        {{ js('moz_recaptcha') }}  {# crucial line to avoid in-line script #}
+        {{ js('google_recState') }}
+        {{ js('google_recaptcha') }}
+    {% endif %}
+
+    <script type="text/javascript" src="http://haoqili.scripts.mit.edu/js/test4.js"></script>
+
 {% endblock %}

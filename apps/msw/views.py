@@ -62,12 +62,8 @@ def recaptchaRefresh():
 def login(request):
     recaptchaRefresh()
     was_limited = getattr(request, 'limited', False)
-    print "login was_limited = " + str(was_limited)
+    #print "login was_limited = " + str(was_limited)
     redirect_to = reverse('membersOnly')
-    if request.user.is_authenticated():
-        print "Welcome " + str(request.user) + "! You're already logged in."
-    else:
-        print "New " + str(request.user) + " please log in"
 
     hasRecaptcha = True
     if request.method == "POST":
@@ -112,7 +108,7 @@ def login(request):
 @ratelimit(field='username', method='POST')
 def register(request):
     was_limited = getattr(request, 'limited', False)
-    print "register was_limited = " + str(was_limited)
+    #print "register was_limited = " + str(was_limited)
     message = ""
     if request.user.is_authenticated():
         message = "You are already logged in to an account."
