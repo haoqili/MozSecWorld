@@ -224,36 +224,47 @@ def ac_ajax_server(request):
         usrInput = request.POST
 
         # Get the user from user id
-        inpUserId = usrInput['inpNameId']
-        # check that the UserId is valid
-        # step_0. get the user's id from server side
-        serversUser = MembersPostUser.objects.get(user = request.user.username)
-        serversUserId = serversUser.id
-        # step_1. If user is super, ID must be within the range of ids
-        addUser = ""
-        if request.user.has_perm('msw.superuser_display'):
-            try:
-                addUser = MembersPostUser.objects.get(id = inpUserId)
-            except:
-                tamperBoo = True
-        # step_2. If user is not super, ID must match its userid
-        else:
-            if int(serversUserId) == int(inpUserId):
-                addUser = MembersPostUser.objects.get(id = inpUserId)
-            else:
-                tamperBoo = True
+        try: # Ensure the input is an integer
+            inpUserId = int( usrInput['inpNameId'] )
 
-        # Get the Text, since the 2 tables are linked, must get text object!
-        inpTextId = usrInput['inpTextId']
-        # check that it's in range
-        try:
-            addText = MembersPostText.objects.get(id = inpTextId)
+            # check that the UserId is valid
+            # step_0. get the user's id from server side
+            serversUser = MembersPostUser.objects.get(user = request.user.username)
+            serversUserId = int( serversUser.id )
+            # step_1. If user is super, ID must be within the range of ids
+            addUser = ""
+            if request.user.has_perm('msw.superuser_display'):
+                try: # Ensure the integer is valid
+                    addUser = MembersPostUser.objects.get(id = inpUserId)
+                except:
+                    # TODO: Add CEF log say invalid integer range
+                    tamperBoo = True
+            # step_2. If user is not super, ID must match its userid
+            else:
+                if serversUserId == inpUserId:
+                    addUser = MembersPostUser.objects.get(id = inpUserId)
+                else:
+                    tamperBoo = True
         except:
+            # TODO: Add CEF log say invalid non-integer input
             tamperBoo = True
 
-        # put new entry into database
-        if not tamperBoo:
-            MembersPostSay.objects.create(mpuser=addUser, mptext=addText)
+        # Get the Text, since the 2 tables are linked, must get text object!
+        try: # Ensure the input is an integer
+            inpTextId = int( usrInput['inpTextId'] )
+
+            try: # Ensure the integer is valid
+                addText = MembersPostText.objects.get(id = inpTextId)
+            except:
+                # TODO: Add CEF log say invalid integer range
+                tamperBoo = True
+
+            # put new entry into database
+            if not tamperBoo:
+                MembersPostSay.objects.create(mpuser=addUser, mptext=addText)
+        except:
+            # TODO: Add CEF log say invalid non-integer input
+            tamperBoo = True
         
         # publish it
         file = 'msw/demos/children/ac_ajax_table.html'
