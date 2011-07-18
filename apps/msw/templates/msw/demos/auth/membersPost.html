@@ -6,6 +6,44 @@
 
     <p>{{ message }}</p>
 
+    <h2>Directions:</h2>
+    <ol>
+        <li>Login as specified regular or super user (see "Users")</li>
+        <li>Observe that regular users can only select to post under their usernames while super users can post under anybody's user name</li>
+        <li>Turn on tampering with BURP or Mozilla Tamper Data Addon</li>
+        <li>Observe that the demo can detect tampering</li>
+    </ol>
+
+    <h2>Users</h2>
+    <table>
+        <tr>
+            <th>User Name</th>
+            <th>Password</th>
+        </tr>
+
+        <tr>
+            <td>regular_alice</td>
+            <td>vuX9JZ8U</td>
+        </tr>
+
+        <tr>
+            <td>regular_bob</td>
+            <td>WE1H72wo</td>
+        </tr>
+
+        <tr>
+            <td>super_foo</td>
+            <td>hdpV5203</td>
+        </tr>
+
+        <tr>
+            <td>super_bar</td>
+            <td>BAs89dkw</td>
+        </tr>
+
+    </table>
+    
+
     <p>
     {% if perms.msw.superuser_display %}
         You are super! :D (This line is an example of presentation layer)

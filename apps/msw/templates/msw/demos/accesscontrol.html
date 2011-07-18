@@ -14,10 +14,25 @@
         <p>Make sure that not logged in users (anonymous users), regular logged in users, and admin logged in users cannot see pages they're not supposed to see, cannot do actions that they're not authorized to do, and cannot get data they're not allowed to get.</p>
     <h3>What I did</h3>
         Make a posting comment page. Anonymous users cannot get into the page. Regular users can only post under their names. Admins can post under any one's name.
-        <p>
-        Presentation layer: Use @login_required to prevent anonymous users from getting into the posting comment page.  
+        <p><b>Setup</b><br />
+            - Make a users table and a text table with available users and text indexed by ID<br />
+            - create 3rd table that keeps track of what users have posted by recording the IDs of user names and text<br />
+            - Create a Django group for superusers and add "super_foo" and "super_bar" into the group. Now we can differentiate super users and regular users
         </p>
+
         <p>
+        <b>Presentation layer:</b> <br />
+            - Detect whether a super is super or not. Super users can select to post as anyone. Non-supers can only post as themselves.<br />
+            - The choices are sent to the server as integers id's
+        </p>
+        <p><b>Business layer:</b><br />
+            - Test 1: Make sure that the inputs are actually integers<br />
+            - Test 2: Make sure that the integer inputs are in the allowed range<br />
+            - If the above 2 tests are not passed, the inputs are discarded.<br />
+            - If the above 2 tests are passed, the inputs are saved into the database<br />
+        </p>
+        <p><b>Data layer:</b><br />
+            - Django takes care of the business --&gt; data layer
         </p>
     <h3>The demo: </h3>
     <p>Go to <a href="/msw/good_auth/demo/register">register</a> [TODO: make url into standard way]], to see the recaptcha, give 5 invalid submissions in a row (like leave out a password field)</p>
