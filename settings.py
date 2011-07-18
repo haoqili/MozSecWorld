@@ -222,9 +222,6 @@ MINIFY_BUNDLES = {
         'csp_alert': (
             'js/msw/csp_external.js',
         ),
-        'captcha_return': (
-            'js/msw/captcha_return.js',
-        ),
         'google_recState': (
             'js/google/recState.js',
         ),

@@ -284,6 +284,7 @@ def ac_ajax_server(request):
         #return HttpResponse( jsontexts)
 
     else:
+        # TODO: return a 404 or 405. (from cvan comment in 2343852088f41d521263819d12692bcabff3ebf6)
         warning = "WARNING: SQL AJAX FAILED"        
         print warning
         return HttpResponse(warning)
@@ -381,6 +382,7 @@ def sql_ajax_server(request):
         return HttpResponse(rows_json)
 
     else:
+        # TODO: return a 404 or 405. (from cvan comment in 2343852088f41d521263819d12692bcabff3ebf6)
         warning = "WARNING: SQL AJAX FAILED"        
         print warning
         return HttpResponse(warning)
