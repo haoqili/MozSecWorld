@@ -52,9 +52,9 @@ body {
     float: right;
     /*padding: 10px 15px 40px;*/
     width: 570px;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 10px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-    margin-top: 0px;
+    margin-top: 0;
 }
 
     #leftPanel h2, #rightPanel h2 {
