@@ -60,7 +60,6 @@ def recaptchaRefresh():
 # partially copied from default login view, vendor.src.django.django.cotrib.auth.views.py
 @ratelimit(field='username', method='POST')
 def login(request):
-    recaptchaRefresh()
     was_limited = getattr(request, 'limited', False)
     #print "login was_limited = " + str(was_limited)
     redirect_to = reverse('membersOnly')
@@ -70,6 +69,7 @@ def login(request):
         #: if exceeded threshould of 5 POSTS from save IP OR same username
         #:    then recaptcha is used
         if was_limited: 
+            recaptchaRefresh()
             form = forms.AuthenticationCaptchaForm(request=request, data=request.POST)
         else:
             # this AuthenticationForm() takes care of a lot things, such as testing that the cookie worked

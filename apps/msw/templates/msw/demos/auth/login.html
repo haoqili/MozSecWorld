@@ -16,7 +16,6 @@
 
     <form action="" method="post">
         {{ csrf() }}
-        <input type="hidden" name="next" value={{ jumpto_url }} />
         {{ form.as_p() }}
         {% if has_recaptcha %}
             {{ recaptcha(form) }}
