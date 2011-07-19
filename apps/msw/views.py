@@ -26,6 +26,7 @@ from django.conf import settings
 # Access control stuff:
 from django.contrib.auth.decorators import permission_required
 from msw.models import MembersPostUser, MembersPostText, MembersPostSay
+from cef import log_cef
 
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
@@ -269,6 +270,26 @@ def ac_ajax_server(request):
                 "tamper_msg": "Please stop tampering"
             }
         else:
+            # from vendor-local/packages/cef/test_cef.py
+            environ = {'REMOTE_ADDR': '127.0.0.1', 'HTTP_HOST': '127.0.0.1',
+                        'PATH_INFO': '/', 'REQUEST_METHOD': 'GET',
+                        'HTTP_USER_AGENT': 'MySuperBrowser'}
+
+            #config = {'cef.version': '0', 'cef.vendor': 'mozilla',
+            #           'cef.device_version': '3', 'cef.product': 'weave',
+            #           'cef.file': 'syslog',
+            #           'cef': True}
+            config = {'cef.version': '0', 'cef.vendor': 'mozilla',
+                       'cef.device_version': '3', 'cef.product': 'weave',
+                       'cef.file': 'syslog', 
+                       'cef.syslog.priority' : 'ERR',
+                       'cef.syslog.facility' : 'AUTH',
+                       'cef.syslog.options' : 'PID,CONS',
+                       'cef': True}
+            log_cef("Hello world!", 2, environ, config, msg="Welcome to a new day!")
+            ''' Yay in my /var/log/secure.log I have
+            Jul 19 11:48:57 host-3-248 manage.py[3889]: Jul 19 11:48:57 host-3-248.mv.mozilla.com CEF:0|moz     illa|weave|3|Hello world!|Hello world!|2|cs1Label=requestClientApplication cs1=MySuperBrowser r     equestMethod=GET request=/ src=127.0.0.1 dest=127.0.0.1 suser=none msg=Welcome to a new day!
+            '''
             ctx = {
                 "all_postsay_list": MembersPostSay.objects.all().order_by('-id')
             }
