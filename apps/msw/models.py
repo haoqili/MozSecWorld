@@ -46,6 +46,9 @@ class RichText(models.Model):
     name = models.CharField(max_length=200)
     comment = models.TextField()
 
+    def richtext_url(self):
+        return reverse('detail', 'richtext_and_safe_url')
+
     def __unicode__(self):
         return self.name + ": " + self.comment
 

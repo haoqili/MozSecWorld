@@ -53,7 +53,7 @@
     </p>
 
     <h2>Select a user</h2>
-    <form action="" method="post" data-url="{{ url('ac_ajax_server') }}"> <!-- issue #59 data-url -->
+    <!--<form action="" method="post" data-url="{{ url('ac_ajax_server') }}">  issue #59 data-url -->
         {{ csrf() }} 
         {% if users_list %}
             <select id="theName">
@@ -79,7 +79,7 @@
         <p>
         <button id="memPostButton">Click me to post</button>
         </p>
-    </form>
+    <!--</form>-->
 
     <div id="output">
         {% include 'msw/demos/children/ac_ajax_table.html' %}

@@ -1,3 +1,5 @@
+{% set _obj = richtext %}
+
 {% extends "msw/base.html" %}
 
 {% block head_stuff %}
@@ -36,7 +38,11 @@
       </div>
     <!---------------->
 
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+{#
+<h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+    <h1><a href="{{ url('details', 'richtext_and_safe_url') }}">back</a></h1>
+#}
+    <h1><a href="{{ richtext.richtext_url() }}">back</a></h1>
 {% endblock %}
 
 {% block body_end %}

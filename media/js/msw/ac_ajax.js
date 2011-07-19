@@ -3,8 +3,8 @@
         var theTextId = $('#theText option:selected').val();
 
         url = "ac_ajax_server";
-        url = $('form').attr('data-url'); // issue #59
-        alert(url);
+        //url = $('form').attr('data-url'); // issue #59
+        //alert(url);
 
         var csrfvalue = $('input[name=csrfmiddlewaretoken]').val();
 
