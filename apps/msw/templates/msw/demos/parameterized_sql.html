@@ -26,7 +26,7 @@
         <p>Set up an input text field and try if you can do some sql injection. Have the server print out the queries, everything should be parameterized.</p>
     <h3>What I did</h3>
         <p><a href="https://docs.djangoproject.com/en/dev/topics/db/sql/#passing-parameters-into-raw">Django does parameterized statements for you</a>, but if you don't use Django for web development, you can <a href="http://rosettacode.org/wiki/Parametrized_SQL_statement#Ruby">see examples in different languages</a>.</p>
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
 {% endblock %}
 
 {% block body_end %}

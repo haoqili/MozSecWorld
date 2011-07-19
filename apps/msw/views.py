@@ -354,7 +354,6 @@ def demo(request, input_slug):
         ctx = {
             "all_pages_list": Page.objects.all(), 
             "form": form, 
-            "richtext": RichText,
             "title_chunk" : "Bleach Testing: "+test, 
             "all_richtext_list": RichText.objects.all().order_by('-id'), 
             'page':p}

@@ -33,6 +33,10 @@ class Page(models.Model):
         self.slug = slugify(self.slug)
         super(Page, self).save(*args, **kwargs)
 
+    def reverse_url(self):
+        #return reverse('detail', args=['richtext_and_safe_url'])
+        return reverse('detail', args=[self.slug])
+
     def __unicode__(self):
         return self.title
 
@@ -46,9 +50,6 @@ class Page(models.Model):
 class RichText(models.Model):
     name = models.CharField(max_length=200)
     comment = models.TextField()
-
-    def richtext_url(self):
-        return reverse('detail', 'richtext_and_safe_url')
 
     def __unicode__(self):
         return self.name + ": " + self.comment

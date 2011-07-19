@@ -22,7 +22,7 @@
     <p>You should observe in Firefox the in-body alert is not displayed, but in Chrome it is. This is because the Firefox browser supports 'X-Content-Security-Policy'. So if you have an input box that attackers could put in Javascript for XSS, the XSS would not get run in Firefox.</p>
     <p>If you add 'X-Content-Security_Policy' to your HTTP Repsonse Header, remember to externalize all of your javascript <strong>as well as HTML event handlers like onclick()</strong> or else they would be treated like XSS and not run.</p>
 
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
 {% endblock %}
 
 {% block body_end %}

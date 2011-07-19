@@ -43,5 +43,5 @@
 
     <p>If you are logged in, you should be able to access the <a href="membersPost">Members Posting Page.</a> and see what you can post!</p>
     <p>If you are an Admin, you can post as any other users!</p>
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
 {% endblock %}

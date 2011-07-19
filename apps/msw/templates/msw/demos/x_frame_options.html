@@ -111,7 +111,7 @@ def xframe_deny(view_fn):
     return _wrapped_view
         </pre>
 
-    <h1><a href="/msw/{{ page.slug }}/">back</a></h1>
+    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
 {% endblock %}
 
 {% block body_end %}

@@ -38,13 +38,7 @@
       </div>
     <!---------------->
 
-{#
-<h1><a href="/msw/{{ page.slug }}/">back</a></h1>
-#}
-{#    
-    <h1><a href="{{ url('detail', 'richtext_and_safe_url') }}">back</a></h1>
-#}
-    <h1><a href="{{ richtext.richtext_url(richtext) }}">back</a></h1>
+    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
 {% endblock %}
 
 {% block body_end %}
