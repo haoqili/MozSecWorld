@@ -351,7 +351,14 @@ def demo(request, input_slug):
             form = RichTextForm()
             
         #context_instance=RequestContext() is for the CSRF token
-        response = jingo.render(request, file, {"all_pages_list": Page.objects.all(), "form": form, "title_chunk" : "Bleach Testing: "+test, "all_richtext_list": RichText.objects.all().order_by('-id'), 'page':p})
+        ctx = {
+            "all_pages_list": Page.objects.all(), 
+            "form": form, 
+            "richtext": RichText,
+            "title_chunk" : "Bleach Testing: "+test, 
+            "all_richtext_list": RichText.objects.all().order_by('-id'), 
+            'page':p}
+        response = jingo.render(request, file, ctx)
         return response
 
 
