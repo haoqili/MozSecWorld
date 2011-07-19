@@ -17,6 +17,8 @@ Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
 Add bleach: `pip install -e git://github.com/jsocol/bleach.git#egg=bleach` ... actually this has been updated to playdoh.
 Download recaptcha-client http://pypi.python.org/pypi/recaptcha-client read http://curioushq.blogspot.com/2011/07/recaptcha-on-django.html
 
+CEF: inside your project home dir, do: `pip install --no-install --build=vendor-local/packages --src=vendor-local/src -I cef` [for more info][1]
+
 # For HTTPS URL certificate checking
 - Use PyOpenSSL and sockets, not urllib, because urllib's urlopen does not check the SSL server certificates [warning on urllib documentation](http://docs.python.org/library/urllib.html), thus becoming vulnerable to Man-In-The-Middle attacks.
 --> PyOpenSSL install: `pip install pyopenssl`
@@ -27,3 +29,5 @@ Download recaptcha-client http://pypi.python.org/pypi/recaptcha-client read http
 License
 -------
 TBD
+
+[1]: http://curioushq.blogspot.com/2011/07/django-playdoh-package-locations.html
