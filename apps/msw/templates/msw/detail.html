@@ -3,27 +3,31 @@
 {% block rightPanelText %}
     <h2>{{ page.title }}</h2>
   
-    <p>
-    <h3>category:</h3> {{ page.category }}
-    </p>
+    <h3>category:</h3>
 
     <p>
-    <h3>short summary:</h3> {{ page.summary|safe }}
+    {{ page.category }}
     </p>
 
+    <h3>short summary:</h3> 
     <p>
-    <h3>longer description:</h3> {{ page.description|safe }}
+    {{ page.summary|safe }}
     </p>
 
+    <h3>longer description:</h3> 
     <p>
-    <h3>Prevents:</h3> {{ page.prevents|safe }}
+    {{ page.description|safe }}
     </p>
 
+    <h3>Prevents:</h3> 
     <p>
-    <h3>Resources:</h3> {{ page.resources|safe }}
+    {{ page.prevents|safe }}
     </p>
 
+    <h3>Resources:</h3> 
     <p>
+    {{ page.resources|safe }}
+    </p>
+
     <h2><a href="/msw/{{ page.slug }}/demo">Demo!</a></h2>
-    </p>
 {% endblock %}

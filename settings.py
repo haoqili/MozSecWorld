@@ -201,6 +201,7 @@ MINIFY_BUNDLES = {
     },
     'js': {
         # JS files common to the entire msw site.
+        # TODO: combine js
         'common': (
             'js/libs/jquery-1.6.2.min.js',
         ),
