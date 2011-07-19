@@ -28,6 +28,8 @@ from django.contrib.auth.decorators import permission_required
 from msw.models import MembersPostUser, MembersPostText, MembersPostSay
 from cef import log_cef
 
+# File Upload stuff:
+from msw.models import UploadFileForm
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -440,3 +442,14 @@ def xfo_allow(request):
     response = HttpResponse(html)
     response['x-frame-options'] = 'ALLOW'
     return response
+
+# File upload
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+    return render_to_response('upload.html', {'form': form})

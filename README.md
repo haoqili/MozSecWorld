@@ -2,6 +2,10 @@
 :D
 Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
 
+Setup
+-----
+Get playdoh and its vendor: `git clone --recursive git://github.com/mozilla/playdoh-lib.git ./vendor`
+
 # How I start
 `workon playdoh` to go to Mozilla playdoh's environment
 

@@ -85,3 +85,10 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
 
 class AuthenticationCaptchaForm(auth_forms.AuthenticationForm):
     recaptcha = ReCaptchaField(label="Being a human is awesome! Let me pass!")
+
+######## File Upload stuff #########################
+
+class UploadFileForm(forms.Form):
+    title = forms.CharFiled(max_length=50)
+    #file = forms.FileField()
+    image = forms.ImageField()
