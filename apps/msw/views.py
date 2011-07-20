@@ -382,6 +382,29 @@ def demo(request, input_slug):
         return response
 
 
+    if input_slug == "fileupload":
+        print "\na img upload!"
+        form = forms.ImageUploadForm()
+        if request.method == 'POST':
+            print "in file upload post"
+            form = forms.ImageUploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                print "a valid file upload form"
+                handle_uploaded_file(request.FILES['file'])
+                #return HttpResponseRedirect('hi there')
+                return HttpResponse('hi there')
+
+        file = 'msw/demos/fileupload.html'
+
+        ctx = {
+            'all_pages_list': Page.objects.all(),
+            'form': form,
+            'page':p
+        }
+
+        return jingo.render(request, file, ctx)
+
+
     response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
     return response
@@ -443,28 +466,8 @@ def xfo_allow(request):
 
 # File upload
 def handle_uploaded_file(f):
-    destination = open('some/file/name.txt', 'wb+')
+    print "iiiiiiiiiiiin handle uploaded file!"
+    destination = open('tmp.png', 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
-
-def upload_file(request):
-    if request.method == 'POST':
-        form = forms.ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('hi there')
-    else:
-        form = UploadFileForm()
-
-    ctx = {
-        'all_pages_list': Page.objects.all(),
-        'form': form,
-        'redirect_to': redirect_to,
-        'has_recaptcha': hasRecaptcha,
-    }
-
-    return jingo.render(request, 'msw/demos/auth/login.html', ctx)
-
-
-    return render_to_response('upload.html', {'form': form})
