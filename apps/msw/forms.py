@@ -88,7 +88,7 @@ class AuthenticationCaptchaForm(auth_forms.AuthenticationForm):
 
 ######## File Upload stuff #########################
 
-class UploadFileForm(forms.Form):
-    title = forms.CharFiled(max_length=50)
-    #file = forms.FileField()
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    title = forms.CharField(max_length=50)
     image = forms.ImageField()

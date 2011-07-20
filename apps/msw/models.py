@@ -13,6 +13,10 @@ from commons.urlresolvers import reverse
 # User Profile / Authentication
 from django.contrib.auth.models import User
 
+# File Upload
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+
 # Django automatically creates a table for each "class" here, named "[app name]_[class name]"
 # so the table of "class Page" is "msw_page"
 # each attribute of a class corresponds to a column in its table
@@ -306,6 +310,25 @@ class BlacklistedPassword(models.Model):
 ####################################################
 
 
+####################################################
+##### File Upload ##################################
+# src: http://embrangler.com/2010/08/ajax-uploads-images-in-django/
+
+class ImageAttachment(models.Model):
+    """A tag on an item."""
+    file = models.ImageField(upload_to=settings.IMAGE_UPLOAD_PATH)
+    thumbnail = models.ImageField(upload_to=settings.THUMBNAIL_UPLOAD_PATH)
+    creator = models.ForeignKey(User, related_name='image_attachments')
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+
+    content_object = generic.GenericForeignKey()
+
+    def __unicode__(self):
+        return self.file.name
+
+##### File Upload ##################################
+####################################################
 
 ##########################################################################
 ##########################################################################

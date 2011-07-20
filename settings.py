@@ -442,3 +442,22 @@ CSP_FRAME_ANCESTORS = ("'self'",
                "http://www.adobe.com",
                 )
 #CSP_OPTIONS = ("eval-script",)
+
+# File Upload
+# Maximum length of the filename. Forms should use this and raise
+# ValidationError if the length is exceeded.
+# @see http://code.djangoproject.com/ticket/9893
+# Columns are 250 but this leaves 50 chars for the upload_to prefix
+MAX_FILENAME_LENGTH = 200 
+MAX_FILEPATH_LENGTH = 250 
+# Default storage engine - ours does not preserve filenames
+DEFAULT_FILE_STORAGE = 'upload.storage.RenameFileStorage'
+
+
+IMAGE_MAX_FILESIZE = 1048576  # 1 megabyte, in bytes
+THUMBNAIL_SIZE = 120  # Thumbnail size, in pixels
+THUMBNAIL_UPLOAD_PATH = 'uploads/images/thumbnails/'
+IMAGE_UPLOAD_PATH = 'uploads/images/'
+# A string listing image mime types to accept, comma separated.
+# String must not contain double quotes!
+IMAGE_ALLOWED_MIMETYPES = 'image/jpeg,image/png,image/gif'

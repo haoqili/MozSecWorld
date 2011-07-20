@@ -28,8 +28,6 @@ from django.contrib.auth.decorators import permission_required
 from msw.models import MembersPostUser, MembersPostText, MembersPostSay
 from cef import log_cef
 
-# File Upload stuff:
-from msw.models import UploadFileForm
 
 # urls.py's views. It renders the urls by putting in appropriate values into templates
 # each def 
@@ -444,12 +442,29 @@ def xfo_allow(request):
     return response
 
 # File upload
+def handle_uploaded_file(f):
+    destination = open('some/file/name.txt', 'wb+')
+    for chunk in f.chunks():
+        destination.write(chunk)
+    destination.close()
+
 def upload_file(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
+        form = forms.ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponseRedirect('hi there')
     else:
         form = UploadFileForm()
+
+    ctx = {
+        'all_pages_list': Page.objects.all(),
+        'form': form,
+        'redirect_to': redirect_to,
+        'has_recaptcha': hasRecaptcha,
+    }
+
+    return jingo.render(request, 'msw/demos/auth/login.html', ctx)
+
+
     return render_to_response('upload.html', {'form': form})
