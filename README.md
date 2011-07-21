@@ -37,6 +37,7 @@ Setup
 8. Get ratelimit: `git clone https://github.com/jsocol/django-ratelimit.git` and then `cd django-ratelimit" and `python setup.py install`
 
 9. run the server: `python manage.py runserver` and you should see
+
     Validating models...
     0 errors found
     ...
