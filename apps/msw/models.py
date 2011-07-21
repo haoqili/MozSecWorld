@@ -316,6 +316,7 @@ class BlacklistedPassword(models.Model):
 # src: https://github.com/jsocol/kitsune/blob/master/apps/upload/models.py
 class ImageAttachment(models.Model):
     """An image attached to an object using a generic foreign key"""
+    print "in attachment model"
     file = models.ImageField(upload_to=settings.IMAGE_UPLOAD_PATH,
                              max_length=settings.MAX_FILEPATH_LENGTH)
     thumbnail = models.ImageField(upload_to=settings.THUMBNAIL_UPLOAD_PATH,
@@ -327,6 +328,7 @@ class ImageAttachment(models.Model):
     content_object = generic.GenericForeignKey()
 
     def __unicode__(self):
+        print "in attachment model unicode"
         return self.file.name
 
     def get_absolute_url(self):

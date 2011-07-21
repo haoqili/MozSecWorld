@@ -393,10 +393,10 @@ def demo(request, input_slug):
             print "r FILES"
             print request.FILES
             print "yaaaaaa"
-            print request
             if form.is_valid():
                 print "a valid file upload form"
-                handle_uploaded_file(request.FILES['file'])
+                handle_uploaded_file(request.FILES['image'])
+                print "ya"
                 #return HttpResponseRedirect('hi there')
                 return HttpResponse('hi there')
             else:

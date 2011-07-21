@@ -100,10 +100,11 @@ ALLOWED_IMAGE_EXTENSIONS = ('jpg', 'jpeg', 'png', 'gif')
 
 class ImageAttachmentUploadForm(forms.Form):
     """Image upload form."""
+    print "in form"
     image = forms.ImageField(error_messages={'required': MSG_IMAGE_REQUIRED,
                                              'max_length': MSG_IMAGE_LONG},
                              max_length=settings.MAX_FILENAME_LENGTH)
-
+    print "in form2"
     def clean(self):
         c = super(ImageAttachmentUploadForm, self).clean()
         clean_image_extension(c.get('image'))
