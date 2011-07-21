@@ -312,12 +312,14 @@ class BlacklistedPassword(models.Model):
 
 ####################################################
 ##### File Upload ##################################
-# src: http://embrangler.com/2010/08/ajax-uploads-images-in-django/
 
+# src: https://github.com/jsocol/kitsune/blob/master/apps/upload/models.py
 class ImageAttachment(models.Model):
-    """A tag on an item."""
-    file = models.ImageField(upload_to=settings.IMAGE_UPLOAD_PATH)
-    thumbnail = models.ImageField(upload_to=settings.THUMBNAIL_UPLOAD_PATH)
+    """An image attached to an object using a generic foreign key"""
+    file = models.ImageField(upload_to=settings.IMAGE_UPLOAD_PATH,
+                             max_length=settings.MAX_FILEPATH_LENGTH)
+    thumbnail = models.ImageField(upload_to=settings.THUMBNAIL_UPLOAD_PATH,
+                                  null=True)
     creator = models.ForeignKey(User, related_name='image_attachments')
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
@@ -326,6 +328,18 @@ class ImageAttachment(models.Model):
 
     def __unicode__(self):
         return self.file.name
+
+    def get_absolute_url(self):
+        return self.file.url
+
+    def thumbnail_if_set(self):
+        """Returns self.thumbnail, if set, else self.file"""
+        return self.thumbnail if self.thumbnail else self.file
+
+    def get_delete_url(self):
+        """Returns the URL to delete this object. Assumes the object has an
+id."""
+        return reverse('upload.del_image_async', args=[self.id])
 
 ##### File Upload ##################################
 ####################################################

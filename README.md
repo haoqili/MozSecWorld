@@ -23,6 +23,11 @@ Download recaptcha-client http://pypi.python.org/pypi/recaptcha-client read http
 
 CEF: inside your project home dir, do: `pip install --no-install --build=vendor-local/packages --src=vendor-local/src -I cef` [for more info][1]
 
+[Image Upload][2]
+* PIL: inside your project home dir, do: `pip install --no-install --build=vendor-local/packages --src=vendor-local/src -I pil`
+* Jpeg: `brew install jpeg`
+* rebuild PIL: `pip install PIL==1.1.7 --upgrade`
+
 # For HTTPS URL certificate checking
 - Use PyOpenSSL and sockets, not urllib, because urllib's urlopen does not check the SSL server certificates [warning on urllib documentation](http://docs.python.org/library/urllib.html), thus becoming vulnerable to Man-In-The-Middle attacks.
 --> PyOpenSSL install: `pip install pyopenssl`
@@ -35,3 +40,4 @@ License
 TBD
 
 [1]: http://curioushq.blogspot.com/2011/07/django-playdoh-package-locations.html
+[2]: http://curioushq.blogspot.com/2011/07/getting-image-upload-to-work-on-django.html

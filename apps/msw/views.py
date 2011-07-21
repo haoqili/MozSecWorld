@@ -384,15 +384,24 @@ def demo(request, input_slug):
 
     if input_slug == "fileupload":
         print "\na img upload!"
-        form = forms.ImageUploadForm()
+        form = forms.ImageAttachmentUploadForm()
         if request.method == 'POST':
             print "in file upload post"
-            form = forms.ImageUploadForm(request.POST, request.FILES)
+            form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
+            print "r POST"
+            print request.POST
+            print "r FILES"
+            print request.FILES
+            print "yaaaaaa"
+            print request
             if form.is_valid():
                 print "a valid file upload form"
                 handle_uploaded_file(request.FILES['file'])
                 #return HttpResponseRedirect('hi there')
                 return HttpResponse('hi there')
+            else:
+                print "BAD IMAGE FORM. REASON: "
+                print form.errors
 
         file = 'msw/demos/fileupload.html'
 
