@@ -1,10 +1,25 @@
-# MozSecWorld
+MozSecWorld
+=========
 :D
 Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
 
 Setup
------
-Get playdoh and its vendor: `git clone --recursive git://github.com/mozilla/playdoh-lib.git ./vendor`
+========
+ 
+* Get the repository: `git clone https://github.com/haoqili/MozSecWorld`
+
+* Get the vendor: `cd MozSecWorld/vendor` and do `git clone --recursive git://github.com/mozilla/playdoh-lib.git .`
+
+* Get Content security policy middleware:
+ * `git clone https://github.com/mozilla/django-csp.git` and then `cd django-csp` and `python setup.py install`
+ * If you don't have the setuptools module, do these things (e.g. Linux)
+  * Download [the appropriate py version setuptools egg][3]
+  * run `sudo sh setuptools-0.6c11-py2.6.egg` change for your version [doc][4]
+
+* Get pip: `sudo apt-get install python-pip`
+
+* Get bcrypt: `sudo pip install py-bcrypt`
+
 
 # How I start
 `workon playdoh` to go to Mozilla playdoh's environment
@@ -32,8 +47,6 @@ CEF: inside your project home dir, do: `pip install --no-install --build=vendor-
 - Use PyOpenSSL and sockets, not urllib, because urllib's urlopen does not check the SSL server certificates [warning on urllib documentation](http://docs.python.org/library/urllib.html), thus becoming vulnerable to Man-In-The-Middle attacks.
 --> PyOpenSSL install: `pip install pyopenssl`
 
-# Content security policy middleware:
-- `git clone https://github.com/mozilla/django-csp.git` and then `cd django-csp` and `python setup.py install`
 
 License
 -------
@@ -41,3 +54,5 @@ TBD
 
 [1]: http://curioushq.blogspot.com/2011/07/django-playdoh-package-locations.html
 [2]: http://curioushq.blogspot.com/2011/07/getting-image-upload-to-work-on-django.html
+[3]: http://pypi.python.org/pypi/setuptools#files
+[4]: http://pypi.python.org/pypi/setuptools
