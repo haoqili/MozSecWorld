@@ -166,9 +166,9 @@ dependency_links.txt
 PKG-INFO
 SOURCES.txt
 top_level.txt
-../../../../bin/pilconvert.py
-../../../../bin/pildriver.py
-../../../../bin/pilfile.py
-../../../../bin/pilfont.py
-../../../../bin/pilprint.py
+../../../../../../../../../../../usr/local/share/python/pilconvert.py
+../../../../../../../../../../../usr/local/share/python/pildriver.py
+../../../../../../../../../../../usr/local/share/python/pilfile.py
+../../../../../../../../../../../usr/local/share/python/pilfont.py
+../../../../../../../../../../../usr/local/share/python/pilprint.py
 ../../PIL.pth
