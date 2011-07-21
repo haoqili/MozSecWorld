@@ -5,21 +5,47 @@ Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
 
 Setup
 ========
- 
-* Get the repository: `git clone https://github.com/haoqili/MozSecWorld`
 
-* Get the vendor: `cd MozSecWorld/vendor` and do `git clone --recursive git://github.com/mozilla/playdoh-lib.git .`
+1. Get the repository: `git clone https://github.com/haoqili/MozSecWorld`
 
-* Get Content security policy middleware:
- * `git clone https://github.com/mozilla/django-csp.git` and then `cd django-csp` and `python setup.py install`
+2. Get the vendor: `cd MozSecWorld/vendor` and do `git clone --recursive git://github.com/mozilla/playdoh-lib.git .`
+
+3. Configure settings: `cp settings_local.py-dist settings_local.py`
+ * and then put in an account's user and password in `settings_local.py`, for example `'USER' : 'msw_user', 'PASSWORD' : 'm3dRL2Asw7'`
+ * Get Google Safe Browsing Key at TODO
+ * Get Recaptcha keys TODO
+
+* Mysql setup: 
+ * get mysql server: `sudo apt-get install mysql-server`
+ * `mysql -u root -p`
+ * mysql> `show databases;`
+ * mysql> `select user, host from myqsl.user;`
+ * mysql> `grant all on mozsecworld.* to msw_user@localhost identified by 'm3dRL2Asw7';`
+ * mysql> `create database mozsecworld;`
+
+4. Get CSP: `git clone https://github.com/mozilla/django-csp.git` and then `cd django-csp` and `python setup.py install`
  * If you don't have the setuptools module, do these things (e.g. Linux)
-  * Download [the appropriate py version setuptools egg][3]
-  * run `sudo sh setuptools-0.6c11-py2.6.egg` change for your version [doc][4]
+ * Download [the appropriate py version setuptools egg][3]
+ * run `sudo sh setuptools-0.6c11-py2.6.egg` change for your version [doc][4]
 
-* Get pip: `sudo apt-get install python-pip`
+5. Get pip: `sudo apt-get install python-pip`
 
-* Get bcrypt: `sudo pip install py-bcrypt`
+6. Get bcrypt: `sudo pip install py-bcrypt`
 
+7. Get jinja2: `sudo pip install `jinja2`
+
+8. Get ratelimit: `git clone https://github.com/jsocol/django-ratelimit.git` and then `cd django-ratelimit" and `python setup.py install`
+
+9. run the server: `python manage.py runserver` and you should see
+    Validating models...
+    0 errors found
+    ...
+
+10. go to 127.0.0.1:8000/msw and you should see a green-themed page :D
+
+TODO: add default mysql
+
+TODO: try `pip install -r requirements/compiled.txt`
 
 # How I start
 `workon playdoh` to go to Mozilla playdoh's environment
