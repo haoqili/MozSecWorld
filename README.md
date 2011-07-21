@@ -32,7 +32,7 @@ Setup
 
 6. Get bcrypt: `sudo pip install py-bcrypt`
 
-7. Get jinja2: `sudo pip install `jinja2`
+7. Get jinja2: `sudo pip install jinja2`
 
 8. Get ratelimit: `git clone https://github.com/jsocol/django-ratelimit.git` and then `cd django-ratelimit" and `python setup.py install`
 
