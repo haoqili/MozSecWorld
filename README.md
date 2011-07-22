@@ -12,8 +12,8 @@ Setup
 
 3. Configure settings: `cp settings_local.py-dist settings_local.py`
  * and then put in an account's user and password in `settings_local.py`, for example `'USER' : 'msw_user', 'PASSWORD' : 'm3dRL2Asw7'`
- * Get Google Safe Browsing Key at TODO
- * Get Recaptcha keys TODO
+ * [Get Google Safe Browsing Key][5] and fill it in on settings_local.py
+ * [Get Recaptcha keys][6] and fill it in on settings_local.py
 
 * Mysql setup: 
  * get mysql server: `sudo apt-get install mysql-server`
@@ -83,3 +83,5 @@ TBD
 [2]: http://curioushq.blogspot.com/2011/07/getting-image-upload-to-work-on-django.html
 [3]: http://pypi.python.org/pypi/setuptools#files
 [4]: http://pypi.python.org/pypi/setuptools
+[5]: http://code.google.com/apis/safebrowsing/key_signup.html
+[6]: http://www.google.com/recaptcha/whyrecaptcha

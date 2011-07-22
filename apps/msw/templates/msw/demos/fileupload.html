@@ -1,0 +1,45 @@
+{% extends "msw/base.html" %}
+
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+    <h2>File Upload</h2>
+    <!---------------->
+      <form id="myform" action="" method="post" enctype="multipart/form-data">
+      {{ csrf() }}
+      {{ form.as_p() }}
+      <input type="submit" value="Submit" />
+      </form>
+
+    <!---------------->
+
+
+    <p />
+    <h3>What to do</h3>
+        <p>
+        I'm still figuring it out.
+        </p>
+
+    <h3>How to check</h3>
+        <p>
+        I'm still figuring it out.
+        </p>
+
+    <h3>What I did</h3>
+        <p>
+        I'm still figuring it out.
+        </p>
+
+    <h3>The demo: </h3>
+        <p>
+        I'm still figuring it out.
+        </p>
+
+    <!---------------->
+        {# TODO: MOVE FORM BACK #}
+
+    <!---------------->
+
+    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
+{% endblock %}

@@ -7,8 +7,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mozsecworld', # This is the database name
-        'USER': '',
-        'PASSWORD': '',
+        'USER': '[TODO: INSERT SQL USERNAME]',
+        'PASSWORD': '[TODO: INSERT SQL PASSWORD]',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
@@ -28,10 +28,10 @@ HMAC_KEYS = { # Remember to NEVER DELETE THINGS FROM HERE, ONLY APPEND
 
 ## My own stuff
 ## Google Safebrowsing
-GSB_API_KEY = ''
+GSB_API_KEY = '[TODO: replace me with your GSP API KEY from http://code.google.com/apis/safebrowsing/key_signup.html]'
 
 ## Recaptcha stuff
-RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = ''
+RECAPTCHA_PUBLIC_KEY = '[TODO: replace me with your RECAPTCHA KEY from http://www.google.com/recaptcha/whyrecaptcha]'
+RECAPTCHA_PRIVATE_KEY = '[TODO: replace me with your RECAPTCHA KEY from http://www.google.com/recaptcha/whyrecaptcha]'
 RECAPTCHA_URL = ('https://www.google.com/recaptcha/api/challenge?k=%s' %
                  RECAPTCHA_PUBLIC_KEY)
