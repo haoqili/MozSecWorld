@@ -409,19 +409,25 @@ def demo(request, input_slug):
             print "r FILES"
             print request.FILES
             print "yaaaaaa"
+            pic_url = ""
             if form.is_valid():
                 print "a valid file upload form"
                 image_file = request.FILES['image']
                 print request.user
                 user_object = User.objects.get(username = request.user)
-                use_model_upload(image_file, user_object)
+                #use_model_upload(image_file, user_object)
+                pic_url = use_model_upload(image_file, user_object)
                 
-                print "ya"
-                return HttpResponse('yayyyyyyyyyyy!')
-
             else:
                 print "BAD IMAGE FORM. REASON: "
                 print form.errors
+                pic_url = "#"
+
+            # POST return
+            return jingo.render(request, 'msw/demos/fileupload_show.html',
+                                {'all_pages_list': Page.objects.all(),
+                                 'page':p,
+                                 'pic_url' : pic_url})
 
         file = 'msw/demos/fileupload.html'
 
@@ -505,3 +511,6 @@ def use_model_upload(f, user):
     print f.name
     print "image.file.url"
     print image.file.url
+    return image.file.url
+    #import pdb
+    #pdb.set_trace()
