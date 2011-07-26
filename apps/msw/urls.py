@@ -40,6 +40,9 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     url(r'^accesscontrol/demo/membersPost', 'membersPost'),
     url(r'^accesscontrol/demo/ac_ajax_server', 'ac_ajax_server', name='ac_ajax_server'),
 
+    #### File upload
+    url(r'^fileupload/demo/recent_imgs', 'recent_imgs', name='recent_imgs'),
+
     #### --- stuff they had before ----
 
     # Uncomment the admin/doc line below to enable admin documentation:

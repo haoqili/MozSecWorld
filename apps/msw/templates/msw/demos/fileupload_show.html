@@ -5,11 +5,10 @@
 
 {% block rightPanelText %}
 
-<h2>Most Recent Pictures</h2>
+<h2>Your Uploaded Image</h2>
 url: {{ pic_url }}
 <br />
-{#
-<img src = "{{ pic_url }}" />
-#}
-<a href="{{ media('uploads/images/blue.jpg') }}"><img src = "{{ media('uploads/images/blue.jpg') }}" /></a>
+<a href="{{ pic_url }}"><img src = "{{ pic_url }}" /></a>
+
+<a href="{{ url('recent_imgs') }}">See recently uploaded images</a>
 {% endblock %}

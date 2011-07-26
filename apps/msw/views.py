@@ -429,6 +429,10 @@ def demo(request, input_slug):
                                  'page':p,
                                  'pic_url' : pic_url})
 
+        
+
+    # Default demo stuff:
+
         file = 'msw/demos/fileupload.html'
 
         ctx = {
@@ -502,15 +506,13 @@ def xfo_allow(request):
 # File upload
 
 def use_model_upload(f, user):
-    print "AAAAAA"
     # see ImageAttachment model to see that it has default file upload location
-    image = ImageAttachment(creator=user)
     # https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.FieldFile.save
+    image = ImageAttachment(creator=user)
     image.file.save(f.name, File(f), save=True)
-    print "f name:"
-    print f.name
-    print "image.file.url"
-    print image.file.url
-    return image.file.url
-    #import pdb
-    #pdb.set_trace()
+
+def recent_imgs(request):
+    return jingo.render(request, 'msw/demos/fileupload_recent.html',
+                        {'all_pages_list': Page.objects.all(),
+                         'img_qset' : ImageAttachment.objects.order_by('id').reverse()[:6]
+                        })

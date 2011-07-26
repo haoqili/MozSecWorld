@@ -87,6 +87,14 @@ body {
         background-color: #8BDEA7;
     }
 
+
+/* Demos specific */
+.picture img {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
 /*
 p { 
     color: #333;
