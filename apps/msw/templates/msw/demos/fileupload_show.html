@@ -8,8 +8,8 @@
 <h2>Most Recent Pictures</h2>
 url: {{ pic_url }}
 <br />
-<img src = "{{ pic_url }}" />
 {#
-<img src = "{{ media('uploads/images/blue.jpg') }}" />
+<img src = "{{ pic_url }}" />
 #}
+<a href="{{ media('uploads/images/blue.jpg') }}"><img src = "{{ media('uploads/images/blue.jpg') }}" /></a>
 {% endblock %}

@@ -9,6 +9,7 @@ Setup
 1. Get the repository: `git clone https://github.com/haoqili/MozSecWorld`
 
 2. Get the vendor: `cd MozSecWorld/vendor` and do `git clone --recursive git://github.com/mozilla/playdoh-lib.git .`
+ * update jingo-minify because an older version might be referenced in the submodule: `cd vendor/src/jingo-minfy && git fetch origin && git checkout origin/master`
 
 3. Configure settings: `cp settings_local.py-dist settings_local.py`
  * and then put in an account's user and password in `settings_local.py`, for example `'USER' : 'msw_user', 'PASSWORD' : 'm3dRL2Asw7'`
