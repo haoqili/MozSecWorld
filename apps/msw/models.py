@@ -322,10 +322,12 @@ class ImageAttachment(models.Model):
     thumbnail = models.ImageField(upload_to=settings.THUMBNAIL_UPLOAD_PATH,
                                   null=True)
     creator = models.ForeignKey(User, related_name='image_attachments')
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
+    # Error: Column 'content_type_id' cannot be null
+    # fix: https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#reverse-generic-relations
+    #content_type = models.ForeignKey(ContentType)
+    #object_id = models.PositiveIntegerField()
 
-    content_object = generic.GenericForeignKey()
+    #content_object = generic.GenericForeignKey()
 
     def __unicode__(self):
         print "in attachment model unicode"

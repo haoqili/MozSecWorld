@@ -364,40 +364,6 @@ def detail(request, input_slug):
 
     return jingo.render(request, 'msw/detail.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
-# ---- should be inside util.py, but can't get import to work :( TODO
-
-# based on https://github.com/jsocol/kitsune/blob/master/apps/upload/utils.py
-#def create_imageattachment(files, user, obj):
-def create_imageattachment(files, user):
-    print "in create_imageattachment"
-    """ 
-    save an uploaded image
-
-    Given an uploaded file, a user and an object, it creates an ImageAttachment
-    owned by `user` and attached to `obj`.
-    """
-    up_file = files.values()[0]
-    #check_file_size(up_file, settings.IMAGE_MAX_FILESIZE)
-
-    image = ImageAttachment(creator=user)
-    image.file.save(up_file.name, File(up_file), save=True)
-
-    # Generate thumbnail off thread
-    #generate_thumbnail.delay(image, 'file', 'thumbnail')
-
-    (width, height) = _scale_dimensions(image.file.width, image.file.height)
-    print "yayayayayay"
-    print up_file.name
-    print image.file.url
-    print "hahaha"
-    return "3" 
-    #return {'name': up_file.name, 'url': image.file.url,
-    #        'thumbnail_url': image.thumbnail_if_set().url,
-    #        'width': width, 'height': height,
-    #        'delete_url': image.get_delete_url()}
-
-# ----------------------------------
-
 
 def demo(request, input_slug):
     print input_slug
@@ -444,24 +410,15 @@ def demo(request, input_slug):
             print request.FILES
             print "yaaaaaa"
             if form.is_valid():
-                # Way 1. upload to tmp/
-                # print "a valid file upload form"
-                # handle_uploaded_file(request.FILES['image'])
-                # print "ya"
-                # return HttpResponse('hi there')
+                print "a valid file upload form"
+                image_file = request.FILES['image']
+                print request.user
+                user_object = User.objects.get(username = request.user)
+                use_model_upload(image_file, user_object)
+                
+                print "ya"
+                return HttpResponse('yayyyyyyyyyyy!')
 
-                # Way 2. Kitsune's way. Uses FileField.save()
-                # limits file types explicitly
-                # copied from https://github.com/jsocol/kitsune/blob/master/apps/upload/views.py
-                try:
-                    print "in try"
-                    
-                    user_object = User.objects.get(username = request.user)
-                    file_info = create_imageattachment(request.FILES, user_object)
-                except ObjectDoesNotExist:
-                    print "dne"
-                    #TODO: Make this better
-                    return HttpResponse("IMAGE FILE DOES NOT EXIST")
             else:
                 print "BAD IMAGE FORM. REASON: "
                 print form.errors
@@ -537,9 +494,14 @@ def xfo_allow(request):
     return response
 
 # File upload
-def handle_uploaded_file(f):
-    print "iiiiiiiiiiiin handle uploaded file!"
-    destination = open('tmp.png', 'wb+')
-    for chunk in f.chunks():
-        destination.write(chunk)
-    destination.close()
+
+def use_model_upload(f, user):
+    print "AAAAAA"
+    # see ImageAttachment model to see that it has default file upload location
+    image = ImageAttachment(creator=user)
+    # https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.FieldFile.save
+    image.file.save(f.name, File(f), save=True)
+    print "f name:"
+    print f.name
+    print "image.file.url"
+    print image.file.url

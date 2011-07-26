@@ -451,7 +451,7 @@ CSP_FRAME_ANCESTORS = ("'self'",
 MAX_FILENAME_LENGTH = 200 
 MAX_FILEPATH_LENGTH = 250 
 # Default storage engine - ours does not preserve filenames
-DEFAULT_FILE_STORAGE = 'upload.storage.RenameFileStorage'
+#DEFAULT_FILE_STORAGE = 'upload.storage.RenameFileStorage' # kitsune thing
 
 
 IMAGE_MAX_FILESIZE = 1048576  # 1 megabyte, in bytes
