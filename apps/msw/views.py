@@ -371,9 +371,14 @@ def demo(request, input_slug):
     p = get_object_or_404(Page, slug=input_slug)
 
     if input_slug == "set_cookie_httponly":
+        print "set_cookie_httponly"
         response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
+        # setting httponly=False overrides SESSION_COOKIE_HTTPONLY
         response.set_cookie('name1', 'Alice', httponly=False)
-        response.set_cookie('name2', 'Bob', httponly=True)      # 'httponly=True' is optional since Playdoh automatically sets httponly to True
+        # 'httponly=True' is optional since 
+        # Playdoh automatically sets httponly to True
+        response.set_cookie('name2', 'Bob', httponly=True)
+        return response
 
 
     if input_slug == "richtext_and_safe_url":
@@ -503,6 +508,8 @@ def check_file_size(f, max_allowed_size):
 
     """
     if f.size > max_allowed_size:
+        # jsocol: >> and << are bit-shift operations
+        # "foo >> 10" is essentially a very fast way to do integer division by 1024
         message = _lazy(u'"%s" is too large (%sKB), the limit is %sKB') % ( 
             f.name, f.size >> 10, max_allowed_size >> 10) 
         raise FileTooLargeError(message)
