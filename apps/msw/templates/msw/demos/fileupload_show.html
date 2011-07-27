@@ -6,9 +6,9 @@
 {% block rightPanelText %}
 
 <h2>Your Uploaded Image</h2>
-url: {{ pic_url }}
+url: {{ img.get_absolute_url() }}
 <br />
-<a href="{{ pic_url }}"><img src = "{{ pic_url }}" /></a>
+<a href="{{ img.get_absolute_url() }}"><img src = "{{ img.get_absolute_url() }}" /></a>
 
 <a href="{{ url('recent_imgs') }}">See recently uploaded images</a>
 {% endblock %}

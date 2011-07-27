@@ -409,27 +409,18 @@ def demo(request, input_slug):
             print "r FILES"
             print request.FILES
             print "yaaaaaa"
-            pic_url = ""
             if form.is_valid():
                 print "a valid file upload form"
                 image_file = request.FILES['image']
                 print request.user
                 user_object = User.objects.get(username = request.user)
-                #use_model_upload(image_file, user_object)
-                pic_url = use_model_upload(image_file, user_object)
-                
-            else:
-                print "BAD IMAGE FORM. REASON: "
-                print form.errors
-                pic_url = "#"
-
-            # POST return
-            return jingo.render(request, 'msw/demos/fileupload_show.html',
-                                {'all_pages_list': Page.objects.all(),
-                                 'page':p,
-                                 'pic_url' : pic_url})
-
-        
+                img = use_model_upload(image_file, user_object)
+     
+                # POST return
+                return jingo.render(request, 'msw/demos/fileupload_show.html',
+                                    {'all_pages_list': Page.objects.all(),
+                                     'page':p,
+                                     'img' : img })
 
     # Default demo stuff:
 
@@ -505,11 +496,27 @@ def xfo_allow(request):
 
 # File upload
 
+def check_file_size(f, max_allowed_size):
+    """Check the file size of f is less than max_allowed_size
+
+    Raise FileTooLargeError if the check fails.
+
+    """
+    if f.size > max_allowed_size:
+        message = _lazy(u'"%s" is too large (%sKB), the limit is %sKB') % ( 
+            f.name, f.size >> 10, max_allowed_size >> 10) 
+        raise FileTooLargeError(message)
+
+class FileTooLargeError(Exception):
+    pass
+
 def use_model_upload(f, user):
     # see ImageAttachment model to see that it has default file upload location
     # https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.FieldFile.save
+    check_file_size(f, settings.IMAGE_MAX_FILESIZE)
     image = ImageAttachment(creator=user)
     image.file.save(f.name, File(f), save=True)
+    return image
 
 def recent_imgs(request):
     return jingo.render(request, 'msw/demos/fileupload_recent.html',
