@@ -447,7 +447,8 @@ def demo(request, input_slug):
 def sql_ajax_server(request):
     if request.is_ajax():
         usrInput = request.POST
-        myComment =  usrInput['comment']
+        #myComment =  usrInput['comment']
+        myComment =  bleach.clean(usrInput['comment'])
         cursor = connection.cursor()
 
         # Data modifying operation - commit required
