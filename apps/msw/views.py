@@ -13,6 +13,9 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection, transaction
 from django.utils import simplejson
 import json
+# x-frame-options
+from csp.decorators import csp_exempt
+
 # User Authentication / Login
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -427,7 +430,7 @@ def demo(request, input_slug):
                                      'page':p,
                                      'img' : img })
 
-    # Default demo stuff:
+        # file upload GET:
 
         file = 'msw/demos/fileupload.html'
 
@@ -440,9 +443,9 @@ def demo(request, input_slug):
         return jingo.render(request, file, ctx)
 
 
-    response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
+    # default demo stuff:
+    return jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
-    return response
 
 def sql_ajax_server(request):
     if request.is_ajax():
@@ -480,6 +483,14 @@ def cookie(request):
     return rendered
 
 # X-Frame-Options
+
+# exempt for the test-your-site demo
+@csp_exempt
+def x_frame_options(request):
+    input_slug = "x_frame_options"
+    p = get_object_or_404(Page, slug=input_slug)
+    return jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
+
 def xfo_deny(request):
     html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
     response = HttpResponse(html)
