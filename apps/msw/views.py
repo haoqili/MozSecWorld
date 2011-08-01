@@ -368,6 +368,7 @@ def detail(request, input_slug):
     return jingo.render(request, 'msw/detail.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
 
+@login_required
 def demo(request, input_slug):
     print input_slug
 
@@ -410,6 +411,8 @@ def demo(request, input_slug):
         print "\na img upload!"
         form = forms.ImageAttachmentUploadForm()
         if request.method == 'POST':
+            #import pdb;
+            #pdb.set_trace();
             print "in file upload post"
             form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
             print "r POST"
@@ -529,13 +532,15 @@ def check_file_size(f, max_allowed_size):
 class FileTooLargeError(Exception):
     pass
 
-def use_model_upload(f, user):
+def use_model_upload(imgf, user):
     # see ImageAttachment model to see that it has default file upload location
     # https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.FieldFile.save
-    check_file_size(f, settings.IMAGE_MAX_FILESIZE)
-    image = ImageAttachment(creator=user)
-    image.file.save(f.name, File(f), save=True)
-    return image
+    check_file_size(imgf, settings.IMAGE_MAX_FILESIZE)
+
+    imageModel = ImageAttachment(creator=user) # make model
+    # saves to file, if save=True save to db as well
+    imageModel.file.save(imgf.name, File(imgf), save=True)
+    return imageModel
 
 def recent_imgs(request):
     return jingo.render(request, 'msw/demos/fileupload_recent.html',

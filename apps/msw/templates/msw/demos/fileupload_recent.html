@@ -1,0 +1,19 @@
+{% extends "msw/base.html" %}
+
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+
+<h2>Most Recently Uploaded Pictures</h2>
+
+{% for img in img_qset %}
+    <span class="picture">
+    <a href="{{ img.get_absolute_url() }}"><img src="{{ img.get_absolute_url() }}" /></a>
+    </span>
+{% else %}
+    No images to dispaly
+{% endfor %}
+
+
+{% endblock %}

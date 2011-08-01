@@ -18,6 +18,9 @@ from msw.captcha import submit, displayhtml
 # Blacklisted Password
 from .models import BlacklistedPassword
 
+# File upload
+from msw import formfield
+
 class ReCaptchaField(forms.CharField):
     default_error_messages = {
         'captcha_invalid': _(u'Invalid captcha')
@@ -101,9 +104,9 @@ ALLOWED_IMAGE_EXTENSIONS = ('jpg', 'jpeg', 'png', 'gif')
 class ImageAttachmentUploadForm(forms.Form):
     """Image upload form with image file checks"""
     # forms.ImageField requires PIL
-    image = forms.ImageField(error_messages={'required': MSG_IMAGE_REQUIRED,
-                                             'max_length': MSG_IMAGE_LONG},
-                             max_length=settings.MAX_FILENAME_LENGTH)
+    image = formfield.ImageProcessField(error_messages={'required': MSG_IMAGE_REQUIRED,
+                                         'max_length': MSG_IMAGE_LONG},
+                                          max_length=settings.MAX_FILENAME_LENGTH)
     def clean(self):
         c = super(ImageAttachmentUploadForm, self).clean()
         clean_image_extension(c.get('image'))
