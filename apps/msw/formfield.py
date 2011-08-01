@@ -44,8 +44,9 @@ class ImageProcessField(fields.ImageField):
         image.thumbnail((100,100))
 
         # for saving non-jpgs: (from google)
-        if image.mode not in ('L', 'RGB'):
-            image = image.convert("RGB")
+        # Don't need it when saving as PNG
+        #if image.mode not in ('L', 'RGB'):
+        #    image = image.convert("RGB")
         
         # saving it into String IO       
         # http://stackoverflow.com/questions/646286/python-pil-how-to-write-png-image-to-string
