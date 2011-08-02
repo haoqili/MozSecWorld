@@ -8,6 +8,7 @@ List of Demos
 ===========
 
 XSS Prevention
+
 * x-frame-options: DENY
 * set-cookie: HTTPOnly
 
