@@ -1,7 +1,38 @@
-MozSecWorld
+About MozSecWorld
 =========
-:D
-Project [Website](https://wiki.mozilla.org/WebAppSec/MozSecureWorld).
+MozSecWorld is a reference site to help web developers make their sites more secure. It is a running Django web application demonstrating major security paradigms used within Mozilla web applications and security capabilities of modern browsers. Each security feature comes with a live demo, complete with explanations, diagrams, and code.
+
+Like other Mozilla projects, MozSecWorld is [completely open source][14]. Feel free to comment, critique, or contribute. 
+
+List of Demos
+===========
+
+XSS Prevention
+* x-frame-options: DENY
+* set-cookie: HTTPOnly
+
+Input Validation
+* Parameterized SQL statements
+* Richtext, so users can use <i>, <b>, but not <script>
+   * [bleach][11] only allows whitelisted HTML tags
+* Only safe URLs are clickable
+   * Google SafeBrowsing and a 3-step HTTPS Google Validation
+* Image Upload following the [“Image Upload” guidelines][13]
+   * strip away extraneous content with PIL rewrite
+
+Good Authentication
+* password safety with bcrypt+HMAC
+* black-listed passwords
+* brute force prevention with [ratelimit][12] and ReCapatcha
+   * Shows ReCaptach after multiple failed logins from same IP or different IP for same username
+
+Cross Site Scripting
+* Content Security Policy
+* Access Control: separate Presentation, Business, and Data layers
+
+Transport Security
+* Full and correct TLS
+* HTTP Strict Transport Security
 
 Setup
 ========
@@ -86,3 +117,8 @@ TBD
 [4]: http://pypi.python.org/pypi/setuptools
 [5]: http://code.google.com/apis/safebrowsing/key_signup.html
 [6]: http://www.google.com/recaptcha/whyrecaptcha
+
+[11]: https://github.com/jsocol/bleach
+[12]: https://github.com/jsocol/django-ratelimit
+[13]: https://wiki.mozilla.org/WebAppSec/Secure_Coding_Guidelines#Uploads
+[14]: https://github.com/haoqili/MozSecWorld 
