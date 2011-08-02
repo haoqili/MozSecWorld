@@ -107,10 +107,6 @@ CEF: inside your project home dir, do: `pip install --no-install --build=vendor-
 --> PyOpenSSL install: `pip install pyopenssl`
 
 
-License
--------
-TBD
-
 [1]: http://curioushq.blogspot.com/2011/07/django-playdoh-package-locations.html
 [2]: http://curioushq.blogspot.com/2011/07/getting-image-upload-to-work-on-django.html
 [3]: http://pypi.python.org/pypi/setuptools#files
