@@ -13,7 +13,7 @@ XSS Prevention
 
 Input Validation
 * Parameterized SQL statements
-* Richtext, so users can use <i>, <b>, but not <script>
+* Richtext, so users can use &lt;i&gt;, &lt;b&gt;, but not &lt;script&gt;
    * [bleach][11] only allows whitelisted HTML tags
 * Only safe URLs are clickable
    * Google SafeBrowsing and a 3-step HTTPS Google Validation
