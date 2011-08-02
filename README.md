@@ -4,6 +4,8 @@ MozSecWorld is a reference site to help web developers make their sites more sec
 
 Like other Mozilla projects, MozSecWorld is [completely open source][14]. Feel free to comment, critique, or contribute. 
 
+MozSecWorld will be hosted at mozsecworld.org before August 12th.
+
 List of Demos
 ===========
 
@@ -13,6 +15,7 @@ XSS Prevention
 * set-cookie: HTTPOnly
 
 Input Validation
+
 * Parameterized SQL statements
 * Richtext, so users can use &lt;i&gt;, &lt;b&gt;, but not &lt;script&gt;
    * [bleach][11] only allows whitelisted HTML tags
@@ -22,16 +25,19 @@ Input Validation
    * strip away extraneous content with PIL rewrite
 
 Good Authentication
+
 * password safety with bcrypt+HMAC
 * black-listed passwords
 * brute force prevention with [ratelimit][12] and ReCapatcha
    * Shows ReCaptach after multiple failed logins from same IP or different IP for same username
 
 Cross Site Scripting
+
 * Content Security Policy
 * Access Control: separate Presentation, Business, and Data layers
 
 Transport Security
+
 * Full and correct TLS
 * HTTP Strict Transport Security
 
