@@ -3,121 +3,145 @@
 {% endblock %}
 
 {% block rightPanelText %}
+<!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
     <h2>X-Frame-Options Demo</h2>
 
-    <p />
-    <h3><a href="/msw/x_frame_options/demo/xfo_allow">Demo of page with  'X-Frame-Options: ALLOW'</a></h3>
-    <h3><a href="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</a></h3>
-    <h3><a href="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</a></h3>
+    <div id="table-of-contents">
+        <span id="table-of-contents-head"></span>
+            <a href="#x-frame-over" class="special">Overview</a>
+            <a href="#x-frame-choices">Options</a>
+            <a href="#x-frame-testyour">Test your website!</a>
+            <a href="#x-frame-verify">How to verify</a>
+            <a href="#x-frame-code">Code</a>
+            <a href="{{ page.reverse_url() }}" class="special">Intro</a>
+    </div><!--table-of-contents-->
 
-    
-    <iframe src="/msw/x_frame_options/demo/xfo_allow">Demo of page with 'X-Frame-Options: ALLOW'</iframe>
-    <iframe src="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</iframe>
-    <iframe src="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</iframe>
-    
-    <p>Notice the "Back" in the iframe would lead you to blank pages. Can you figure out why?</p>
+    <div class="sec-chunk">
+        <div id="x-frame-over" class="overview sec-title">
+            Overview
+        </div>
+        <p>You will learn about the 3 <a href="#x-frame-choices">options</a> that X-Frame-Options has, make sure you know <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframes</a>.</p>
+        <p>You can <a href="#x-frame-testyour">test your website</a> to see if it can be displayed in an iframe.</p>
+        <p>The <a href="#x-frame-verify">how to verify</a> section provides details on how to ensure your site is taking advantage of x-frame-options.</p>
+        <p>View the <a href="#x-frame-mycode">code</a> section to see the code that's used to enable x-frame-options for this demo.</p>
+    </div><!-- sec-chunk -->
 
-    <br />
-    <br />
-    <hr>
-    <br />
-    <br />
+    <div class="sec-chunk">
+        <div id="x-frame-choices" class="sec-title">
+            X-Frame-Options Choices
+        </div>
+        <p>X-Frame-Options has three different settings: <span class="hlight">allow, sameorigin, and deny</span>.</p>
+        <p><span class="hlight">X-Frame-Options: ALLOW</span> instructs the browser to allow the web page to be rendered inside an iframe. This is the default behavior when you don't have the x-frame-options header.</p>
+        <iframe src="/msw/x_frame_options/demo/xfo_allow">Demo of page with 'X-Frame-Options: ALLOW'</iframe>
 
-    Put your URL here, and see if it shows up in the iframe below. <br />
-    Incorrect spelling or failing to have "http://" results in false 
-    negatives. <br />
-    <input id="inputUrl" type="text"></input>
-    <button id="checkButton">Click me to check it!</button>
-    <iframe id="outputIframe" src="http://www.google.com">Your site in this iframe</iframe>
-    <p />
-    Sites that detects iframe (have different behaviors): "https://bankofamerica.com", "http://facebook.com", "http://www.wellsfargo.com"<br />
-    Sites that don't: "http://www.citigroup.com", "http://visa.com"
+        <p><span class="hlight">X-Frame-Options: SAMEORIGIN</span> pages can be rendered inside an iframe if the parent page of the iframe comes from the same domain. For this demo the parent domain is the same as the framed content. Therefore, the content will be rendered within the iframe:</p>
+        <iframe src="/msw/x_frame_options/demo/xfo_sameorigin">Demo of page with 'X-Frame-Options: SAMEORIGIN'</iframe>
 
-    <br />
-    <br />
-    <hr>
-    <br />
-    <br />
+        <p><span class="hlight">X-Frame-Options: DENY</span> is the safest option and will prevent the content from being framed on any domain. A web page cannot be rendered inside an iframe anywhere.</p>
+        <iframe id="deny-frame" src="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</iframe>
+        <span id="deny-caption"><a href="/msw/x_frame_options/demo/xfo_deny">'X-Frame-Options: DENY' Page</a></span>
+    </div><!-- sec-chunk -->
 
+    <div class="sec-chunk">
+        <div id="x-frame-testyour" class="sec-title">
+            Test your website!
+        </div><!-- sec-title -->
+        Put your URL here, and see if it shows up in the iframe below. <br />
+        Spelling mistakes or failing to have "http://" results in false 
+        negatives.
+        <input id="inputUrl" type="text"></input>
+        <button id="checkButton">Click to check url!</button>
+        <iframe id="outputIframe" src="http://www.mozilla.org/">Your site in this iframe</iframe>
+        <p>Try these example sites:</p>
+        <p><span class="hlight">Sites with iframe detection:</span>
+        The last two examples are not optimal, due to <a href="http://crypto.stanford.edu/framebust/" target="_blank">Frame Busting Techniques</a>.
+        <ul id="x-frame-examples">
+            <li>
+            <i>https://bankofamerica.com</i>: model example of X-Frame-Options: DENY
+            </li>
+            <li>
+            <i>http://facebook.com</i>: detects the iframe, forces you to open in another page
+            </li>
+            <li>
+            <i>http://www.wellsfargo.com</i>: detects the iframe and automatically redirects
+            </li>
+        </ul>
+        </p>
+        <p><span class="hlight">Sites without iframe detection:</span>
+        <ul>
+            <li>
+            <i>http://www.google.com</i>
+            </li>
+            <li>
+            <i>http://www.citigroup.com</i>
+            </li>
+            <li>
+            <i>http://visa.com</i>
+            </li>
+        </ul>
+        </p>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
   
-    <h3>What to do</h3>
-        <p>Add in this line to your HTTP Response Headers: <code>X-Frame-Options: deny</code></p>
+    </div><!-- sec-chunk -->
 
-    <h3>How to check</h3>
-        <p>Firefox's Firebug or Chrome's "Inspect Elements": Go to "Net" option, refresh page, and click on the link that shows up, select "Headers" and you should see "X-Frame-Options: DENY" under "Response Headers"</p>
-        <p>Terminal: <code>>telnet [insert IP-address of your site] 8000</code> Press enter and put in <code>GET /en-US/msw/ HTTP/1.1</code> Press enter twice, and scroll to the very top of the output, should see "x-frame-options: DENY".
-</p>
-    <h3>What I did</h3>
-        <p>Playdoh automatically sets the "X-Frame-Options" to "deny". But if you want to set it automatically in Django, use <code>response['x-frame-options'] = 'DENY'</code></p>
+    <div class="sec-chunk">
+        <div id="x-frame-verify" class="sec-title">
+            How to verify
+        </div>
 
-In views.py:
-<pre>
-# X-Frame-Options
-def xfo_deny(request):
-    html = " ... my html stuff ... "
-    response = HttpResponse(html)
-    response['x-frame-options'] = 'DENY'
-    return response
-</pre>
+        <p>Firefox: <a href="http://getfirebug.com/" target="_blank">Get Firebug</a> and open up your web page (not in an iframe)
+        <ol>
+            <li>Click on Firebug's "Net" option</li>
+            <li>Refresh page</li>
+            <li>Click on 'GET [your url]'</li>
+            <li>Look under Headers' "Response Headers"</li>
+            <li>See what you have for "X-Frame-Options". If you don't see "X-Frame-Options", your web server does not have this header set.</li>
+        </ol>
+        </p>
 
+        <p>Chrome:
+        <ol>
+            <li>Right click on page</li>
+            <li>Choose "Inspect Elements"</li>
+            <li>Follow Firefox's steps</li>
+        </ol>
+        </p>
 
+        <p>Terminal:
+        <ol>
+            <li><code>&gt;telnet [insert IP-address of your site] 8000</code></li>
+            <li>Press enter</li>
+            <li>Put in <code>GET /en-US/msw/ HTTP/1.1</code></li>
+            <li>Press enter twice</li>
+            <li>Scroll to the very top of the output</li>
+            <li>Should see "X-Frame-Options". If you don't see it, your web server does not have this header set.</li>
+        </ol>
+        </p>
+        <!--[TODO: add pictures]-->
+    </div><!-- sec-chunk -->
 
-        <hr>
-        <p>Notes on how Django does x-frame-options</p>
-        <p>In <i>vendor/src/commonware/commonware/response/middleware.py</i>:
+    <div class="sec-chunk">
+        <div id="x-frame-code" class="sec-title">
+            My code - code for making this demo work
+        </div>
+        <p>In Django <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L497">views.py (click to go to github)</a>
         <pre>
-from django.conf import settings
-
-class FrameOptionsHeader(object):
-    """
-    Set an X-Frame-Options header. Default to DENY. Set
-    response['x-frame-options'] = 'SAMEORIGIN'
-    to override.
-    """
-
-    def process_response(self, request, response):
-        if hasattr(response, 'no_frame_options'):
+        def xfo_deny(request):
+            html = " ... my html stuff ... "
+            response = HttpResponse(html)
+            <span class="hlight">response['x-frame-options'] = 'DENY'</span>
             return response
-
-        if not 'x-frame-options' in response:
-            response['x-frame-options'] = 'DENY'
         </pre>
+       
+        <p>Extra Notes:</p>
 
-        <p>In <i>vendor/src/commonware/commonware/response/decorators.py</i>:
-        <pre>
-from functools import wraps
+        <p><a href="https://github.com/mozilla/playdoh" target="_blank">Mozilla's Playdoh</a> automatically sets the "X-Frame-Options" to "deny".</p>
 
-from django.utils.decorators import available_attrs
+        <p>If you use [CSP]<!--TODO: [link to mozsecworld  CSP]-->, the frame-ancestors policy has a <a href="https://github.com/haoqili/MozSecWorld/blob/master/settings.py#L440">whitelist of all the iframe sites</a>. Note how this demo has <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L491">csp_exempt</a> to bypass CSP so that you can test any websit in "Test Your Site!"</p>
+    </div><!-- sec-chunk -->
 
-
-def xframe_sameorigin(view_fn):
-    @wraps(view_fn, assigned=available_attrs(view_fn))
-    def _wrapped_view(request, *args, **kwargs):
-        response = view_fn(request, *args, **kwargs)
-        response['x-frame-options'] = 'SAMEORIGIN'
-        return response
-    return _wrapped_view
-
-
-def xframe_allow(view_fn):
-    @wraps(view_fn, assigned=available_attrs(view_fn))
-    def _wrapped_view(request, *args, **kwargs):
-        response = view_fn(request, *args, **kwargs)
-        response.no_frame_options = True
-        return response
-    return _wrapped_view
-
-
-def xframe_deny(view_fn):
-    @wraps(view_fn, assigned=available_attrs(view_fn))
-    def _wrapped_view(request, *args, **kwargs):
-        response = view_fn(request, *args, **kwargs)
-        response['x-frame-options'] = 'DENY'
-        return response
-    return _wrapped_view
-        </pre>
-
-    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
 {% endblock %}
 
 {% block body_end %}

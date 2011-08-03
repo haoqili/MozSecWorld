@@ -495,21 +495,25 @@ def x_frame_options(request):
     return jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
 def xfo_deny(request):
-    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
+    html = "<html><body style='background: blue;'><a href='/msw/x_frame_options/demo/xfo_allow' target='_blank' style='color: white;'>I am a critical page, being shown in an iframe. \
+    <p>I have 'x-frame-options: DENY'.</p></a></body></html>"
+
     response = HttpResponse(html)
     response['x-frame-options'] = 'DENY'
     return response
 
 # X-Frame-Options
 def xfo_sameorigin(request):
-    html = "<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: SAMEORIGIN'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: SAMEORIGIN' should be in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"
+    html = "<html><body style='background: blue;'><a href='/msw/x_frame_options/demo/xfo_allow' target='_blank' style='color: white;'>I am a critical page, being shown in an iframe. \
+    <p>I have 'x-frame-options: SAMEORIGIN'.</p></a></body></html>"
     response = HttpResponse(html)
     response['x-frame-options'] = 'SAMEORIGIN'
     return response
 
 # X-Frame-Options
 def xfo_allow(request):
-    html = """<html><body><p>This is a demonstration of a page that has 'X-Frame-Options: ALLOW', i.e. it does NOT HAVE 'X-Frame-Options: DENY'.</p><p>Open up the 'Net' in Firebug, refresh, clicke on 'GET ...', and 'X-Frame-Options: DENY' should not be seen in the HTTP 'Response Headers'.</p><p><h1><a href='/msw/x_frame_options/demo'>Back</a></h1></p></body></html>"""
+    html = "<html><body style='background: blue;'><a href='/msw/x_frame_options/demo/xfo_allow' target='_blank' style='color: white;'>I am a critical page, being shown in an iframe. \
+    <p>I have 'x-frame-options: ALLOW'.</p></a></body></html>"
     response = HttpResponse(html)
     response['x-frame-options'] = 'ALLOW'
     return response
