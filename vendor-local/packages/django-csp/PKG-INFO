@@ -1,0 +1,19 @@
+Metadata-Version: 1.0
+Name: django_csp
+Version: 1.0.2
+Summary: Django Content Security Policy support.
+Home-page: http://github.com/mozilla/django-csp
+Author: James Socol
+Author-email: james@mozilla.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Environment :: Web Environment :: Mozilla
+Classifier: Intended Audience :: Developers
+Classifier: Framework :: Django
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

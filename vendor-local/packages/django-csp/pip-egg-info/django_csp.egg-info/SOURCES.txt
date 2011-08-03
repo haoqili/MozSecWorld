@@ -1,0 +1,10 @@
+setup.cfg
+csp/__init__.py
+csp/decorators.py
+csp/middleware.py
+csp/urls.py
+csp/views.py
+pip-egg-info/django_csp.egg-info/PKG-INFO
+pip-egg-info/django_csp.egg-info/SOURCES.txt
+pip-egg-info/django_csp.egg-info/dependency_links.txt
+pip-egg-info/django_csp.egg-info/top_level.txt
