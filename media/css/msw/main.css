@@ -141,6 +141,9 @@ p {
 
     .sec-chunk {
     }
+    .sec-chunk .inside {
+        margin: 0.5em 4em;
+    }
     .sec-chunk iframe {
         margin-left: 4em;
     }
@@ -159,15 +162,24 @@ p {
         border-radius: 0.3em;
         box-shadow: 0px 0px 3px rgba(0.1, 0.7, 0.5, 0.2);
     }
-    .sec-chunk #checkButton {
+    .sec-chunk #checkButton, .sec-chunk button {
         background-color: green;
         color: white;
-        padding: 0.2em;
-        border-radius: 0.3em;
+        padding: 0.3em;
+        border-radius: 1em;
         box-shadow: 0px 0px 3px rgba(0.1, 0.7, 0.5, 0.2);
     }
     .sec-chunk #x-frame-examples li {
         padding: 0.2em;
+    }
+    .sec-chunk table {
+        text-align: center;
+    }
+    .sec-chunk table td {
+        padding: 0.5em 1.5em;
+    }
+    .sec-chunk #cookie2 {
+        margin-left: 1em;
     }
 .hlight {
     color: #196733;

@@ -1,7 +1,5 @@
 packages/cef
 packages/django-csp
-packages/py-bcrypt
 lib/python2.7/Crypto
 lib/python2.7/OpenSSL
-lib/python2.7/bcrypt
 lib/python/PIL

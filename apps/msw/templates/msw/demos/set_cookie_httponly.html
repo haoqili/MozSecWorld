@@ -29,28 +29,31 @@
             Set-Cookie: HttpOnly Demo
         </div>
         <p>There are two cookies on this page, one with the HttpOnly attribute, one without.</p>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Value</th>
-                <th>HttpOnly?</th>
-            </tr>
-            <tr>
-                <td>cookie1</td>
-                <td>foo</td>
-                <td>no :(</td>
-            </tr>
-            <tr>
-                <td>cookie2</td>
-                <td>bar</td>
-                <td>yes :)</td>
-            </tr>
-        </table>
+        <div class="inside">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>HttpOnly?</th>
+                </tr>
+                <tr>
+                    <td>cookie1</td>
+                    <td>foo</td>
+                    <td>no :(</td>
+                </tr>
+                <tr>
+                    <td>cookie2</td>
+                    <td>bar</td>
+                    <td>yes :)</td>
+                </tr>
+            </table>
+        </div>
         <p>The buttons below use JavaScript to display the contents (i.e. values) of the cookies.</p>
-        <button type="button" id='cookie1'>See contents of cookie1</button>
-        <button type="button" id='cookie2'>See contents of cookie2</button>
-
-        <p>You should observe that you can see the contents ("foo") of cookie1, but cannot see the contents ("bar") of cookie2, which has HTTPOnly enabled and thus JavaScript is unable to access the cookie value.</p>
+        <div class="inside">
+            <button type="button" id='cookie1'>see contents of cookie1</button>
+            <button type="button" id='cookie2'>see contents of cookie2</button>
+        </div>
+        <p>You should observe that you can see the contents ("foo") of cookie1, but <span class="hlight">cannot see the contents ("bar") of cookie2, which has HTTPOnly enabled</span> and thus JavaScript is unable to access the cookie value.</p>
 
     </div><!-- sec-chunk -->
 
@@ -59,9 +62,9 @@
             How to verify
         </div>
 
-        <p>Firefox: <a href="http://getfirebug.com/" target="_blank">Get Firebug</a> and open up your web page (not in an iframe)
+        <p>Firefox: <a href="http://getfirebug.com/" target="_blank">Get Firebug</a> and open up this demo page
         <ol>
-            <li>Click on Firebug's "Net" option</li>
+            <li>Click on Firebug's "Cookies" option</li>
             <li>Refresh page</li>
             <li>Click on 'GET [your url]'</li>
             <li>Look under Headers' "Response Headers"</li>
