@@ -22,7 +22,9 @@ DATABASES = {
 }
 
 ## Auth
-HMAC_KEYS = { # Remember to NEVER DELETE THINGS FROM HERE, ONLY APPEND
+# date: YYYY-MM-DD, bcrypt uses the max one when creating new users
+# Remember to not delete, just APPEND
+HMAC_KEYS = {
     '2011-10-03': 'cheesecake',
 }
 

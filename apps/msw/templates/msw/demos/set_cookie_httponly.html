@@ -9,7 +9,7 @@
     <div id="table-of-contents">
         <span id="table-of-contents-head"></span>
             <a href="#x-frame-over" class="special">Overview</a>
-            <a href="#x-frame-choices">Options</a>
+            <a href="#x-frame-choices">Demo</a>
             <a href="#x-frame-verify">How to verify</a>
             <a href="#x-frame-code">Code</a>
             <a href="{{ page.reverse_url() }}" class="special">Intro</a>
@@ -21,7 +21,7 @@
         </div>
         <p>You will learn see the difference between <a href="#x-frame-choices">cookies with or without HttpOnly</a>, make sure you have some knowledge of <a href="http://en.wikipedia.org/wiki/HTTP_cookie" target="_blank">cookies</a>.</p>
         <p>The <a href="#x-frame-verify">how to verify</a> section provides details on how to ensure your cookies have the HttpOnly attribute.</p>
-        <p>View the <a href="#x-frame-mycode">code</a> section to see the code that's used to set HttpOnly for this demo.</p>
+        <p>View the <a href="#x-frame-code">code</a> section to see the code that's used to set HttpOnly for this demo.</p>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
@@ -65,18 +65,21 @@
         <p>Firefox: <a href="http://getfirebug.com/" target="_blank">Get Firebug</a> and open up this demo page
         <ol>
             <li>Click on Firebug's "Cookies" option</li>
-            <li>Refresh page</li>
-            <li>Click on 'GET [your url]'</li>
-            <li>Look under Headers' "Response Headers"</li>
-            <li>See what you have for "X-Frame-Options". If you don't see "X-Frame-Options", your web server does not have this header set.</li>
+            <li>Refresh this demo page</li>
+            <li>You should see all the cookies and values (since Firebug has browser privileges)</li>
+            <li>Look under the HttpOnly column on the right side and you should see that cookie1 does not have <code>HttpOnly</code></li>
         </ol>
         </p>
 
         <p>Chrome:
         <ol>
-            <li>Right click on page</li>
+            <li>Right click on this demo page</li>
             <li>Choose "Inspect Elements"</li>
-            <li>Follow Firefox's steps</li>
+            <li>Click on "Resources"</li>
+            <li>Expand on "Cookies"</li>
+            <li>Refresh this demo page</li>
+            <li>You should see all the cookies and values</li>
+            <li>Look under the HTTP column on the right and you should see cookie1 does not have a check mark</li>
         </ol>
         </p>
 
@@ -84,10 +87,9 @@
         <ol>
             <li><code>&gt;telnet [insert IP-address of your site] 8000</code></li>
             <li>Press enter</li>
-            <li>Put in <code>GET /en-US/msw/ HTTP/1.1</code></li>
-            <li>Press enter twice</li>
-            <li>Scroll to the very top of the output</li>
-            <li>Should see "X-Frame-Options". If you don't see it, your web server does not have this header set.</li>
+            <li>Put in <code>GET /en-US/msw/ HTTP/1.1</code><!--TODO: CHANGE!!!!!! to right one--></li>
+            <li>Press enter twice, you should see "HTTP/1.0 200 OK" at the beginning of the output</li>
+            <li>Should see that cookie1 does not have <code>httponly;</code> associated with it: <code>Set-Cookie: cookie1=foo; httponly; ... cookie2/bar;</code></li>
         </ol>
         </p>
         <!--[TODO: add pictures]-->
@@ -97,20 +99,19 @@
         <div id="x-frame-code" class="sec-title">
             My code - code for making this demo work
         </div>
-        <p>In Django <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L497">views.py (click to go to github)</a>
+        <p>In Django <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L377">views.py (click to go to github)</a>
         <pre>
-        def xfo_deny(request):
-            html = " ... my html stuff ... "
-            response = HttpResponse(html)
-            <span class="hlight">response['x-frame-options'] = 'DENY'</span>
+            response = jingo.render(...)
+            response.set_cookie('cookie1', 'foo', httponly=False)
+            response.set_cookie('cookie2', 'bar', httponly=True)
             return response
         </pre>
        
         <p>Extra Notes:</p>
 
-        <p><a href="http://playdoh.readthedocs.org/en/latest/index.html" target="_blank">Mozilla's Playdoh</a> automatically sets the "X-Frame-Options" to "deny".</p>
+        <p>If you are using Django, make sure you have <code>SESSION_COOKIE_HTTPONLY = True</code> in settings.py, since the <a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SESSION_COOKIE_HTTPONLY">default</a> is unfortunately false.</p>
 
-        <p>If you use [CSP]<!--TODO: [link to mozsecworld  CSP]-->, the frame-ancestors policy has a <a href="https://github.com/haoqili/MozSecWorld/blob/master/settings.py#L440">whitelist of all the iframe sites</a>. Note how this demo has <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L491">csp_exempt</a> to bypass CSP so that you can test any websit in "Test Your Site!"</p>
+        <p><a href="http://playdoh.readthedocs.org/en/latest/">Mozilla's Playdoh</a> automatically have <a href="http://readthedocs.org/docs/playdoh/en/latest/bestpractices.html#mmmmh-cookies">Set-Cookie: HttpOnly</a>, ensure that you have <code>commonware.response.cookies</code> in your settings.py's installed apps.</p>
     </div><!-- sec-chunk -->
 
 {% endblock %}

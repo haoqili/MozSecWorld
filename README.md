@@ -64,7 +64,7 @@ Setup
 
 5. Get pip: `sudo apt-get install python-pip`
 
-6. Get bcrypt: `sudo pip install py-bcrypt`
+6. Get bcrypt: `sudo pip install py-bcrypt`. If you have rhel, you can do `yum install py-bcrypt`
 
 7. Get jinja2: `sudo pip install jinja2`
 
