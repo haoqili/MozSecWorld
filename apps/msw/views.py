@@ -368,7 +368,7 @@ def detail(request, input_slug):
     return jingo.render(request, 'msw/detail.html', {"all_pages_list": Page.objects.all(), 'page':p})
 
 
-@login_required
+#@login_required
 def demo(request, input_slug):
     print input_slug
 

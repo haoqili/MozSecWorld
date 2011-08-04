@@ -68,8 +68,6 @@ Setup
 
 7. Get jinja2: `sudo pip install jinja2`
 
-<del>8. Get ratelimit: `git clone https://github.com/jsocol/django-ratelimit.git` and then `cd django-ratelimit" and `python setup.py install`
-</del>
 9. run the server: `python manage.py runserver` and you should see
 
     Validating models...
