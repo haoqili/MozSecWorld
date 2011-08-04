@@ -62,10 +62,11 @@ Setup
  * mysql> `grant all on mozsecworld.* to msw_user@localhost identified by 'm3dRL2Asw7';`
  * mysql> `create database mozsecworld;`
 
-4. Get CSP: `git clone https://github.com/mozilla/django-csp.git` and then `cd django-csp` and `python setup.py install`
+<del>4. Get CSP: `git clone https://github.com/mozilla/django-csp.git` and then `cd django-csp` and `python setup.py install`
  * If you don't have the setuptools module, do these things (e.g. Linux)
  * Download [the appropriate py version setuptools egg][3]
  * run `sudo sh setuptools-0.6c11-py2.6.egg` change for your version [doc][4]
+</del>
 
 5. Get pip: `sudo apt-get install python-pip`
 

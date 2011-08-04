@@ -21,6 +21,6 @@ function viewCookie (name) {
     alert(cookie);
 }
 
-document.getElementById("name1").addEventListener('click', function(){ viewCookie("name1") }, false);
-//document.getElementById("name2").addEventListener('click', function(){ viewCookie("name2") }, false);
-document.getElementById("name2").onclick = function(){ viewCookie("name2") };
+document.getElementById("cookie1").addEventListener('click', function(){ viewCookie("cookie1") }, false);
+//document.getElementById("cookie2").addEventListener('click', function(){ viewCookie("cookie2") }, false);
+document.getElementById("cookie2").onclick = function(){ viewCookie("cookie2") };

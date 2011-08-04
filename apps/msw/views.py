@@ -378,10 +378,10 @@ def demo(request, input_slug):
         print "set_cookie_httponly"
         response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
         # setting httponly=False overrides SESSION_COOKIE_HTTPONLY
-        response.set_cookie('name1', 'Alice', httponly=False)
+        response.set_cookie('cookie1', 'foo', httponly=False)
         # 'httponly=True' is optional since 
         # Playdoh automatically sets httponly to True
-        response.set_cookie('name2', 'Bob', httponly=True)
+        response.set_cookie('cookie2', 'bar', httponly=True)
         return response
 
 

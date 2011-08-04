@@ -28,7 +28,7 @@
 
     <div class="sec-chunk">
         <div id="x-frame-choices" class="sec-title">
-            X-Frame-Options Choices
+            X-Frame-Options Choices Demo
         </div>
         <p>X-Frame-Options has three different settings: <span class="hlight">allow, sameorigin, and deny</span>.</p>
         <p><span class="hlight">X-Frame-Options: ALLOW</span> instructs the browser to allow the web page to be rendered inside an iframe. This is the default behavior when you don't have the x-frame-options header.</p>
@@ -51,7 +51,7 @@
         negatives.
         <input id="inputUrl" type="text"></input>
         <button id="checkButton">Click to check url!</button>
-        <iframe id="outputIframe" src="http://www.mozilla.org/">Your site in this iframe</iframe>
+        <iframe id="outputIframe" src="http://en.wikipedia.org/wiki/Main_Page">Your site in this iframe</iframe>
         <p>Try these example sites:</p>
         <p><span class="hlight">Sites with iframe detection:</span>
         The last two examples are not optimal, due to <a href="http://crypto.stanford.edu/framebust/" target="_blank">Frame Busting Techniques</a>.
@@ -69,6 +69,9 @@
         </p>
         <p><span class="hlight">Sites without iframe detection:</span>
         <ul>
+            <li>
+            <i>http://en.wikipedia.org/wiki/Main_Page</i>
+            </li>
             <li>
             <i>http://www.google.com</i>
             </li>
@@ -137,7 +140,7 @@
        
         <p>Extra Notes:</p>
 
-        <p><a href="https://github.com/mozilla/playdoh" target="_blank">Mozilla's Playdoh</a> automatically sets the "X-Frame-Options" to "deny".</p>
+        <p><a href="http://playdoh.readthedocs.org/en/latest/index.html" target="_blank">Mozilla's Playdoh</a> automatically sets the "X-Frame-Options" to "deny".</p>
 
         <p>If you use [CSP]<!--TODO: [link to mozsecworld  CSP]-->, the frame-ancestors policy has a <a href="https://github.com/haoqili/MozSecWorld/blob/master/settings.py#L440">whitelist of all the iframe sites</a>. Note how this demo has <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L491">csp_exempt</a> to bypass CSP so that you can test any websit in "Test Your Site!"</p>
     </div><!-- sec-chunk -->
