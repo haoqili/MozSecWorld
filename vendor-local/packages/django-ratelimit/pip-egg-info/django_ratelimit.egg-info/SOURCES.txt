@@ -1,0 +1,13 @@
+LICENSE
+MANIFEST.in
+README.rst
+setup.cfg
+pip-egg-info/django_ratelimit.egg-info/PKG-INFO
+pip-egg-info/django_ratelimit.egg-info/SOURCES.txt
+pip-egg-info/django_ratelimit.egg-info/dependency_links.txt
+pip-egg-info/django_ratelimit.egg-info/requires.txt
+pip-egg-info/django_ratelimit.egg-info/top_level.txt
+ratelimit/__init__.py
+ratelimit/decorators.py
+ratelimit/backends/__init__.py
+ratelimit/backends/cachebe.py

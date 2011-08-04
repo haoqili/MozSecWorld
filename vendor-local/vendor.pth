@@ -1,5 +1,7 @@
 packages/cef
+packages/django
 packages/django-csp
+packages/django-ratelimit
 lib/python2.7/Crypto
 lib/python2.7/OpenSSL
 lib/python/PIL
