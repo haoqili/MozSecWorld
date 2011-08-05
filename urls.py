@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+from django.views.generic.simple import redirect_to
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -7,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
-    #(r'', include('examples.urls')), # don't care about front mage
+    (r'^$', redirect_to, {'url': '/msw'}), 
     (r'^msw/', include('msw.urls')), # directs to msw/urls.py
     #(r'^accounts/', include('msw.urls')),
     #(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'apps/msw/templates/msw/demos/login.html'}),
