@@ -51,6 +51,9 @@ class Page(models.Model):
 ####################################################
 ##### Safe URL / RichText ##########################
 
+class SafeUrl(models.Model):
+    the_url = models.URLField()
+
 class RichText(models.Model):
     name = models.CharField(max_length=200)
     comment = models.TextField()

@@ -1,4 +1,6 @@
+import bleach
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -14,12 +16,32 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from msw.captcha import submit, displayhtml
+from msw.models import SafeUrl
+from msw.utils import urlCheck
 
 # Blacklisted Password
 from .models import BlacklistedPassword
 
 # File upload
 from msw import formfield
+
+class SafeUrlForm(ModelForm):
+    class Meta:
+        model = SafeUrl
+
+    def clean_the_url(self):
+        data = self.cleaned_data['the_url']
+        print "^^^^^^^^^ SafeUrlForm's clean_the_url ^^^^^^^^"
+        print data
+        # "http://" automatically inserted if absent
+        if urlCheck(data):
+            print "url check good"
+            # adds href to data 
+            data = bleach.linkify(data)
+        else:
+            print "url check bad"
+            data = data+"DANGEROUS LINK!!!!!!!!!!!"
+        return bleach.clean(data)
 
 class ReCaptchaField(forms.CharField):
     default_error_messages = {

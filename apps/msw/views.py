@@ -1,7 +1,7 @@
 import jingo
 import bleach
 import urllib # to refresh recaptcha
-from msw.models import Page, RichText, RichTextForm
+from msw.models import Page, RichText, RichTextForm, SafeUrl
 from msw import forms
 
 from commons.urlresolvers import reverse
@@ -382,6 +382,28 @@ def demo(request, input_slug):
         # 'httponly=True' is optional since 
         # Playdoh automatically sets httponly to True
         response.set_cookie('cookie2', 'bar', httponly=True)
+        return response
+
+    if input_slug == "safe_url":
+        print "hhhhhhhhhhhhhhh"
+        form = forms.SafeUrlForm()
+        file = 'msw/demos/safe_url.html'
+        
+        if request.method == "POST":
+            print "in safe url POST"
+            form = forms.SafeUrlForm(request.POST)
+            if form.is_valid():
+                print "VVVVVVVVVVVVVVVVVVVVV"
+                form.save()
+            file = 'msw/demos/children/safe_url_table.html'
+            
+        ctx = { 
+            'all_pages_list': Page.objects.all(),
+            'page':p,
+            'form': form,
+            'all_safeurl': SafeUrl.objects.all().order_by('-id'),
+            }
+        response = jingo.render(request, file, ctx)
         return response
 
 

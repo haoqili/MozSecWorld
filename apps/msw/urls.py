@@ -12,7 +12,6 @@ urlpatterns = patterns('msw.views', # gets information from views.py
 
     url(r'^$', views.index, name="mswindex"), # goes to views.py's "def index"
 
-
     #####
     ## Named groups, read more here: https://docs.djangoproject.com/en/1.3/topics/http/urls/#named-groups
     ## (?P<argument_name>regex) saves whatever matches in regex to argument_name
