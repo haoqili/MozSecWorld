@@ -204,7 +204,6 @@ MINIFY_BUNDLES = {
         # TODO: combine js
         'common': (
             'js/libs/jquery-1.6.2.min.js',
-            'js/libs/google-analytics.js',
         ),
         'xframe_checkurl': (
             'js/msw/xframe_checkurl.js',
