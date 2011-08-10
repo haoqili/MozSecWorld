@@ -1,29 +1,70 @@
 {% extends "msw/base.html" %}
-
 {% block head_stuff %}
 {% endblock %}
 
 {% block rightPanelText %}
-    <h2>Good Authentication Tools</h2>
+<!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
+    <h2>Good Authentication Demo Instructions</h2>
 
-    <p />
-    <h3>What to do</h3>
-        <p>Get bcrypt password encryption with HMAC</p>
-        <p>Get ratelimit that prompts a ReCaptcha if an IP or username has more than 5 submissions per minute.</p>
+    <div id="table-of-contents">
+        <span id="table-of-contents-head"></span>
+            <a href="#demo-part-over" class="special">Overview</a>
+            <a href="#demo-part-demo">Demo</a>
+            <a href="#demo-part-code">Code</a>
+            <a href="{{ page.reverse_url() }}" class="special">Go to Intro</a>
+    </div><!--table-of-contents-->
 
-    <h3>How to check</h3>
-        <p>bcrypt: check in database that password is stored with "bcrypt"</p>
-        <p>ratelimit: do 5 submissions of the same username per minute and see if captcha appears. repeat with the same IP, different usernames</p>
-    <h3>What I did</h3>
-        <p>bcrypt is automatically turned on in Playdoh. 
-        </p>
-        <p>I got recaptcha from a blog post [TODO: insert blog url]and then added ratelimit to give me the boolean prompt to use the recaptcha</p>
+    <div class="sec-chunk">
+        <div id="demo-part-over" class="sec-title">
+            Overview
+        </div>
+        <p>MozSecWorld integrates the three password safety measures: password choice safety, passowrd storage safety, and online password attack prevention.</p>
+        <p>The demo is going to be performed on the [login] and [registration] pages. Please read <a href="#demo-part-demo">the demo section</a> to knowwhat to do. 
+        <p>View the <a href="#demo-part-code">code</a> section to see the code used to implement the three password safety measures for MozSecWorld.</p>
+    </div><!-- sec-chunk -->
 
-    <h3>The demo: </h3>
-    <p>Go to <a href="/msw/good_auth/demo/register">register</a> [TODO: make url into standard way]], to see the recaptcha, give 5 invalid submissions in a row (like leave out a password field)</p>
-    <p>Go to <a href="/msw/good_auth/demo/login">login</a> [TODO: make url into standard way]], to see the recaptcha, give 5 invalid submissions in a row (like leave out a password field)</p>
-    <p>Go to <a href="/msw/good_auth/demo/logout">logout</a> [TODO: make url into standard way]], to logout</p>
+    <div class="sec-chunk">
+        <div id="demo-part-demo" class="sec-title">
+            Demo
+        </div>
+        <section class="textchunk">
+            <span class="sec-small-title">Password Choice Safety:</span>
+            <div class="sec-small-chunk">
+            Try registering with  a common password like, “1234567”, or a password fewer than 6 characters. MozSecWorld will prevent you from selecting this weak password.
+            </div>
 
-    <p>Once you log in, you should/can get into the <a href="/msw/good_auth/demo/membersOnly">Members-Only page</a>. If you're not logged in, you cannot see that page [TOOD: make url into standard way]</p>
-    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
+            <span class="sec-small-title">Password Storage Safety:</span>
+            <div class="sec-small-chunk">
+            Sorry, there is no easy way to demo it. Take a look at the [code] and <a href="http://blog.mozilla.com/webappsec/2011/05/10/sha-512-w-per-user-salts-is-not-enough/" target="_blank">a blog post titled <i>SHA 512 w/ per User Salts is Not Enough</i></a>.
+            </div>
+
+            <span class="sec-small-title">Online Password Attack Prevention:</span>
+            <div class="sec-small-chunk">
+            Try 5 failed login or registration attempts in one minute, and observe that a ReCaptcha is displayed.
+            </div>
+        </section>
+
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-code" class="sec-title">
+            My code - code for making this demo work
+        </div>
+        <section class="textchunk">
+            Coming before September 2011!
+{#
+ Password choice safety:
+
+Password storage safety:
+
+Password cracking prevention:
+
+enable bcrypt in Playdoh
+
+I got recaptcha from a blog post [TODO: insert blog url]and then     added ratelimit to give me the boolean prompt to use the recaptcha
+
+#}
+        </section>
+    </div><!-- sec-chunk -->
+
 {% endblock %}

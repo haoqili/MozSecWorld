@@ -4,28 +4,28 @@
 
 {% block rightPanelText %}
 <!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
-    <h2>'Set-Cookie: HttpOnly'  Demo</h2>
+    <h2>'Set-Cookie: HttpOnly' Demo</h2>
 
     <div id="table-of-contents">
         <span id="table-of-contents-head"></span>
             <a href="#demo-part-over" class="special">Overview</a>
-            <a href="#demo-part-choices">Demo</a>
+            <a href="#demo-part-demo">Demo</a>
             <a href="#demo-part-verify">How to verify</a>
             <a href="#demo-part-code">Code</a>
-            <a href="{{ page.reverse_url() }}" class="special">Intro</a>
+            <a href="{{ page.reverse_url() }}" class="special">Go to Intro</a>
     </div><!--table-of-contents-->
 
     <div class="sec-chunk">
-        <div id="demo-part-over" class="overview sec-title">
+        <div id="demo-part-over" class="sec-title">
             Overview
         </div>
-        <p>You will learn see the difference between <a href="#demo-part-choices">cookies with or without HttpOnly</a>, make sure you have some knowledge of <a href="http://en.wikipedia.org/wiki/HTTP_cookie" target="_blank">cookies</a>.</p>
+        <p>You will learn see the difference between <a href="#demo-part-demo">cookies with or without HttpOnly</a>, make sure you have some knowledge of <a href="http://en.wikipedia.org/wiki/HTTP_cookie" target="_blank">cookies</a>.</p>
         <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure your cookies have the HttpOnly attribute.</p>
         <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to set HttpOnly for this demo.</p>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
-        <div id="demo-part-choices" class="sec-title">
+        <div id="demo-part-demo" class="sec-title">
             Set-Cookie: HttpOnly Demo
         </div>
         <p>There are two cookies on this page, one with the HttpOnly attribute, one without.</p>

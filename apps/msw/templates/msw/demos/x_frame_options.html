@@ -9,25 +9,25 @@
     <div id="table-of-contents">
         <span id="table-of-contents-head"></span>
             <a href="#demo-part-over" class="special">Overview</a>
-            <a href="#demo-part-choices">Demo</a>
+            <a href="#demo-part-demo">Demo</a>
             <a href="#demo-part-testyour">Test your website!</a>
             <a href="#demo-part-verify">How to verify</a>
             <a href="#demo-part-code">Code</a>
-            <a href="{{ page.reverse_url() }}" class="special">Intro</a>
+            <a href="{{ page.reverse_url() }}" class="special">Go to Intro</a>
     </div><!--table-of-contents-->
 
     <div class="sec-chunk">
-        <div id="demo-part-over" class="overview sec-title">
+        <div id="demo-part-over" class="sec-title">
             Overview
         </div>
-        <p>You will learn about the 3 <a href="#demo-part-choices">options</a> that X-Frame-Options has, make sure you know <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframes</a>.</p>
+        <p>You will learn about the 3 <a href="#demo-part-demo">options</a> that X-Frame-Options has, make sure you know <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframes</a>.</p>
         <p>You can <a href="#demo-part-testyour">test your website</a> to see if it can be displayed in an iframe.</p>
         <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure your site is taking advantage of x-frame-options.</p>
         <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to enable x-frame-options for this demo.</p>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
-        <div id="demo-part-choices" class="sec-title">
+        <div id="demo-part-demo" class="sec-title">
             X-Frame-Options Choices Demo
         </div>
         <p>X-Frame-Options has three different settings: <span class="hlight">allow, sameorigin, and deny</span>.</p>
@@ -55,7 +55,7 @@
         <p>Try these example sites:</p>
         <p><span class="hlight">Sites with iframe detection:</span>
         The last two examples are not optimal, due to <a href="http://crypto.stanford.edu/framebust/" target="_blank">Frame Busting Techniques</a>.
-        <ul id="demo-part-list">
+        <ul>
             <li>
             <i>https://bankofamerica.com</i>: model example of X-Frame-Options: DENY
             </li>

@@ -367,8 +367,7 @@ def detail(request, input_slug):
     file = 'msw/detail.html'
 
     if input_slug == "good_auth":
-       file = 'msw/intro/good_auth.html' 
-
+       file = 'msw/intro/'+input_slug+'.html' 
 
     return jingo.render(request, file, {"all_pages_list": Page.objects.all(), 'page':p})
 

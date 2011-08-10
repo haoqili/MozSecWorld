@@ -1,0 +1,204 @@
+{% extends "msw/base.html" %}
+
+{% block rightPanelText %}
+    <h2>Good Authentication</h2>
+    
+    <section id="table-of-contents">
+        <!--<a href="#intro-part-category">Category</a>-->
+        <a href="#intro-part-summary" class="special">Summary</a>
+        <a href="#intro-part-details">Details</a>
+        <a href="#intro-part-diagram">Diagram</a>
+        <a href="#intro-part-doit">Do it</a>
+        <a href="#intro-part-preview">Preview</a>
+        <a href="#intro-part-resources">Resources</a>
+        <a href="/msw/{{ page.slug }}/demo" class="special">Go to Demo!</a>
+    </section><!--table-of-contents-->
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">
+            Category
+        </div>
+        <section class="textchunk">
+            Good Authentication Practices
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-summary" class="sec-title">
+            Summary
+        </div>
+        <section class="textchunk">
+            <span class="sec-small-title">Password Choice Safety:</span>
+            <div class="sec-small-chunk">
+            Prevent users from picking a password shorter than 6 characters or among the 500 most frequently used passwords. The particular policy chosen for your organization may be more complex, but it is advised to not allow the selection of commonly used passwords.
+            </div>
+
+            <span class="sec-small-title">Password Storage Safety:</span>
+            <div class="sec-small-chunk">
+            User passwords are securely stored. In the event the password hash is compromised, it is computationally infeasible that the password value could be recovered. Note: Our recommended solution uses much more than just a password hash and per user salt.
+            </div>
+
+            <span class="sec-small-title">Online Password Attack Prevention:</span>
+            <div class="sec-small-chunk">
+            To significantly reduce the effectiveness of automated brute force attacks, a captcha appears when password guessing behavior is detected. This approach can be used in combination with account lockout controls or in lieu of account lockout depending on your specific needs.
+            </div>
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-details" class="sec-title">
+            Details
+        </div>
+        <section class="textchunk">
+
+            <span class="sec-small-title">Password Choice Safety:</span>
+            <div class="sec-small-chunk">
+                Common password restrictions can frustrate users, but do not prevent users picking bad passwords, such as very common passwords. For example “Password123!” meets most password complexity requirements but is easily guessed by an attacker. MozSecWorld prevents users from selecting any of the 500 most commonly used passwords. The only other constraint is that users must pick a password at least 6 characters long.
+            </div>
+
+            <span class="sec-small-title">Password Storage Safety:</span>
+            <div class="sec-small-chunk">
+                Passwords are stored with [bcrypt] with HMAC.
+
+                <p>[Bcrypt] is based on the Blowfish algorithm that salts the password through many rounds.</p>
+                <p>The MozSecWorld password storage approach provides several benefits:</p>
+                <ul>
+                    <li>
+                    [Bcrypt] - Increases computation time to verify a password value and hash. This significantly increases the amount of time that would be required to perform a brute force attack against a hash
+                    </li>
+                    <li>
+                    Per user salts - Ensures that two users that have selected the same passwords will have different password hashes. In addition, salts eliminate the threat of common [rainbow tables].
+                    </li>
+                    <li>
+                    System nonce -  The system nonce is stored on the file system and not within the database with the user passwords and per user salts.  In the event of a SQL injection that compromises the database, the attacker could access the password hashes and per user salts, but would not have access to the system nonce.
+                    </li>
+                </ul>
+            </div>
+
+            <span class="sec-small-title">Online Password Attack Prevention:</span>
+            <div class="sec-small-chunk">
+                MozSecWorld uses [ratelimit] for detecting suspicious password guessing activities. After multiple failed logins, a ReCaptcha puzzle is added to the suspect’s login to prevent bots from automatically trying passwords.  There are two ways [ratelimit] detects suspicious activity:
+                <ol>
+                    <li>
+                    In one minute, 5 failed attempts for the same username, even if the attempts are on different IPs.
+                    </li>
+                    <li>
+                    In one minute, 5 failed attempts from the same IP.
+                    </li>
+                </ol>
+            </div>
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-diagram" class="sec-title">
+            Diagram
+        </div>
+        <section class="textchunk">
+            Coming before end of August 2011!
+{#
+            <span class="sec-small-title">Password Choice Safety:</span>
+            <div class="sec-small-chunk">
+
+            </div>
+
+            <span class="sec-small-title">Password Storage Safety:</span>
+            <div class="sec-small-chunk">
+                <p class="tofix">
+                    PasswordHash = bcrypt ( HMAC(password & per-user-salt, system nonce)
+                    ** refer to notes *
+                    ** The above algorithm is not right - fix with correct data
+                </p>
+
+
+            </div>
+
+            <span class="sec-small-title">Online Password Attack Prevention:</span>
+            <div class="sec-small-chunk">
+
+            </div>
+#}
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-doit" class="sec-title">
+            Do It Yourself
+        </div>
+        <section class="textchunk">
+
+            <span class="sec-small-title">Password Choice Safety:</span>
+            <div class="sec-small-chunk">
+                Store the [500 most frequent passwords] and prevent users from choosing one of these passwords. Also consider a password complexity policy that specifies minimum password length and required character types. 
+            </div>
+
+            <span class="sec-small-title">Password Storage Safety:</span>
+            <div class="sec-small-chunk">
+                Use bcrypt with per user salts, and a system nonce for maximum password protection.
+                <p>
+                This approach is significantly safer than the common approach of simply hashing a password with a per user salt. 
+                </p>
+            </div>
+
+            <span class="sec-small-title">Online Password Attack Prevention:</span>
+            <div class="sec-small-chunk">
+                Use [ratelimit].
+                <p>
+                This approach is a nice alternative to locking user accounts since account lockout can be detrimental and an attacker could leverage account lockout to perform a mass account lockout against all users.
+                </p>
+                <p>
+                This approach is also more user-friendly than requiring a captcha for all logins or registrations.
+                </p>
+            </div>
+
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-preview" class="sec-title">
+            Demo Preview
+        </div>
+        <section class="textchunk">
+            The demos are on password choice safety and online password attack prevention, since password storage is too complicated to be demonstrated.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-title-demo">
+        <a href="/msw/{{ page.slug }}/demo" class="special">Go to Demo!</a>
+    </section>
+
+    <section class="sec-chunk">
+        <div id="intro-part-resources" class="sec-title">
+            Resources
+        </div>
+        <section class="textchunk">
+            <ul>
+                <li>
+                    500 most common passwords
+                </li>
+                <li>
+                    bcrypt + hmac
+                </li>
+                <li>
+                    ratelimite
+                </li>
+                <li>
+                    <a href="http://blog.mozilla.com/webappsec/2011/05/10/sha-512-w-per-user-salts-is-not-enough/" target="_blank"><i>SHA 512 w/ per User Salts is Not Enough</i> blog post</a>
+                </li>
+            </ul>
+        </section>
+    </section><!-- sec-chunk -->
+
+{#
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+
+        </div>
+        <section class="textchunk">
+
+        </section>
+    </section><!-- sec-chunk -->
+
+#}
+
+{% endblock %}
