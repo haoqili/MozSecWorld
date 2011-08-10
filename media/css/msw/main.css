@@ -22,14 +22,14 @@ body {
     height: 140px;
 
     background-color: #37DD6F;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
 }
 .title_words {
     width: 100%;
     padding: 80px 500px 20px 30px;
-    color: #196733;
+    color: #0F3E1E;
     font-size: 2em;
     font-weight: bold;
-
 }
 #auth_container {
     width: 800px;
@@ -38,25 +38,73 @@ body {
 #auth {
     float: right;
 }
+    #auth a{
+        color: #196733;
+        text-decoration: none;
+    }
+    #auth a:hover {
+        background-color: #196733;
+        color: white;
+    }
+    .user-name {
+        padding-right: 5px;
+        font-weight: bold;
+        color: #196733;
+    }
 
-#leftPanel, #rightPanel {
-    margin-top: 20px;
-    padding: 20px;
+/*******************
+** General tweaks **
+********************/
+.hlight {
+    color: #196733;
+    font-weight: 400;
+    background-color: #E3FCE3;
 }
+
+code {
+    padding: 0.2em;
+    color: #196733;
+    font-weight: 400;
+    font: courier, monospace;
+    background-color: #F0FCF0;
+}
+
+
+.tofix {
+    background-color: #D2A659;
+}
+
+/*******************
+**   left panel   **
+********************/
+
+#leftPanel {
+    /*margin-top: 20px;*/
+} 
 
 #leftPanel {
     width: 135px;
     float: left;
-}
-#rightPanel {
-    float: right;
-    /*padding: 10px 15px 40px;*/
-    width: 570px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-    margin-top: 0;
+    /* position: fixed; */
 }
 
+#leftPanel h2 {
+    font-weight: 500;
+    margin-bottom: 1em;
+}
+
+.left-title {
+    background-color: #8BDEA7;
+    color: #0F3E1E;
+    font-weight: 800;
+    text-align: center;
+
+    clear: both;
+    margin: 2.5em 0em 1em 0em;
+    padding: 0.2em 0.4em;
+    border-radius: 0.1em;
+    box-shadow: 0px 0px 3px rgba(0.3, 0.1, 0.5, 0.2);
+}
     #leftPanel ul {
         padding-left: 0;
     }
@@ -75,23 +123,21 @@ body {
         background-color: #8BDEA7;
     }
 
+/*******************
+**   right panel  **
+********************/
 
-/* Demos specific */
-.picture img {
-    margin: 20px;
-    padding: 10px;
-    border-radius: 2px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+#rightPanel {
+    padding: 20px;
 }
-/*
-p { 
-    color: #333;
-    font-family: Courier, serif; 
-    line-height: 1.4;
-    margin-left: 30px;
-    padding: 5px;
-    width: 600px;
-}*/
+#rightPanel {
+    float: right;
+    /*padding: 10px 15px 40px;*/
+    width: 570px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 0;
+}
 
 #table-of-contents {
     position: fixed;
@@ -156,19 +202,6 @@ h2 {
         text-decoration: none;
         display: block;
     }
-.hlight {
-    color: #196733;
-    font-weight: 400;
-    background-color: #E3FCE3;
-}
-
-code {
-    padding: 0.2em;
-    color: #196733;
-    font-weight: 400;
-    font: courier, monospace;
-    background-color: #F0FCF0;
-}
 
     .sec-chunk {
     }
@@ -212,6 +245,15 @@ code {
     .sec-chunk #cookie2 {
         margin-left: 1em;
     }
-.tofix {
-    background-color: #D2A659;
+
+
+/*******************
+**  Demo specific **
+********************/
+
+.picture img {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }

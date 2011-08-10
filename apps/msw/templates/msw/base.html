@@ -21,18 +21,23 @@
     <div id="auth_container">
         <div id="auth">
             <a href="/msw/good_auth/demo/login">
-                login
+                {% if user.username %}
+                    switch user
+                {% else %}
+                    please login
+                {% endif %}
             </a>
-            &nbsp;|&nbsp;
+            |
             <a href="/msw/good_auth/demo/register">
                 register
             </a>
-            &nbsp;|&nbsp;
-            <a href="/msw/good_auth/demo/logout">
-                logout
-            </a>
-            &nbsp;|&nbsp;
-            {{ user }}
+            {% if user.username %}
+                |
+                <a href="/msw/good_auth/demo/logout">
+                    logout
+                    <span class="user-name">{{ user }}</span>
+                </a>
+            {% endif %}
         </div>
     </div>
     </div><!-- titlePart -->
@@ -43,18 +48,45 @@
     <div id="leftPanel">
     {% block leftPanelText %}
 
-    <h2>Selections</h2>
-    {% if all_pages_list %}
-        <ul>
-            {% for page in all_pages_list %}
-                <li><a href="/msw/{{ page.slug }}/"> {{ page.title }}</a> </li>
-                {# <li><a href="{{ url('detail', page.slug) }}"> {{ page.title }}</a> </li> // note: ask cvan about this #}
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No pages are available.</p>
-    {% endif %}
-    
+{#
+    <div class="left-title">
+        XSS Prevention
+    </div>
+    <ul>
+        <li><a href="/msw/x_frame_options">x-frame-options</a></li>
+        <li><a href="/msw/set_cookie_httponly">set-cookie</a></li>
+    </ul>
+#}
+    <div class="left-title">
+    Cross Site Scripting
+    </div>
+    <ul>
+        <li><a href="/msw/x_frame_options">x-frame-options</a></li>
+        <li><a href="/msw/set_cookie_httponly">set-cookie</a></li>
+        <li><a href="/msw/csp">content security policy</a></li>
+        <li><a href="/msw/accesscontrol">access control</a></li>
+    </ul>
+
+
+    <div class="left-title">
+    Input Validation
+    </div>
+    <ul>
+        <li><a href="/msw/parameterized_sql">parameterized sql statements</a></li>
+        <li><a href="/msw/richtext_and_safe_url">richtext</a></li>
+        <li><a href="/msw/richtext_and_safe_url">safe url</a></li>
+        <li><a href="/msw/fileupload">image upload</a></li>
+    </ul>
+
+    <div class="left-title">
+    Good Authentication
+    </div>
+    <ul>
+        <li><a href="/msw/good_auth">password choice</a></li>
+        <li><a href="/msw/good_auth">password storage</a></li>
+        <li><a href="/msw/good_auth">online password attack prevention</a></li>
+    </ul>
+
     {% endblock %}
     </div><!-- leftPanel -->
 
