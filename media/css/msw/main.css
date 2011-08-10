@@ -57,18 +57,6 @@ body {
     margin-top: 0;
 }
 
-    #leftPanel h2, #rightPanel h2 {
-        padding: 0;
-        margin: 0;
-        color: #196733;
-    }
-
-    #leftPanel h3, #rightPanel h3 {
-        padding: 0;
-        padding-bottom: 0.2em;
-        margin: 0;
-        color: #196733;
-    }
     #leftPanel ul {
         padding-left: 0;
     }
@@ -169,7 +157,7 @@ p {
         border-radius: 1em;
         box-shadow: 0px 0px 3px rgba(0.1, 0.7, 0.5, 0.2);
     }
-    .sec-chunk #x-frame-examples li {
+    .sec-chunk #demo-part-list li {
         padding: 0.2em;
     }
     .sec-chunk table {
@@ -181,10 +169,33 @@ p {
     .sec-chunk #cookie2 {
         margin-left: 1em;
     }
+
+/* styling page titles */
+
+h2 {
+    padding: 0;
+    margin: 0;
+    color: #196733;
+    background-color: red;
+}
+h3 {
+    padding: 0;
+    padding-bottom: 0.2em;
+    margin: 0;
+    color: #196733;
+}
 .hlight {
     color: #196733;
     font-weight: 400;
     background-color: #E3FCE3;
+}
+.textchunk {
+    margin: 0.5em 1em;
+}
+.header5 {
+    color: #196733;
+    font-weight: 400;
+    text-decoration: underline;
 }
 code {
     padding: 0.2em;

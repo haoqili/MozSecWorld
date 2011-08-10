@@ -9,25 +9,27 @@
     {{ page.category }}
     </p>
 
-    <h3>short summary:</h3> 
+    <h3>short summary:</h3>
     <p>
     {{ page.summary|safe }}
     </p>
 
-    <h3>longer description:</h3> 
+    <h3>longer description:</h3>
     <p>
     {{ page.description|safe }}
     </p>
 
-    <h3>Prevents:</h3> 
+    <h3>Prevents:</h3>
     <p>
     {{ page.prevents|safe }}
     </p>
 
-    <h3>Resources:</h3> 
+    <h3>Resources:</h3>
     <p>
     {{ page.resources|safe }}
     </p>
 
     <h2><a href="/msw/{{ page.slug }}/demo">Demo!</a></h2>
 {% endblock %}
+
+

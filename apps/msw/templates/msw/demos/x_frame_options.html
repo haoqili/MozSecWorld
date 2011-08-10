@@ -8,26 +8,26 @@
 
     <div id="table-of-contents">
         <span id="table-of-contents-head"></span>
-            <a href="#x-frame-over" class="special">Overview</a>
-            <a href="#x-frame-choices">Demo</a>
-            <a href="#x-frame-testyour">Test your website!</a>
-            <a href="#x-frame-verify">How to verify</a>
-            <a href="#x-frame-code">Code</a>
+            <a href="#demo-part-over" class="special">Overview</a>
+            <a href="#demo-part-choices">Demo</a>
+            <a href="#demo-part-testyour">Test your website!</a>
+            <a href="#demo-part-verify">How to verify</a>
+            <a href="#demo-part-code">Code</a>
             <a href="{{ page.reverse_url() }}" class="special">Intro</a>
     </div><!--table-of-contents-->
 
     <div class="sec-chunk">
-        <div id="x-frame-over" class="overview sec-title">
+        <div id="demo-part-over" class="overview sec-title">
             Overview
         </div>
-        <p>You will learn about the 3 <a href="#x-frame-choices">options</a> that X-Frame-Options has, make sure you know <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframes</a>.</p>
-        <p>You can <a href="#x-frame-testyour">test your website</a> to see if it can be displayed in an iframe.</p>
-        <p>The <a href="#x-frame-verify">how to verify</a> section provides details on how to ensure your site is taking advantage of x-frame-options.</p>
-        <p>View the <a href="#x-frame-code">code</a> section to see the code that's used to enable x-frame-options for this demo.</p>
+        <p>You will learn about the 3 <a href="#demo-part-choices">options</a> that X-Frame-Options has, make sure you know <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframes</a>.</p>
+        <p>You can <a href="#demo-part-testyour">test your website</a> to see if it can be displayed in an iframe.</p>
+        <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure your site is taking advantage of x-frame-options.</p>
+        <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to enable x-frame-options for this demo.</p>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
-        <div id="x-frame-choices" class="sec-title">
+        <div id="demo-part-choices" class="sec-title">
             X-Frame-Options Choices Demo
         </div>
         <p>X-Frame-Options has three different settings: <span class="hlight">allow, sameorigin, and deny</span>.</p>
@@ -43,7 +43,7 @@
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
-        <div id="x-frame-testyour" class="sec-title">
+        <div id="demo-part-testyour" class="sec-title">
             Test your website!
         </div><!-- sec-title -->
         Put your URL here, and see if it shows up in the iframe below. <br />
@@ -55,7 +55,7 @@
         <p>Try these example sites:</p>
         <p><span class="hlight">Sites with iframe detection:</span>
         The last two examples are not optimal, due to <a href="http://crypto.stanford.edu/framebust/" target="_blank">Frame Busting Techniques</a>.
-        <ul id="x-frame-examples">
+        <ul id="demo-part-list">
             <li>
             <i>https://bankofamerica.com</i>: model example of X-Frame-Options: DENY
             </li>
@@ -90,7 +90,7 @@
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
-        <div id="x-frame-verify" class="sec-title">
+        <div id="demo-part-verify" class="sec-title">
             How to verify
         </div>
 
@@ -126,7 +126,7 @@
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
-        <div id="x-frame-code" class="sec-title">
+        <div id="demo-part-code" class="sec-title">
             My code - code for making this demo work
         </div>
         <p>In Django <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L497">views.py (click to go to github)</a>

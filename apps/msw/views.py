@@ -364,8 +364,13 @@ def detail(request, input_slug):
     # "urlname" is the attribute of the model, i.e. the column in the db table
     p = get_object_or_404(Page, slug=input_slug)
 
+    file = 'msw/detail.html'
 
-    return jingo.render(request, 'msw/detail.html', {"all_pages_list": Page.objects.all(), 'page':p})
+    if input_slug == "good_auth":
+       file = 'msw/intro/good_auth.html' 
+
+
+    return jingo.render(request, file, {"all_pages_list": Page.objects.all(), 'page':p})
 
 
 #@login_required
