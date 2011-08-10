@@ -13,7 +13,7 @@
             <a href="#demo-part-testyour">Test your website!</a>
             <a href="#demo-part-verify">How to verify</a>
             <a href="#demo-part-code">Code</a>
-            <a href="{{ page.reverse_url() }}" class="special">Go to Intro</a>
+            <a href="/msw/{{ slug }}" class="special">Go to Intro</a>
     </div><!--table-of-contents-->
 
     <div class="sec-chunk">
@@ -112,6 +112,7 @@
         </ol>
         </p>
 
+{#
         <p>Terminal:
         <ol>
             <li><code>&gt;telnet [insert IP-address of your site] 8000</code></li>
@@ -122,7 +123,8 @@
             <li>Should see "X-Frame-Options". If you don't see it, your web server does not have this header set.</li>
         </ol>
         </p>
-        <!--[TODO: add pictures]-->
+
+#}
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">

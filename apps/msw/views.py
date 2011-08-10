@@ -357,6 +357,8 @@ def index(request):
     rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
     return rendered
 
+no_db = ["good_auth", "x_frame_options", "set_cookie_httponly" ]
+
 def detail(request, input_slug):
     
     # get_object_or_404( model name, model attribute = value to test)
@@ -366,21 +368,38 @@ def detail(request, input_slug):
 
     file = 'msw/detail.html'
 
-    if input_slug == "good_auth":
+    if input_slug in no_db:
        file = 'msw/intro/'+input_slug+'.html' 
+       print "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+       print "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+       return jingo.render(request, file, {'slug':input_slug})
 
-    return jingo.render(request, file, {"all_pages_list": Page.objects.all(), 'page':p})
+    return jingo.render(request, file, {'page':p})
 
 
 #@login_required
 def demo(request, input_slug):
     print input_slug
+    
+    #.............................
+    # no backend calls ...........
+
+    if input_slug == "good_auth":
+        print "OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        print "OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
+
+    # end no backend calls .......
+    #.............................
 
     p = get_object_or_404(Page, slug=input_slug)
 
+
     if input_slug == "set_cookie_httponly":
         print "set_cookie_httponly"
-        response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
+        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
         # setting httponly=False overrides SESSION_COOKIE_HTTPONLY
         response.set_cookie('cookie1', 'foo', httponly=False)
         # 'httponly=True' is optional since 
@@ -517,8 +536,9 @@ def cookie(request):
 @csp_exempt
 def x_frame_options(request):
     input_slug = "x_frame_options"
-    p = get_object_or_404(Page, slug=input_slug)
-    return jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
+    print "xOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+    print "xOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+    return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
 
 def xfo_deny(request):
     html = "<html><body style='background: blue;'><a href='/msw/x_frame_options/demo/xfo_allow' target='_blank' style='color: white;'>I am a critical page, being shown in an iframe. \

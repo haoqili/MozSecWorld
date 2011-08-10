@@ -27,11 +27,12 @@
                     Please login
                 {% endif %}
             </a>
-            <a href="/msw/good_auth/demo/register">Register</a>
             {% if user.username %}
                 <a href="/msw/good_auth/demo/logout">Logout
                     <span class="user-name">{{ user }}</span>
                 </a>
+            {% else %}
+                <a href="/msw/good_auth/demo/register">Register</a>
             {% endif %}
         </div>
     </div>
@@ -43,31 +44,26 @@
     <div id="leftPanel">
     {% block leftPanelText %}
 
-{#
-    <div class="left-title">
-        XSS Prevention
-    </div>
-    <ul>
-        <li><a href="/msw/x_frame_options">x-frame-options</a></li>
-        <li><a href="/msw/set_cookie_httponly">set-cookie</a></li>
-    </ul>
-#}
-    <div class="left-title">
-    Cross Site Scripting
-    </div>
-    <ul>
-        <li><a href="/msw/x_frame_options">x-frame-options</a></li>
-        <li><a href="/msw/set_cookie_httponly">set-cookie</a></li>
-        <li><a href="/msw/csp">content security policy</a></li>
-        <li><a href="/msw/accesscontrol">access control</a></li>
-    </ul>
+    <!--
+    ###############################
+    ######### Navigation ##########
+    ###############################
+    -->
 
+    <div class="left-title">
+    Cross Domain
+    </div>
+    <ul>
+        <li><a href="/msw/x_frame_options">x-frame-options</a></li>
+        <li><a href="/msw/set_cookie_httponly">set-cookie: httponly</a></li>
+        <li><a href="/msw/csp">content security policy</a></li>
+    </ul>
 
     <div class="left-title">
     Input Validation
     </div>
     <ul>
-        <li><a href="/msw/parameterized_sql">parameterized sql statements</a></li>
+        <li><a href="/msw/parameterized_sql">sql statements</a></li>
         <li><a href="/msw/richtext_and_safe_url">richtext</a></li>
         <li><a href="/msw/richtext_and_safe_url">safe url</a></li>
         <li><a href="/msw/fileupload">image upload</a></li>
@@ -80,6 +76,13 @@
         <li><a href="/msw/good_auth">password choice</a></li>
         <li><a href="/msw/good_auth">password storage</a></li>
         <li><a href="/msw/good_auth">online password attack prevention</a></li>
+    </ul>
+
+    <div class="left-title">
+    Access Control
+    </div>
+    <ul>
+        <li><a href="/msw/accesscontrol">access control</a></li>
     </ul>
 
     {% endblock %}

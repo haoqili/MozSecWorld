@@ -4,7 +4,7 @@
 
 {% block rightPanelText %}
 <!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
-    <h2>'Set-Cookie: HttpOnly' Demo</h2>
+    <h2>Set-Cookie: HttpOnly Demo</h2>
 
     <div id="table-of-contents">
         <span id="table-of-contents-head"></span>
@@ -12,7 +12,7 @@
             <a href="#demo-part-demo">Demo</a>
             <a href="#demo-part-verify">How to verify</a>
             <a href="#demo-part-code">Code</a>
-            <a href="{{ page.reverse_url() }}" class="special">Go to Intro</a>
+            <a href="/msw/{{ slug }}" class="special">Go to Intro</a>
     </div><!--table-of-contents-->
 
     <div class="sec-chunk">
@@ -83,6 +83,7 @@
         </ol>
         </p>
 
+{#
         <p>Terminal:
         <ol>
             <li><code>&gt;telnet [insert IP-address of your site] 8000</code></li>
@@ -92,7 +93,8 @@
             <li>Should see that cookie1 does not have <code>httponly;</code> associated with it: <code>Set-Cookie: cookie1=foo; httponly; ... cookie2/bar;</code></li>
         </ol>
         </p>
-        <!--[TODO: add pictures]-->
+
+#}
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
