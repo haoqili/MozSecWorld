@@ -41,15 +41,15 @@ body {
     #auth a{
         color: #196733;
         text-decoration: none;
+        padding: 1px 3px;
     }
     #auth a:hover {
         background-color: #196733;
-        color: white;
+        color: #8BDEA7;
     }
     .user-name {
         padding-right: 5px;
         font-weight: bold;
-        color: #196733;
     }
 
 /*******************

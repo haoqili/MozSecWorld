@@ -22,19 +22,14 @@
         <div id="auth">
             <a href="/msw/good_auth/demo/login">
                 {% if user.username %}
-                    switch user
+                    Switch user
                 {% else %}
-                    please login
+                    Please login
                 {% endif %}
             </a>
-            |
-            <a href="/msw/good_auth/demo/register">
-                register
-            </a>
+            <a href="/msw/good_auth/demo/register">Register</a>
             {% if user.username %}
-                |
-                <a href="/msw/good_auth/demo/logout">
-                    logout
+                <a href="/msw/good_auth/demo/logout">Logout
                     <span class="user-name">{{ user }}</span>
                 </a>
             {% endif %}
