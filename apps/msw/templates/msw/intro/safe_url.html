@@ -1,0 +1,110 @@
+{% extends "msw/base.html" %}
+
+{% block rightPanelText %}
+    <h2>Set-Cookie: Httponly</h2>
+    
+    <section id="table-of-contents">
+        <!--<a href="#intro-part-category">Category</a>-->
+        <a href="#intro-part-summary" class="special">Summary</a>
+        <a href="#intro-part-details">Details</a>
+        <a href="#intro-part-diagram">Diagram</a>
+        <a href="#intro-part-doit">Do it</a>
+        <a href="#intro-part-preview">Preview</a>
+        <a href="#intro-part-resources">Resources</a>
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section><!--table-of-contents-->
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">
+            Category
+        </div>
+        <section class="textchunk">
+            Input Validation
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-summary" class="sec-title">
+            Summary
+        </div>
+        <section class="textchunk">
+            Warn users about malicious URLs. 
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-details" class="sec-title">
+            Details
+        </div>
+        <section class="textchunk">
+            Google SafeBrowsing provides a blacklist of potentially dangerous URLs. MozSecWorld checks user input URLs against that list. In addition, a 3-step verification is used to make sure that there is not a Man-In-The-Middle (MITM) for Google SafeBrowsing:
+            <ol>
+                <li>Checking that a certificate of the Google SafeBrowing url's hostname matches the name on the certificate</li>
+                <li>Checking that the certificate is not expired.</li>
+                <li>Checking that the CAs are valid.</li>
+            </ol>
+            <p>You should not blindly trust Google SafeBrowsing and that it has a certificate. To fool people, an MITM attacker can modify the certificate or pretend to be a CA. You should also not trust expired certificate.</p>
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-diagram" class="sec-title">
+            Diagram
+        </div>
+        <section class="textchunk">
+            Coming before end of August 2011!
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-doit" class="sec-title">
+            Do It Yourself
+        </div>
+        <section class="textchunk">
+            Get a Google SafeBrowsing account and use their query system to check an url.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-preview" class="sec-title">
+            Demo Preview
+        </div>
+        <section class="textchunk">
+            When you put in safe urls, and see that they become clickable.<br />
+            When you put in malicious urls, they are made unclickable and marked with a warning.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-title-demo">
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section>
+
+    <section class="sec-chunk">
+        <div id="intro-part-resources" class="sec-title">
+            Resources
+        </div>
+        <section class="textchunk">
+           <ul>
+                <li>
+                    Google SafeBrowsing
+                </li>
+                <li>
+                    blacklist urls
+                </li>
+            </ul>
+        </section>
+    </section><!-- sec-chunk -->
+
+{#
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+
+        </div>
+        <section class="textchunk">
+
+        </section>
+    </section><!-- sec-chunk -->
+
+#}
+
+{% endblock %}

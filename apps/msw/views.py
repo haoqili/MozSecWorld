@@ -357,8 +357,12 @@ def index(request):
     rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
     return rendered
 
-no_db = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql", "rich_text" ]
-no_db2 = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql" ]
+no_db = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql", "rich_text",
+         "safe_url",
+         ]
+no_db2 = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql",
+      
+          ]
 
 def detail(request, input_slug):
     
@@ -391,6 +395,8 @@ def demo(request, input_slug):
         return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
 
     if input_slug == "rich_text":
+        print "rOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        print "rOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
         form = RichTextForm()
         if request.method == "POST":
             print "PPPPPPPPPPPPPPPP"
@@ -402,7 +408,24 @@ def demo(request, input_slug):
                                 {'slug':input_slug, 
                                  "form":form,
                                  "all_richtext_list": RichText.objects.values('comment').order_by('-id')[:5],})
-        print "VVVVVVVVVVVV"
+
+
+    if input_slug == "safe_url":
+        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        form = RichTextForm()
+        if request.method == "POST":
+            print "PPPPPPPPPPPPPPPP"
+            form = RichTextForm(request.POST)
+            if form.is_valid():
+                print "tttttttttttttt"
+                form.save()
+            return jingo.render(request, 'msw/demos/children/safe_url_table.html', 
+                                {'slug':input_slug, 
+                                 "form":form,
+                                 "safe_url_list": RichText.objects.values('name').order_by('-id')[:5],})
+
+        print ":(:(:(:(:("
         return jingo.render(request, 'msw/demos/'+input_slug+'.html', 
                             {'slug':input_slug, "form":form,
                             })
@@ -426,10 +449,11 @@ def demo(request, input_slug):
         response.set_cookie('cookie2', 'bar', httponly=True)
         return response
 
-    if input_slug == "safe_url":
+    """
+    if input_slug == "trial_safe_url":
         print "hhhhhhhhhhhhhhh"
         form = forms.SafeUrlForm()
-        file = 'msw/demos/safe_url.html'
+        file = 'msw/demos/trial_safe_url.html'
         
         if request.method == "POST":
             print "in safe url POST"
@@ -437,7 +461,7 @@ def demo(request, input_slug):
             if form.is_valid():
                 print "VVVVVVVVVVVVVVVVVVVVV"
                 form.save()
-            file = 'msw/demos/children/safe_url_table.html'
+            file = 'msw/demos/children/trial_safe_url_table.html'
             
         ctx = { 
             'all_pages_list': Page.objects.all(),
@@ -447,7 +471,7 @@ def demo(request, input_slug):
             }
         response = jingo.render(request, file, ctx)
         return response
-
+    """
 
     if input_slug == "richtext_and_safe_url":
         test = bleach.clean('an <script>evil()</script> example')

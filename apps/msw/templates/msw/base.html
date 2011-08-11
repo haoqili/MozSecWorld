@@ -3,7 +3,8 @@
     <title>Mozilla Secure World</title>
     {{ css('main_css') }}
 
-    {{ js('common') }}
+    <!-- it's faster to load jQuery from external source -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
     {% block head_stuff %}
     {% endblock %}
 
@@ -65,7 +66,7 @@
     <ul>
         <li><a href="/msw/parameterized_sql">sql statements</a></li>
         <li><a href="/msw/rich_text">rich text</a></li>
-        <li><a href="/msw/richtext_and_safe_url">safe url</a></li>
+        <li><a href="/msw/safe_url">safe url</a></li>
         <li><a href="/msw/fileupload">image upload</a></li>
     </ul>
 

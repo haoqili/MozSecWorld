@@ -1,0 +1,11 @@
+    {% if safe_url_list %}
+    The latest 5 submissions:
+    <ol>
+        {% for one_url in safe_url_list %}
+            <li>{{ one_url.name|safe }}</li>
+        {% endfor %}
+    </ol>
+    {% else %}
+        <p>Nobody has submitted anything.</p>
+    {% endif %}
+

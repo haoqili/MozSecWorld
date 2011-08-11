@@ -1,0 +1,125 @@
+{% extends "msw/base.html" %}
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+<!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
+    <h2>Set-Cookie: HttpOnly Demo</h2>
+
+    <div id="table-of-contents">
+        <span id="table-of-contents-head"></span>
+            <a href="#demo-part-over" class="special">Overview</a>
+            <a href="#demo-part-demo">Demo</a>
+            <a href="#demo-part-verify">How to verify</a>
+            <a href="#demo-part-code">Code</a>
+            <a href="/msw/{{ slug }}" class="special">Go to Intro</a>
+    </div><!--table-of-contents-->
+
+    <div class="sec-chunk">
+        <div id="demo-part-over" class="sec-title">
+            Overview
+        </div>
+
+        <section class="textchunk">
+            <p>
+            You put in urls into the <a href="#demo-part-demo">demo</a>. In the output display of the list of urls, Google SafeBrowsing blacklisted urls are not linkafied and are marked with a warning. If you know of a potentially malious link, feel free to test it here. You should have a basic understanding of [SSL certificates].
+            <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure that the Google SafeBrowsing is safe to use and does not have a  [Man-In-The-Middle(MITM)].</p>
+            <p>View the <a href="#demo-part-code">code</a> section to see how to set up Google SafeBrowsing and the validation for Google SafeBrowsing against MITM..</p>
+        </section>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-demo" class="sec-title">
+            Safe URL Demo
+        </div>
+
+        <section class="textchunk">
+            <!---------------->
+              <form id="myform" action="" method="post">
+              {{ csrf() }}
+              {{ form.as_p() }}
+              <input type="submit" value="Submit" />
+              </form>
+
+              <div id="results">
+              {% include 'msw/demos/children/safe_url_table.html' %}
+              </div>
+            <!---------------->
+            <p>Some Google SafeBrowisng black-listed urls to try (don’t actually navigate to these urls!):
+            <ul>
+                <li>http://moffce.ce.ms</li>
+            </ul>
+        </section>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-verify" class="sec-title">
+            How to verify
+        </div>
+
+        <section class="textchunk">
+            To validate Google SafeBrowsing, make sure you see “passed” for all three steps in the server output, similar to this:
+    
+            <pre>
+===========================================================================
+========= Validating Certificate for sb-ssl.google.com ========
+
+------- Step 1: Validating certificate matches url hostname ----
+
+ Certificate Check Step 1 Passed -- There is a certificate for URL
+
+------- Step 2: Verify that the certificate is not expired  --------------
+
+ Certificate Check Step 2 Passed -- Certificate not expired, expiring in 351 days, 0:00:00
+
+------- Step 3: Validating the chain of CAs  --------------
+For host = sb-ssl.google.com
+   CA = &lt;X509Name object '/C=US/O=Equifax/OU=Equifax Secure Certificate Authority'&gt;
+        ---&gt; GOOD (root certificate)
+   CA = &lt;X509Name object '/C=US/O=Google Inc/CN=Google Internet Authority'&gt;
+        ---&gt; GOOD (root certificate)
+   CA = &lt;X509Name object '/C=US/ST=California/L=Mountain View/O=Google Inc/CN=*.google.com'&gt;
+        ---&gt; GOOD (cert commonName matched host name)
+
+ Certificate Check Step 3 Passed -- Chain of CAs is valid
+
+ HOST IS GOOD! :)
+
+=============== End Validating the Certificate of URL = sb-ssl.google.com
+===========================================================================
+            </pre>
+
+        </section>
+    </div><!-- sec-chunk -->
+
+
+    <div class="sec-chunk">
+        <div id="demo-part-code" class="sec-title">
+            My code - code for making this demo work
+        </div>
+
+        <section class="textchunk">
+            Coming before September, 2011!
+{#
+Here is the code that performs the Google SafeBrowsing check:
+blah blah
+
+Here is the code that performs the 3-step Google SafeBrowsing check:
+1. Checking that a certificate of the Google SafeBrowing url's hostname matches the name on the certificate
+blah
+
+2. Checking that the certificate is not expired.
+blah
+
+3. Checking that the CAs are valid.
+blah
+#}
+
+        </section>
+    </div><!-- sec-chunk -->
+
+{% endblock %}
+
+{% block body_end %}
+{{ js('richtext_safeurl') }}
+{% endblock %}
