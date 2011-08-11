@@ -1,1 +1,1 @@
-alert("You got XSS-ed from an EXTERNAL JS.");
+alert("This is an EXTERNAL JS running");

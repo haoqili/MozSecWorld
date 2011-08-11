@@ -43,14 +43,14 @@
 
             <p>This page contains 2 pieces of javascript:</p>
 
-            <p>* An external js that alerts "You got XSS-ed from an EXTERNAL JS"
-                <p class="indent">Code: <code>alert(“You got XSS-ed from an EXTERNAL JS.”)</code></p>
+            <p>* An external js that alerts "This is an EXTERNAL JS running"
+                <p class="indent">Code: <code>alert(“This is an EXTERNAL JS running”)</code></p>
                 <p class="indent">Source:<code>&lt;script src="<a href="/media/js/msw/csp_external.js">/media/js/msw/csp_external.js</a>"&gt;&lt;/script&gt;</code></p>
             </p>
 
-            <p>* An in-body js that alerts "You got XSS-ed from an IN-BODY JS" 
-                <p class="indent">Code: <code>&lt;script&gt;alert("You got XSS-ed from an IN-BODY JS");&lt;/script&gt;</code></p>
-                <p class="indent">Source: [View source] on page and find this script here --}<script>alert("You got XSS-ed from an IN-BODY JS");</script>{--</p>
+            <p>* An in-body js that alerts "This is an IN-BODY JS running" 
+                <p class="indent">Code: <code>&lt;script&gt;alert("This is an IN-BODY JS running");&lt;/script&gt;</code></p>
+                <p class="indent">Source: [View source] on page and find this script here --}<script>alert("This is an IN-BODY JS running");</script>{--</p>
             </p>
 
             <p>Directions:

@@ -3,6 +3,7 @@
     {% else %}
 
         {% if all_postsay_list %}
+            Last few messages:
             {% for postsay in all_postsay_list %}
                 <p>{{ postsay.mpuser|safe }} : {{ postsay.mptext|safe }}</p>
             {% endfor %}

@@ -222,12 +222,10 @@ def membersPost(request):
         if person.user == request.user.username:
             oneUserList.add(person)
     ctx = {
-        'all_pages_list': Page.objects.all(),
         'users_list': oneUserList,
         #'users_list': MembersPostUser.objects.get(username=request.user.username),
         #'users_list': MembersPostUser.objects.all(),
         'all_texts_list': MembersPostText.objects.all(),        
-        'message': message
     }
     return jingo.render(request, 'msw/demos/auth/membersPost.html', ctx)
 
@@ -309,7 +307,7 @@ def ac_ajax_server(request):
             Jul 19 11:48:57 host-3-248 manage.py[3889]: Jul 19 11:48:57 host-3-248.mv.mozilla.com CEF:0|moz     illa|weave|3|Hello world!|Hello world!|2|cs1Label=requestClientApplication cs1=MySuperBrowser r     equestMethod=GET request=/ src=127.0.0.1 dest=127.0.0.1 suser=none msg=Welcome to a new day!
             '''
             ctx = {
-                "all_postsay_list": MembersPostSay.objects.all().order_by('-id')
+                "all_postsay_list": MembersPostSay.objects.all().order_by('-id')[:5]
             }
         response = jingo.render(request, file, ctx)
         return response
@@ -408,6 +406,10 @@ def demo(request, input_slug):
                                 {'slug':input_slug, 
                                  "form":form,
                                  "all_richtext_list": RichText.objects.values('comment').order_by('-id')[:5],})
+        print "VVVVVVVVVVVV rich_text GET"
+        return jingo.render(request, 'msw/demos/'+input_slug+'.html',
+                            {'slug':input_slug, "form":form,
+                            })
 
 
     if input_slug == "safe_url":

@@ -4,7 +4,11 @@
     {{ css('main_css') }}
 
     <!-- it's faster to load jQuery from external source -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+    <!-- but some $() stuff DOES NOT WORK with the googleapis jquery min -->-
+    <!--
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+    -->
+    {{ js('common') }}
     {% block head_stuff %}
     {% endblock %}
 

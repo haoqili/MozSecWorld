@@ -4,8 +4,6 @@
 
     <h1>Members Posting Page!</h1>
 
-    <p>{{ message }}</p>
-
     <h2>Directions:</h2>
     <ol>
         <li>Login as specified regular or super user (see "Users")</li>
@@ -61,24 +59,24 @@
                     <option  value="{{ oneUser.id }}">{{ oneUser.user }}</option>
                 {% endfor %}
             </select>
+            <p />
+            <h2>Select what to say</h2>
+            {% if all_texts_list %}
+                <select id="theText" >
+                    {% for oneText in all_texts_list %}
+                        <option value="{{ oneText.id }}">{{ oneText.text }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <p>No texts yet.</p>
+            {% endif %}
+            <p>
+            <button id="memPostButton">Click me to post</button>
+            </p>
         {% else %}
-            <p>No users yet.</p>
+            <p class="warning">Please log in as one of the specified users above to see the demo</p>
         {% endif %}
 
-        <p />
-        <h2>Select what to say</h2>
-        {% if all_texts_list %}
-            <select id="theText" >
-                {% for oneText in all_texts_list %}
-                    <option value="{{ oneText.id }}">{{ oneText.text }}</option>
-                {% endfor %}
-            </select>
-        {% else %}
-            <p>No texts yet.</p>
-        {% endif %}
-        <p>
-        <button id="memPostButton">Click me to post</button>
-        </p>
     <!--</form>-->
 
     <div id="output">

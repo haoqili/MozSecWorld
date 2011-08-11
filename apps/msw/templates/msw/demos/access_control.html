@@ -21,7 +21,7 @@
         </div>
 
         <section class="textchunk">
-            <p>In the <a href="#demo-part-demo">demo</a>, you will be logging into  <a href=”membersPost”>Members Posting Page</a> with different user accounts. Once logged in, you can post messages as yourself from a selection of drop-down menu. The super accounts will be able to pose as the regular users. You will be shown how to get pass the Presentation Layer drop-down restrictions, but still wouldn’t get around the Business Layer.</p>
+            <p>In the <a href="#demo-part-demo">demo</a>, you will be logging into <a href="/msw/accesscontrol/demo/membersPost">Members Posting Page</a> with different user accounts. Once logged in, you can post messages as yourself from a selection of drop-down menu. The super accounts will be able to pose as the regular users. You will be shown how to get pass the Presentation Layer drop-down restrictions, but still wouldn’t get around the Business Layer.</p>
 
             <p>You should have a basic idea about how websites are built: the client-side, the server-side, and the database.</p>
 
@@ -39,7 +39,7 @@
         <section class="textchunk">
             Directions:
             <ol>
-                <li>Login as specified regular or super user (look below)</li>
+                <li><a href="/msw/accesscontrol/demo/membersPost">Login as</a> specified regular or super user (look below)</li>
                 <li><span class="hlight">Presentation Layer restriction:</span> Observe that regular users can only select to post under their usernames while super users can post under anybody's user name</li>
                 <li>Tamper with [BURP] or [Firefox Tamper Data Addon].</li>
                 <li><span class="hlight">Business Layer restriction:</span> Observe that the demo can detect tampering</li>
@@ -119,8 +119,3 @@
 
 {% endblock %}
 
-{#
-{% block body_end %}
-{{ js('') }}
-{% endblock %}
-#}

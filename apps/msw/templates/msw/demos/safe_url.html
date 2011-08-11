@@ -35,6 +35,11 @@
 
         <section class="textchunk">
             <!---------------->
+            <div class="warning">
+            To make it work: <br />
+            1. Put URL inside 'Name', you must have 'http://'<br />
+            2. Put 'a' inside 'Comment'
+            </div>
               <form id="myform" action="" method="post">
               {{ csrf() }}
               {{ form.as_p() }}

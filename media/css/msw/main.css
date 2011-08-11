@@ -78,6 +78,9 @@ code {
         display: block;
     }
 
+.warning {
+    color: red;
+}
 
 .tofix {
     background-color: #D2A659;
