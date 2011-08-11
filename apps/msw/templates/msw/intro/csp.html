@@ -1,7 +1,7 @@
 {% extends "msw/base.html" %}
 
 {% block rightPanelText %}
-    <h2>Rich Text</h2>
+    <h2>Content Security Policy</h2>
     
     <section id="table-of-contents">
         <!--<a href="#intro-part-category">Category</a>-->
@@ -19,7 +19,7 @@
             Category
         </div>
         <section class="textchunk">
-            Input Validation / Sanitation
+            JavaScript Defenses
         </section>
     </section><!-- sec-chunk -->
 
@@ -28,7 +28,7 @@
             Summary
         </div>
         <section class="textchunk">
-            When sanitizing user input, MozSecWorld renders white-listed mark-up HTML tags and escapes the rest of the tags, including the potentially dangerous “&lt;script&gt;” tag.
+            As a first line of defense against XSS, Contest Security Policy only executes white-listed external JavaScript. 
         </section>
     </section><!-- sec-chunk -->
 
@@ -37,11 +37,11 @@
             Details
         </div>
         <section class="textchunk">
-        <p>MozSecWorld uses an HTML sanitizing library [Bleach], which only allows certain safe html tags, such as “&lt;b&gt;” or “&lt;i&gt;”, to be rendered into html while the rest of the text are escaped. This way, users can still have some freedom on creating rich, fancier-looking text.</p>
+            <p>CSP has several restrictions, but the two most important restrictions are against XSS and clickjacking (similar to X-Frame-Options).</p>
 
-        <p>
-        With Bleach, even if a malicious users injects XSS script into a webpage, the script is not going to be executed.
-        </p>
+            <p>With CSP, only externalized JavaScript with source specified in the website’s CSP white-list can be executed. So even if an attacker injects JavaScript into your webpage, the script would not be executed and CSP would show an alert.</p>
+
+            <p>For preventing clickjacking, a website’s CSP only allow other white-listed sites to be able to embed itself. This way, a website has a choice on which sites it can be embedded into inside an iframe. Thus using CSP is a more flexible option compared to [X-Frame-Options: deny], which bans any other website from embedding itself.</p>
         </section>
     </section><!-- sec-chunk -->
 
@@ -50,7 +50,7 @@
             Diagram
         </div>
         <section class="textchunk">
-            Coming before September 2011!
+            Coming before end of August 2011!
         </section>
     </section><!-- sec-chunk -->
 
@@ -59,7 +59,13 @@
             Do It Yourself
         </div>
         <section class="textchunk">
-            Simply get [bleach] and run the user inputs through “bleach()” before saving them into the database.
+            <ol>
+                <li>CSP is set in the response header as “x-content-security-policy.”</li>
+                <li>Externalize all JavaScript, i.e. no in-body JavaScript, <b>as well as HTML event handlers like onclick()</b> or else they would not be executed.</li>
+                <li>Put in the resources of your externalized Javascript into your CSP policy, i.e. the white-list.</li>
+            </ol>
+
+        <p>Please Firefox since it is the only browser that fully implements CSP as of August, 2011.</p>
         </section>
     </section><!-- sec-chunk -->
 
@@ -68,7 +74,10 @@
             Demo Preview
         </div>
         <section class="textchunk">
-            You will get a textbox that you can type in html, if you have bleach white-listed tags, they will be rendered, otherwise tags like “&lt;script&gt;” will be escaped.
+            <p>The demo focuses on CSP’s XSS protection. The demo page contains external and internal JavaScript alerts, where the external JavaScript is white-listed.</p>
+
+            <p>On Firefox, only the external alert shows up, because CSP blocks the internal JavaScript. On browsers without CSP implementation, both alerts show up.</p>
+
         </section>
     </section><!-- sec-chunk -->
 
@@ -82,11 +91,14 @@
         </div>
         <section class="textchunk">
            <ul>
-                <li>[bleach]
-
+                <li>
+                    <a href="https://developer.mozilla.org/en/Introducing_Content_Security_Policy">Nice overview of CSP</a>
                 </li>
-                <li>[input sanitation]
-
+                <li>
+                    <a href="http://people.mozilla.com/~bsterne/content-security-policy/details.html">CSP Details</a>
+                </li>
+                <li>
+                    <a href="https://github.com/mozilla/django-csp" target="_blank">django-csp</a>
                 </li>
             </ul>
         </section>

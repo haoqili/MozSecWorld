@@ -1,0 +1,97 @@
+{% extends "msw/base.html" %}
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+<!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
+    <h2>Image Upload Demo</h2>
+
+    <div id="table-of-contents">
+        <span id="table-of-contents-head"></span>
+            <a href="#demo-part-over" class="special">Overview</a>
+            <a href="#demo-part-demo">Demo</a>
+            <a href="#demo-part-verify">How to verify</a>
+            <a href="#demo-part-code">Code</a>
+            <a href="/msw/{{ slug }}" class="special">Go to Intro</a>
+    </div><!--table-of-contents-->
+
+    <div class="sec-chunk">
+        <div id="demo-part-over" class="sec-title">
+            Overview
+        </div>
+
+        <section class="textchunk">
+            <p>You will get to upload images, some of which might be malicious from its extraneous JavaScript inserted. The backend of <a href="#demo-part-demo">this demo</a> will follow the [3 uploading guidelines], safely storing all images.</p>
+
+            <p>You should know that images and files could be [dangerous].</p>
+            <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure your image uploader has followed [the 3 guidelines].</p>
+
+            <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to make this demo.</p>
+        </section>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-demo" class="sec-title">
+            Image Upload Demo
+        </div>
+
+        <section class="textchunk">
+
+            <p>Try uploading invalid images or images with malicious content embedded. These images will be rejected or cleansed.</p>
+            <ol>
+                <!--0. Observe that there are extraneous Javascript on the [bad images] by using “wget”-->
+                <li>Upload an image, possibly a [bad image] containing JavaScript</li>
+                <li>Observe that the resulting image has been rewritten into “png” and resized.</li>
+                <li>If you uploaded the [bad image], “wget” the source of the uploaded image, observe that the extraneous JavaScript is gone.</li>
+            </ol>
+            <!---------------->
+              <form id="myform" action="" method="post" enctype="multipart/form-data">
+              {{ csrf() }}
+              {{ form.as_p() }}
+              <input type="submit" value="Submit" />
+              </form>
+
+            <!---------------->
+
+        </section>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-verify" class="sec-title">
+            How to verify
+        </div>
+
+        <section class="textchunk">
+            <ol>
+                <li>Insert JavaScript into different sections of the picture and see if the website either doesn’t recognize the image or save it without the JavaScript.</li>
+                <li>Test with different image types to see that everything is saved into “png”</li>
+                <li>Make sure that disallowed file types cannot be uploaded.</li>
+            </ol>
+
+        </section>
+    </div><!-- sec-chunk -->
+
+
+    <div class="sec-chunk">
+        <div id="demo-part-code" class="sec-title">
+            My code - code for making this demo work
+        </div>
+
+        <section class="textchunk">
+            Code coming before September, 2011!
+
+            <ul>
+                <li>PIL library adding</li>
+                <li>Making the image upload</li>
+                <li>adding the script extractor with resave</li>
+            </ul>
+        </section>
+    </div><!-- sec-chunk -->
+
+{% endblock %}
+
+{#
+{% block body_end %}
+{{ js('') }}
+{% endblock %}
+#}

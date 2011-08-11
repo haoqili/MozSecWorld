@@ -1,7 +1,7 @@
 {% extends "msw/base.html" %}
 
 {% block rightPanelText %}
-    <h2>Safe URL</h2>
+    <h2>Image Upload</h2>
     
     <section id="table-of-contents">
         <!--<a href="#intro-part-category">Category</a>-->
@@ -28,7 +28,7 @@
             Summary
         </div>
         <section class="textchunk">
-            Warn users about malicious URLs. 
+            Prevent uploads from broken image file, non-image files, or malicious image files with embedded script. 
         </section>
     </section><!-- sec-chunk -->
 
@@ -37,13 +37,23 @@
             Details
         </div>
         <section class="textchunk">
-            Google SafeBrowsing provides a blacklist of potentially dangerous URLs. MozSecWorld checks user input URLs against that list. In addition, a 3-step verification is used to make sure that there is not a Man-In-The-Middle (MITM) for Google SafeBrowsing:
+            <p>Follow the three guidelines for <a href="https://wiki.mozilla.org/WebAppSec/Secure_Coding_Guidelines#Image_Upload">Image Upload</a>:</p>
             <ol>
-                <li>Checking that a certificate of the Google SafeBrowing url's hostname matches the name on the certificate</li>
-                <li>Checking that the certificate is not expired.</li>
-                <li>Checking that the CAs are valid.</li>
+                <li>Strip away extraneous and potentially malicious content in the image file
+                        <p class="indent">Done by rewriting every image file with Python Image Library (PIL)</p>
+                        <p class="indent">Reason: Sometimes a malicious file poses as an image file. The process of rewriting an image can pick out fake image files. If the image is not completely broken, rewriting only keeps the essential image components of the file, stripping away extraneous contents such as scripts.</p>
+                </li>
+
+                <li>Set extension of of the stored image to be a valid image extension
+                         <p class="indent">The results of the rewriting are saved as “png”s</p>
+                         <p class="indent">Reason: For consistency.</p>
+                </li>
+
+                <li>Ensure the detected content type is within a list of defined image types (jpg, png, etc)
+                        <p class="indent">White-list of image file extensios</p>
+                        <p class="indent">Reason: Prevent uploading of file such as executables.</p>
+                </li>
             </ol>
-            <p>You should not blindly trust Google SafeBrowsing and that it has a certificate. To fool people, an MITM attacker can modify the certificate or pretend to be a CA. You should also not trust expired certificate.</p>
         </section>
     </section><!-- sec-chunk -->
 
@@ -61,7 +71,14 @@
             Do It Yourself
         </div>
         <section class="textchunk">
-            Get a Google SafeBrowsing account and use their query system to check an url.
+            <p>The big idea:</p>
+            <ol>
+                <li>Get [PIL]</li>
+                <li>Set up [Image Upload]</li>
+                <li>[Tweak] the forms.py to perform image rewriting</li>
+            </ol>
+
+            <p>Image uploading in Django is a bit complicated, try to follow the [the demo's code].</p>
         </section>
     </section><!-- sec-chunk -->
 
@@ -70,8 +87,7 @@
             Demo Preview
         </div>
         <section class="textchunk">
-            When you put in safe urls, and see that they become clickable.<br />
-            When you put in malicious urls, they are made unclickable and marked with a warning.
+            <p>You will get to upload images, some of which have extraneous JavaScript insert. Observe that one the image is uploaded, the resulting image is a rewritten and resized version of the original image without any of the extraneous JavaScript.</p>
         </section>
     </section><!-- sec-chunk -->
 
@@ -86,10 +102,10 @@
         <section class="textchunk">
            <ul>
                 <li>
-                    Google SafeBrowsing
+                    <a href="https://wiki.mozilla.org/WebAppSec/Secure_Coding_Guidelines#Image_Upload">Image Upload Guidelines</a>
                 </li>
                 <li>
-                    blacklist urls
+
                 </li>
             </ul>
         </section>

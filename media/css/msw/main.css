@@ -63,6 +63,9 @@ body {
 .hl-yellow {
     background-color: yellow;
 }
+.indent {
+    margin: 0.2em 3em;
+}
 code {
     padding: 0.2em;
     color: #196733;

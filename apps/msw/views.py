@@ -358,10 +358,10 @@ def index(request):
     return rendered
 
 no_db = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql", "rich_text",
-         "safe_url",
+         "safe_url", "csp", "access_control", "image_upload"
          ]
 no_db2 = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql",
-      
+         "csp", "access_control",
           ]
 
 def detail(request, input_slug):
@@ -429,6 +429,35 @@ def demo(request, input_slug):
         return jingo.render(request, 'msw/demos/'+input_slug+'.html', 
                             {'slug':input_slug, "form":form,
                             })
+
+    if input_slug == "image_upload":
+        print "iOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        print "iOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        print "\na img upload!"
+        form = forms.ImageAttachmentUploadForm()
+        if request.method == 'POST':
+            #import pdb;
+            #pdb.set_trace();
+            print "in file upload post"
+            form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
+            print "r POST"
+            print request.POST
+            print "r FILES"
+            print request.FILES
+            print "yaaaaaa"
+            if form.is_valid():
+                print "a valid file upload form"
+                image_file = request.FILES['image']
+                print request.user
+                user_object = User.objects.get(username = request.user)
+                img = use_model_upload(image_file, user_object)
+     
+                # POST return
+                return jingo.render(request, 'msw/demos/fileupload_show.html', {'img' : img })
+
+        # image upload GET:
+        return jingo.render(request, 'msw/demos/image_upload.html', {'form': form})
+
 
 
     # end no backend calls .......

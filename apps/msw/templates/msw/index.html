@@ -1,20 +1,162 @@
 {% extends "msw/base.html" %}
 
 {% block rightPanelText %}
-    <h2>Please Note</h2>
-        <p>This site is still under development. It will be much better by August 12th. Thanks for your patience.</p>
 
-    <h2>About</h2>
-    
-        <p>Mozilla Secure World helps web developers to prevent major vulnerabities on the web from the demos.</p>
 
-    <h2>Setup</h2>
-    
-        <p>Mozilla Secure World runs on Django with <a href="https://github.com/mozilla/playdoh">playdoh</a>. Even though the details of the executions may be different, concepts of the preventions should be the same no matter how your site is built.</p>
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">    
+            Please Note
+        </div>
+        <section class="textchunk">
+            <p>This site is still under development. It will be much better by August 12th. Thanks for your patience.</p>
+        </section>
+    </section><!-- sec-chunk -->
 
-    <h2>Links</h2>
-        <p><a href="https://github.com/haoqili/MozSecWorld">GitHub Page</a></p>
-        <p><a href="https://wiki.mozilla.org/WebAppSec/MozSecureWorld">Wiki page with schedule</a></p>
-        <p><a href="https://wiki.mozilla.org/WebAppSec/Secure_Coding_Guidelines#Content_Security_Policy_.28CSP.29">Mozilla Secure Coding Guidelines</a></p>
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">    
+            About
+        </div>
+        <section class="textchunk">
+        
+            <p>Mozilla Secure World helps web developers to prevent major vulnerabities on the web from the demos.</p>
+
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">    
+            Setup
+        </div>
+        <section class="textchunk">
+        
+            <p>Mozilla Secure World runs on Django with <a href="https://github.com/mozilla/playdoh">playdoh</a>. Even though the details of the executions may be different, concepts of the preventions should be the same no matter how your site is built.</p>
+
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+            FAQ
+        </div>
+        <section class="textchunk">
+            <p>Page Not Found 404: Try logging in</p>
+            <p>Clicking doesn't work: Make sure you have something in every input box</p>
+        </section>
+    </section><!-- sec-chunk -->
+
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">    
+            Links
+        </div>
+        <section class="textchunk">
+            <p><a href="https://github.com/haoqili/MozSecWorld">GitHub Page</a></p>
+            <p><a href="https://wiki.mozilla.org/WebAppSec/MozSecureWorld">Wiki page with schedule</a></p>
+            <p><a href="https://wiki.mozilla.org/WebAppSec/Secure_Coding_Guidelines#Content_Security_Policy_.28CSP.29">Mozilla Secure Coding Guidelines</a></p>
+
+        </section>
+    </section><!-- sec-chunk -->
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+            Overview of the Demos
+        </div>
+        <section class="textchunk">
+            Cross Domain
+            <ul>
+                <li>
+                   <a href="/msw/x_frame_options">x-frame-options: DENY</a>
+                </li>
+                <li>
+                   <a href="/msw/set_cookie_httponly">set-cookie: HTTPOnly</a>
+                </li>
+                <li>
+                   <a href="/msw/csp">Content Security Policy</a>
+                </li>
+            </ul>
+
+            Input Validation
+
+            <ul>
+                <li>
+                   <a href="/msw/parameterized_sql">Parameterized SQL statements</a>
+                </li>
+                <li>
+                   <a href="/msw/rich_text">Richtext</a>, so users can use &lt;i&gt;, &lt;b&gt;, but not &lt;script&gt;
+                    <ul>
+                        <li>
+                            [Bleach] only allows whitelisted HTML tags
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Only <a href="/msw/safe_url">safe URLs</a> are clickable
+                    <ul>
+                        <li>
+                            Google SafeBrowsing and a 3-step HTTPS Google Validation
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/msw/image_upload">Image Upload</a> following the [“Image Upload” guidelines]
+                    <ul>
+                        <li>
+                            Strip away extraneous content with PIL rewrite
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <a href="/msw/good_auth">Good Authentication</a>
+
+            <ul>
+                <li>
+                    Password safety with bcrypt+HMAC
+                </li>
+                <li>
+                    Black-listed passwords
+                </li>
+                <li>
+                    Brute force prevention with [ratelimit] and ReCapatcha
+                    <ul>
+                        <li>
+                            Shows ReCaptach after multiple failed logins from same IP or different IP for same username
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <a href="/msw/access_control">Access Control</a>
+
+            <ul>
+                <li>
+                    Access Control: separate Presentation, Business, and Data layers
+                </li>
+            </ul>
+
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+            Acknowledgements
+        </div>
+        <section class="textchunk">
+            <p>MozSecWorld was created as a summer internship project at the Infrastructure Security Team at Mozilla, supervised by Michael Coates. The student had no prior experience with Django, flooding questions on the <a href="http://blog.mozilla.com/webdev/">Mozilla webdev team</a> and <a href="https://wiki.mozilla.org/Support:Sumodev">SumoDev</a> irc channels at the beginning. Shyam is the awesome sysadmin.</p>
+        </section>
+    </section><!-- sec-chunk -->
+
+
+{#
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+
+        </div>
+        <section class="textchunk">
+
+        </section>
+    </section><!-- sec-chunk -->
+
+#}
 {% endblock %}
 

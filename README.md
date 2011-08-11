@@ -9,10 +9,11 @@ MozSecWorld will be hosted at mozsecworld.org before August 12th.
 List of Demos
 ===========
 
-XSS Prevention
+Cross Domain
 
 * x-frame-options: DENY
 * set-cookie: HTTPOnly
+* Content Security Policy
 
 Input Validation
 
@@ -26,17 +27,16 @@ Input Validation
 
 Good Authentication
 
-* password safety with bcrypt+HMAC
-* black-listed passwords
-* brute force prevention with [ratelimit][12] and ReCapatcha
+* Password safety with bcrypt+HMAC
+* Black-listed passwords
+* Brute force prevention with [ratelimit][12] and ReCapatcha
    * Shows ReCaptach after multiple failed logins from same IP or different IP for same username
 
-Cross Site Scripting
+Access Control
 
-* Content Security Policy
 * Access Control: separate Presentation, Business, and Data layers
 
-Transport Security
+Transport Security [coming soon]
 
 * Full and correct TLS
 * HTTP Strict Transport Security

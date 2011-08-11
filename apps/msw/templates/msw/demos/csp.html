@@ -1,28 +1,132 @@
 {% extends "msw/base.html" %}
+{% block head_stuff %}
+{% endblock %}
 
 {% block rightPanelText %}
-    <h2>Content Security Policy</h2>
+<!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
+    <h2>CSP Demo</h2>
 
-    <p />
-    <h3>What to do</h3>
-        <p>Externalize all of your javascript as <code>&lt;script type="text/javascript" src="you_js_source"&gt;&lt;/script&gt;</code></p>
+    <div id="table-of-contents">
+        <span id="table-of-contents-head"></span>
+            <a href="#demo-part-over" class="special">Overview</a>
+            <a href="#demo-part-demo">Demo</a>
+            <a href="#demo-part-verify">How to verify</a>
+            <a href="#demo-part-code">Code</a>
+            <a href="/msw/{{ slug }}" class="special">Go to Intro</a>
+    </div><!--table-of-contents-->
 
-    <h3>How to check</h3>
-        <p>no javascript in the html body.</p>
-    <h3>What I did</h3>
-        <p>I added the <a href="https://github.com/mozilla/django-csp" target="_blank">django-csp</a> middleware to Django that adds 'X-Content-Security-Policy' to the HTTP Response Header</p>
-        <p>Have to make sure you have appropriate CSP policies, CSP_* settings in settings.py, so that you can retrieve javascript from external websites that you approve. Read the README of django-csp for details.</p>
+    <div class="sec-chunk">
+        <div id="demo-part-over" class="sec-title">
+            Overview
+        </div>
 
-    <h3>The demo: </h3>
-    <p>This page contains 2 pieces of javascript:<br />
-    <br />* 1 external js that alerts "You got XSS-ed from an EXTERNAL JS". <br />
-    <br />* 1 in-body js that alerts "You got XSS-ed from an IN-BODY JS". like  <code>&lt;script&gt;alert("You got XSS-ed from an IN-BODY JS");&lt;/script&gt;</code></p>
-    <script>alert("You got XSS-ed from an IN-BODY JS");</script>
-    <p>View this page in Firefox and Chrome.</p>
-    <p>You should observe in Firefox the in-body alert is not displayed, but in Chrome it is. This is because the Firefox browser supports 'X-Content-Security-Policy'. So if you have an input box that attackers could put in Javascript for XSS, the XSS would not get run in Firefox.</p>
-    <p>If you add 'X-Content-Security_Policy' to your HTTP Repsonse Header, remember to externalize all of your javascript <strong>as well as HTML event handlers like onclick()</strong> or else they would be treated like XSS and not run.</p>
+        <section class="textchunk">
 
-    <h1><a href="{{ page.reverse_url() }}">back</a></h1>
+            <p>In <a href="#demo-part-demo">this demo</a>, you are going to see how CSP successfully blocks a in-body JavaScript in Firefox, a CSP-aware browser. In contrast, browsers without full CSP implementation, such as Chrome and Safari, fail to block the in-body JavaScript.
+
+            <p>Before you start, you should be aware that in XSS attacks, malicious JavaScript can be inserted into the body of the page.</p>
+
+            <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure your site is taking advantage of CSP.</p>
+
+            <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to turn on CSP for MozSecWorld and the specific code that makes this demo work.</p>
+        </section>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-demo" class="sec-title">
+            CSP Demo
+        </div>
+
+        <section class="textchunk">
+
+            <p>The demo contains external and internal JavaScript alerts, where the external JavaScript is white-listed. When using Firefox, only the external alert shows up, because CSP blocks the internal JavaScript. When using browsers without CSP implementation, both alerts show up.</p>
+
+            <p>This page contains 2 pieces of javascript:</p>
+
+            <p>* An external js that alerts "You got XSS-ed from an EXTERNAL JS"
+                <p class="indent">Code: <code>alert(“You got XSS-ed from an EXTERNAL JS.”)</code></p>
+                <p class="indent">Source:<code>&lt;script src="<a href="/media/js/msw/csp_external.js">/media/js/msw/csp_external.js</a>"&gt;&lt;/script&gt;</code></p>
+            </p>
+
+            <p>* An in-body js that alerts "You got XSS-ed from an IN-BODY JS" 
+                <p class="indent">Code: <code>&lt;script&gt;alert("You got XSS-ed from an IN-BODY JS");&lt;/script&gt;</code></p>
+                <p class="indent">Source: [View source] on page and find this script here --}<script>alert("You got XSS-ed from an IN-BODY JS");</script>{--</p>
+            </p>
+
+            <p>Directions:
+                <ol>
+                    <li>View this page in Chrome or Safari.</li>
+                    <li>Observe that you see 2 popups from each of the JavaScript alerts.</li>
+                    <li>View this page in Firefox.</li>
+                    <li>Observe that you only see 1 popup, from the external JavaScript alert.</li>
+                </ol>
+            </p>
+
+            <p>This is because only the Firefox browser fully supports CSP, i.e. the 'X-Content-Security-Policy' in the [HTTP Response Header].</p>
+
+            <p class="hlight">When you have CSP turned on, even if an attacker carries XSS on your page and inserts JavaScript into the body of your page, the malicious Javascript would not get executed inside Firefox.</p>
+
+
+        </section>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-verify" class="sec-title">
+            How to verify
+        </div>
+
+        <section class="textchunk">
+
+        <p>Firefox: <a href="http://getfirebug.com/" target="_blank">Get Firebug</a> and open up your web page (not in an iframe)
+        <ol>
+            <li>Click on Firebug's "Net" option</li>
+            <li>Refresh page</li>
+            <li>Click on 'GET [your url]'</li>
+            <li>Look under Headers' "Response Headers"</li>
+            <li>See what you have for "X-Content-Security-Policy". If you don't see "X-Content-Security-Policy", your web server does not have this header set.</li>
+        </ol>
+        </p>
+
+        <p>Chrome:
+        <ol>
+            <li>Right click on page</li>
+            <li>Choose "Inspect Elements"</li>
+            <li>Follow Firefox's steps</li>
+        </ol>
+        </p>
+
+{#
+        <p>Terminal:
+        <ol>
+            <li><code>&gt;telnet [insert IP-address of your site] 8000</code></li>
+            <li>Press enter</li>
+            <li>Put in <code>GET /en-US/msw/ HTTP/1.1</code></li>
+            <li>Press enter twice</li>
+            <li>Scroll to the very top of the output</li>
+            <li>Should see "X-Content-Security-Policy". If you don't see it, your web server does not have this header set.</li>
+        </ol>
+        </p>
+
+#}
+
+        </section>
+    </div><!-- sec-chunk -->
+
+
+    <div class="sec-chunk">
+        <div id="demo-part-code" class="sec-title">
+            My code - code for making this demo work
+        </div>
+
+        <section class="textchunk">
+            Coming before September, 2011!
+{#
+            [settings.py] stuff that sets the CSP
+            [this code specific]
+#}
+        </section>
+    </div><!-- sec-chunk -->
+
 {% endblock %}
 
 {% block body_end %}
