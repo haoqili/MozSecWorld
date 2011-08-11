@@ -1,0 +1,107 @@
+{% extends "msw/base.html" %}
+
+{% block rightPanelText %}
+    <h2>Set-Cookie: Httponly</h2>
+    
+    <section id="table-of-contents">
+        <!--<a href="#intro-part-category">Category</a>-->
+        <a href="#intro-part-summary" class="special">Summary</a>
+        <a href="#intro-part-details">Details</a>
+        <a href="#intro-part-diagram">Diagram</a>
+        <a href="#intro-part-doit">Do it</a>
+        <a href="#intro-part-preview">Preview</a>
+        <a href="#intro-part-resources">Resources</a>
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section><!--table-of-contents-->
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">
+            Category
+        </div>
+        <section class="textchunk">
+            Cross-Domain Controls 
+            - Cookie Protection via HttpOnly
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-summary" class="sec-title">
+            Summary
+        </div>
+        <section class="textchunk">
+            Minimizes likelihood of session hijacking via cross site scripting by preventing JavaScript access to the cookies.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-details" class="sec-title">
+            Details
+        </div>
+        <section class="textchunk">
+            In cross-site-scripting (XSS), attackers steal your browser cookies with JavaScript to obtain sensitive information such as sesion ID.  However, when the set-cookie response contains the HTTPOnly attribute for a cookie, the browser disallows JavaScript access to the cookie. This defensive technique makes automated session hijacking attacks via XSS much more difficult.
+            <p>HTTPOnly support is dependent on the browser. Most modern browsers do implement HTTPOnly.</p>
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-diagram" class="sec-title">
+            Diagram
+        </div>
+        <section class="textchunk">
+            Coming before September 2011!
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-doit" class="sec-title">
+            Do It Yourself
+        </div>
+        <section class="textchunk">
+
+            <p>For all instances where cookies are set, add the HTTPOnly attribute. So the response looks like: <code>Set-Cookie: cookie1=foo; HttpOnly; cookie2=bar; HttpOnly;</code>. Consult <a href="http://www.google.com/url?q=https%3A%2F%2Fwww.owasp.org%2Findex.php%2FHttpOnly%23Mitigating_the_Most_Common_XSS_attack_using_HttpOnly&sa=D&sntz=1&usg=AFQjCNGnI813Zghr2MEKjRC9yhDcpU_S_w">this page</a> to see how to set-cookie on your web server.</p>
+
+            <p>If you are using Django, make sure you have <code>SESSION_COOKIE_HTTPONLY = True</code> in settings.py, since the <a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SESSION_COOKIE_HTTPONLY">default</a> is unfortunately false.</p>
+
+            <p><a href="http://playdoh.readthedocs.org/en/latest/">Mozilla's Playdoh</a> automatically have <a href="http://readthedocs.org/docs/playdoh/en/latest/bestpractices.html#mmmmh-cookies">Set-Cookie: HttpOnly</a>, ensure that you have <code>commonware.response.cookies</code> in your settings.py's installed apps.</p>
+
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-preview" class="sec-title">
+            Demo Preview
+        </div>
+        <section class="textchunk">
+            The demo will show cookies with and without Set-Cookie: HTTPOnly.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-title-demo">
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section>
+
+    <section class="sec-chunk">
+        <div id="intro-part-resources" class="sec-title">
+            Resources
+        </div>
+        <section class="textchunk">
+            <ul>
+                <li><a href="https://www.owasp.org/index.php/HttpOnly">OWASP page on HTTPOnly</a></li>
+                <li><a href="http://www.google.com/search?q=httponly">Google results</a></li>
+            </ul>
+        </section>
+    </section><!-- sec-chunk -->
+
+{#
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+
+        </div>
+        <section class="textchunk">
+
+        </section>
+    </section><!-- sec-chunk -->
+
+#}
+
+{% endblock %}

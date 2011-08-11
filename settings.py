@@ -17,9 +17,6 @@ ROOT_PACKAGE = os.path.basename(ROOT)
 # Is this a dev instance?
 DEV = False
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 ADMINS = ()
 MANAGERS = ADMINS
 

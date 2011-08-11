@@ -1,0 +1,107 @@
+{% extends "msw/base.html" %}
+
+{% block rightPanelText %}
+    <h2>Rich Text</h2>
+    
+    <section id="table-of-contents">
+        <!--<a href="#intro-part-category">Category</a>-->
+        <a href="#intro-part-summary" class="special">Summary</a>
+        <a href="#intro-part-details">Details</a>
+        <a href="#intro-part-diagram">Diagram</a>
+        <a href="#intro-part-doit">Do it</a>
+        <a href="#intro-part-preview">Preview</a>
+        <a href="#intro-part-resources">Resources</a>
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section><!--table-of-contents-->
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">
+            Category
+        </div>
+        <section class="textchunk">
+            Input Validation / Sanitation
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-summary" class="sec-title">
+            Summary
+        </div>
+        <section class="textchunk">
+            When sanitizing user input, MozSecWorld renders white-listed mark-up HTML tags and escapes the rest of the tags, including the potentially dangerous “&lt;script&gt;” tag.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-details" class="sec-title">
+            Details
+        </div>
+        <section class="textchunk">
+        <p>MozSecWorld uses an HTML sanitizing library [Bleach], which only allows certain safe html tags, such as “&lt;b&gt;” or “&lt;i&gt;”, to be rendered into html while the rest of the text are escaped. This way, users can still have some freedom on creating rich, fancier-looking text.</p>
+
+        <p>
+        With Bleach, even if a malicious users injects XSS script into a webpage, the script is not going to be executed.
+        </p>
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-diagram" class="sec-title">
+            Diagram
+        </div>
+        <section class="textchunk">
+            Coming before September 2011!
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-doit" class="sec-title">
+            Do It Yourself
+        </div>
+        <section class="textchunk">
+            Simply get [bleach] and run the user inputs through “bleach()” before saving them into the database.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-preview" class="sec-title">
+            Demo Preview
+        </div>
+        <section class="textchunk">
+            You will get a textbox that you can type in html, if you have bleach white-listed tags, they will be rendered, otherwise tags like “&lt;script&gt;” will be escaped.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-title-demo">
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section>
+
+    <section class="sec-chunk">
+        <div id="intro-part-resources" class="sec-title">
+            Resources
+        </div>
+        <section class="textchunk">
+           <ul>
+                <li>[bleach]
+
+                </li>
+                <li>[input sanitation]
+
+                </li>
+            </ul>
+        </section>
+    </section><!-- sec-chunk -->
+
+{#
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+
+        </div>
+        <section class="textchunk">
+
+        </section>
+    </section><!-- sec-chunk -->
+
+#}
+
+{% endblock %}

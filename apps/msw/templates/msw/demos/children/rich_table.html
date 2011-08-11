@@ -1,0 +1,11 @@
+    {% if all_richtext_list %}
+    The latest 5 submissions:
+    <ol>
+        {% for richtext in all_richtext_list %}
+            <li>{{ richtext.comment|safe }}</li>
+        {% endfor %}
+    </ol>
+    {% else %}
+        <p>Nobody has submitted anything.</p>
+    {% endif %}
+

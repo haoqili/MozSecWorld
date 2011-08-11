@@ -1,0 +1,57 @@
+{% extends "msw/base.html" %}
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+<!-- sorry I know I'm probably doing everything against the principles of jinja/django. But I have to do this quick. -->
+    <h2>Rich Text</h2>
+
+    <div id="table-of-contents">
+        <span id="table-of-contents-head"></span>
+            <a href="#demo-part-over" class="special">Overview</a>
+            <a href="#demo-part-demo">Demo</a>
+            <a href="#demo-part-verify">How to verify</a>
+            <a href="#demo-part-code">Code</a>
+            <a href="/msw/{{ slug }}" class="special">Go to Intro</a>
+    </div><!--table-of-contents-->
+
+    <div class="sec-chunk">
+        <div id="demo-part-over" class="sec-title">
+            Overview
+        </div>
+        <p>
+        You will type in raw HTML into the textbox, in the back-end we run the input through [bleach], so that html tags not on [bleach’s whitelist] will be escaped. You should have a basic understanding of [html].
+        </p>
+        <p>The <a href="#demo-part-verify">how to verify</a> section describes how you can ensure that bleach is working correctly.</p>
+        <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to run bleach.</p>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-demo" class="sec-title">
+            Set-Cookie: HttpOnly Demo
+        </div>
+    <!---------------->
+      <form id="myform" action="" method="post">
+      {{ csrf() }}
+      {{ form.as_p() }}
+      <input type="submit" value="Submit" />
+      </form>
+
+      <div id="results">
+      {% include 'msw/demos/children/rich_table.html' %}
+      </div>
+    <!---------------->
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-verify" class="sec-title">
+            How to verify
+        </div>
+
+    </div><!-- sec-chunk -->
+
+{% endblock %}
+
+{% block body_end %}
+{{ js('richtext_safeurl') }}
+{% endblock %}

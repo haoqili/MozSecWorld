@@ -60,7 +60,9 @@ body {
     font-weight: 400;
     background-color: #E3FCE3;
 }
-
+.hl-yellow {
+    background-color: yellow;
+}
 code {
     padding: 0.2em;
     color: #196733;
@@ -68,6 +70,10 @@ code {
     font: courier, monospace;
     background-color: #F0FCF0;
 }
+    .code-indent {
+        margin: 0.5em 3em;
+        display: block;
+    }
 
 
 .tofix {

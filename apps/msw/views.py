@@ -357,14 +357,14 @@ def index(request):
     rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
     return rendered
 
-no_db = ["good_auth", "x_frame_options", "set_cookie_httponly" ]
+no_db = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql", "rich_text" ]
+no_db2 = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql" ]
 
 def detail(request, input_slug):
     
     # get_object_or_404( model name, model attribute = value to test)
     # this function is analogous to Page.objects.filter(urlname=msw_urlname)
     # "urlname" is the attribute of the model, i.e. the column in the db table
-    p = get_object_or_404(Page, slug=input_slug)
 
     file = 'msw/detail.html'
 
@@ -374,6 +374,7 @@ def detail(request, input_slug):
        print "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
        return jingo.render(request, file, {'slug':input_slug})
 
+    p = get_object_or_404(Page, slug=input_slug)
     return jingo.render(request, file, {'page':p})
 
 
@@ -384,10 +385,28 @@ def demo(request, input_slug):
     #.............................
     # no backend calls ...........
 
-    if input_slug == "good_auth":
-        print "OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        print "OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+    if input_slug in no_db2:
+        print "2OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+        print "2OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
         return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
+
+    if input_slug == "rich_text":
+        form = RichTextForm()
+        if request.method == "POST":
+            print "PPPPPPPPPPPPPPPP"
+            form = RichTextForm(request.POST)
+            if form.is_valid():
+                print "tttttttttttttt"
+                form.save()
+            return jingo.render(request, 'msw/demos/children/rich_table.html', 
+                                {'slug':input_slug, 
+                                 "form":form,
+                                 "all_richtext_list": RichText.objects.values('comment').order_by('-id')[:5],})
+        print "VVVVVVVVVVVV"
+        return jingo.render(request, 'msw/demos/'+input_slug+'.html', 
+                            {'slug':input_slug, "form":form,
+                            })
+
 
     # end no backend calls .......
     #.............................

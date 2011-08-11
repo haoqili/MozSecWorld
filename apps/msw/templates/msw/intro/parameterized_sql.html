@@ -1,0 +1,111 @@
+{% extends "msw/base.html" %}
+
+{% block rightPanelText %}
+    <h2>Parameterized SQL Statements</h2>
+    
+    <section id="table-of-contents">
+        <!--<a href="#intro-part-category">Category</a>-->
+        <a href="#intro-part-summary" class="special">Summary</a>
+        <a href="#intro-part-details">Details</a>
+        <a href="#intro-part-diagram">Diagram</a>
+        <a href="#intro-part-doit">Do it</a>
+        <a href="#intro-part-preview">Preview</a>
+        <a href="#intro-part-resources">Resources</a>
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section><!--table-of-contents-->
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">
+            Category
+        </div>
+        <section class="textchunk">
+            Input validation
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-summary" class="sec-title">
+            Summary
+        </div>
+        <section class="textchunk">
+            Parameterizing SQL statements helps safely handle user data and prevent SQL injections.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-details" class="sec-title">
+            Details
+        </div>
+        <section class="textchunk">
+            Incorporate user inputs directly into SQL queries may lead to [SQL injections] when a malicious user carefully crafts an input that causes the SQL parser to parse the query into something unintended.
+            <p>
+            Parameterized queries provides a mechanism for the parser to establish a clear differentiation between user submitted data and SQL syntax.
+            </p>
+            <p><a href="http://xkcd.com/327/">SQL injection example</a>.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-diagram" class="sec-title">
+            Diagram
+        </div>
+        <section class="textchunk">
+            Coming before September 2011!
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-doit" class="sec-title">
+            Do It Yourself
+        </div>
+        <section class="textchunk">
+            <p>
+                <a href="http://rosettacode.org/wiki/Parametrized_SQL_statement">This page has examples</a>  on how to do SQL statement parameterization in different languages.
+            </p>
+            <p>
+                If you use Django, you don't need to write SQL queries yourself. But if you are in a situation where you do need to work with SQL directly, Django's <a href="https://docs.djangoproject.com/en/dev/topics/db/sql/#passing-parameters-into-raw">raw()</a> performs parameterized SQL statements for you. You <a href="https://docs.djangoproject.com/en/dev/topics/db/sql/#executing-custom-sql-directly">cannot use raw()</a> to run <i>update, insert</i>, or <i>delete</i>. So use <a href="https://docs.djangoproject.com/en/dev/topics/db/sql/#connections-and-cursors">cursor()</a> instead, even though cursor() does not use parameterized SQL statementes, it escapes user inputs (not preferred)..
+            </p>
+            <p>
+
+            </p>
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-preview" class="sec-title">
+            Demo Preview
+        </div>
+        <section class="textchunk">
+            The demo will let you try do sql injections, but observe that they do not get run.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-title-demo">
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section>
+
+    <section class="sec-chunk">
+        <div id="intro-part-resources" class="sec-title">
+            Resources
+        </div>
+        <section class="textchunk">
+            <ul>
+                <li><a href="http://en.wikipedia.org/wiki/SQL_injection">Wikipedia</a></li>
+                <li><a href="http://rosettacode.org/wiki/Parametrized_SQL_statement">SQL Parameterization in different languages</a></li>
+            </ul>
+        </section>
+    </section><!-- sec-chunk -->
+
+{#
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+
+        </div>
+        <section class="textchunk">
+
+        </section>
+    </section><!-- sec-chunk -->
+
+#}
+
+{% endblock %}

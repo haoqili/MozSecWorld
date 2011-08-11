@@ -1,9 +1,8 @@
-
     {% if all_richtext_list %}
         {% for richtext in all_richtext_list %}
             <p>Name title: <b>{{ richtext.name|safe }}</b> says: <b>{{ richtext.comment|safe }}</b></p>
         {% endfor %}
     {% else %}
-        <p>No iicomments are available.</p>
+        <p>No comments are available.</p>
     {% endif %}
 

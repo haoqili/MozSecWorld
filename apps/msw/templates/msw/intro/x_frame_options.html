@@ -1,0 +1,111 @@
+{% extends "msw/base.html" %}
+
+{% block rightPanelText %}
+    <h2>Preventing ClickJacking with X-Frame-Options</h2>
+    
+    <section id="table-of-contents">
+        <!--<a href="#intro-part-category">Category</a>-->
+        <a href="#intro-part-summary" class="special">Summary</a>
+        <a href="#intro-part-details">Details</a>
+        <a href="#intro-part-diagram">Diagram</a>
+        <a href="#intro-part-doit">Do it</a>
+        <a href="#intro-part-preview">Preview</a>
+        <a href="#intro-part-resources">Resources</a>
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section><!--table-of-contents-->
+
+    <section class="sec-chunk">
+        <div id="intro-part-category" class="sec-title">
+            Category
+        </div>
+        <section class="textchunk">
+            Cross-Domain Controls
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-summary" class="sec-title">
+            Summary
+        </div>
+        <section class="textchunk">
+            Instructs the browser to not allow the website from being put into an iframe.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-details" class="sec-title">
+            Details
+        </div>
+        <section class="textchunk">
+            <a href="http://en.wikipedia.org/wiki/Clickjacking">Clickjacking</a> happens when a malicious site loads your web page in an invisible [iframe] and overlays your page with other content, usually a game, or something that entices a user to click in specific areas. The buttons on the game line up to those on the underlying victim web page. When visitors click around on the malicious page (e.g. overlay game), they're unknowingly clicking around your web page (e.g. the invisible iframe). This occurs because the user believes they are clicking on the overlay but the clicks are actually being processed by the framed victim site.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-diagram" class="sec-title">
+            Diagram
+        </div>
+        <section class="textchunk">
+            Coming before Septemeber 2011!
+{#
+            You wouldn’t want this happening to your critical website, would you?
+#}
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-doit" class="sec-title">
+            Do It Yourself
+        </div>
+        <section class="textchunk">
+            In your web server, add the HTTP Response Header: <code>X-Frame-Options: DENY</code><br />
+            This will instruct browsers to not render your website within an iframe.
+
+            <p><a href="http://playdoh.readthedocs.org/en/latest/index.html">Mozilla's Playdoh</a> automatically sets the "X-Frame-Options" to "deny".</p>
+
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-chunk">
+        <div id="intro-part-preview" class="sec-title">
+            Demo Preview
+        </div>
+        <section class="textchunk">
+            The demo will show you how the different settings of X-Frame-Options will look like.
+        </section>
+    </section><!-- sec-chunk -->
+
+    <section class="sec-title-demo">
+        <a href="/msw/{{ slug }}/demo" class="special">Go to Demo!</a>
+    </section>
+
+    <section class="sec-chunk">
+        <div id="intro-part-resources" class="sec-title">
+            Resources
+        </div>
+        <section class="textchunk">
+            <ul>
+                <li><a href="http://michael-coates.blogspot.com/2010/08/x-frame-option-support-in-firefox.html">A comprehensive blog about x-frame-options</a></li>
+
+                <li><a href="https://developer.mozilla.org/en/The_X-FRAME-OPTIONS_response_header">Mozilla developer's x-frame-options</a></li>
+
+                <li><a href="http://en.wikipedia.org/wiki/Clickjacking">Wikipedia page on clickjacking and x-frame-options</a></li>
+
+                <li><a href="https://www.owasp.org/index.php/Clickjacking">Clickjacking by OWASP</a></li>
+            </ul>
+        </section>
+    </section><!-- sec-chunk -->
+
+{#
+    <section class="sec-chunk">
+        <div id="intro-part-" class="sec-title">
+
+        </div>
+        <section class="textchunk">
+
+        </section>
+    </section><!-- sec-chunk -->
+
+#}
+
+{% endblock %}
