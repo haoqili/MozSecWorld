@@ -20,16 +20,22 @@
         <div id="demo-part-over" class="sec-title">
             Overview
         </div>
+
+        <section class="textchunk">
         <p>You will learn about the 3 <a href="#demo-part-demo">options</a> that X-Frame-Options has, make sure you know <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframes</a>.</p>
         <p>You can <a href="#demo-part-testyour">test your website</a> to see if it can be displayed in an iframe.</p>
         <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure your site is taking advantage of x-frame-options.</p>
         <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to enable x-frame-options for this demo.</p>
+
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-demo" class="sec-title">
             X-Frame-Options Choices Demo
         </div>
+
+        <section class="textchunk">
         <p>X-Frame-Options has three different settings: <span class="hlight">allow, sameorigin, and deny</span>.</p>
         <p><span class="hlight">X-Frame-Options: ALLOW</span> instructs the browser to allow the web page to be rendered inside an iframe. This is the default behavior when you don't have the x-frame-options header.</p>
         <iframe src="/msw/x_frame_options/demo/xfo_allow">Demo of page with 'X-Frame-Options: ALLOW'</iframe>
@@ -40,12 +46,16 @@
         <p><span class="hlight">X-Frame-Options: DENY</span> is the safest option and will prevent the content from being framed on any domain. A web page cannot be rendered inside an iframe anywhere.</p>
         <iframe id="deny-frame" src="/msw/x_frame_options/demo/xfo_deny">Demo of page with 'X-Frame-Options: DENY'</iframe>
         <span id="deny-caption"><a href="/msw/x_frame_options/demo/xfo_deny">'X-Frame-Options: DENY' Page</a></span>
+
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-testyour" class="sec-title">
             Test your website!
         </div><!-- sec-title -->
+
+        <section class="textchunk">
         Put your URL here, and see if it shows up in the iframe below. <br />
         Spelling mistakes or failing to have "http://" results in false 
         negatives.
@@ -83,16 +93,16 @@
             </li>
         </ul>
         </p>
-    </div><!-- sec-chunk -->
 
-    <div class="sec-chunk">
-  
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-verify" class="sec-title">
             How to verify
         </div>
+
+        <section class="textchunk">
 
         <p>Firefox: <a href="http://getfirebug.com/" target="_blank">Get Firebug</a> and open up your web page (not in an iframe)
         <ol>
@@ -125,12 +135,16 @@
         </p>
 
 #}
+
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-code" class="sec-title">
             My code - code for making this demo work
         </div>
+
+        <section class="textchunk">
         <p>In Django <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L497">views.py (click to go to github)</a>
         <pre>
         def xfo_deny(request):

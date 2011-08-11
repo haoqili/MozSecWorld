@@ -19,28 +19,68 @@
         <div id="demo-part-over" class="sec-title">
             Overview
         </div>
+
+        <section class="textchunk">        
         <p>
         You will type in raw HTML into the textbox, in the back-end we run the input through [bleach], so that html tags not on [bleach’s whitelist] will be escaped. You should have a basic understanding of [html].
         </p>
         <p>The <a href="#demo-part-verify">how to verify</a> section describes how you can ensure that bleach is working correctly.</p>
         <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to run bleach.</p>
+
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-demo" class="sec-title">
             Set-Cookie: HttpOnly Demo
         </div>
-    <!---------------->
-      <form id="myform" action="" method="post">
-      {{ csrf() }}
-      {{ form.as_p() }}
-      <input type="submit" value="Submit" />
-      </form>
 
-      <div id="results">
-      {% include 'msw/demos/children/rich_table.html' %}
-      </div>
-    <!---------------->
+        <section class="textchunk">        
+
+            Try typing in raw HTML here.
+            <!---------------->
+              <form id="myform" action="" method="post">
+              {{ csrf() }}
+              {{ form.as_p() }}
+              <input type="submit" value="Submit" />
+              </form>
+
+              <div id="results">
+              {% include 'msw/demos/children/rich_table.html' %}
+              </div>
+            <!---------------->
+
+            The white-listed of HTML tags is:
+                
+            <p>['a', 'abbr',   'acronym',   'b',   'blockquote',   'code',   'em',   'i',   'li','ol','strong','ul']</p>
+
+            <p>Everything else, including <code>&lt;script&gt;</code>, is escaped.
+
+            <p>
+            Copy paste this into the textbox
+            <code class="code-indent">
+            Hi I am saying &lt;script&gt;alert(“Hello World!”);&lt;script&gt;, and &lt;b&gt;this text is bolded.&lt;/b&gt;
+            </code>
+            </p>
+
+            <p>The output would be: <br />
+            <code class="code-indent" style="color: black; background-color: white; font-family: Helvetica,sans-serif;">
+                Hi I am saying &lt;script&gt;alert(“Hello World!”);&lt;script&gt;, and <b>this text is bolded.</b>
+            </code>
+
+            Observe that:<br />
+            1. Bold <code>&lt;b&gt;</code> and <code>&lt;/b&gt;</code> tags are gone from the text because they’re being rendered so that the text in between them are bolded.<br />
+            2. JavaScript <code>&lt;script&gt;</code> and <code>&lt;/script&gt;</code> tags are still present.
+            </p>
+
+            <p>Without bleach, the output would be<br />
+            <code class="code-indent" style="color: black; background-color: white; font-family: Helvetica,sans-serif;">
+            Hi I am saying , and this text is bolded.
+            </code>
+            plus you would observe “Hello World!” in a [popup box][link to w3c alert].
+
+
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
@@ -48,6 +88,22 @@
             How to verify
         </div>
 
+        <section class="textchunk">        
+
+            To check that you have bleach installed correctly, you should make a textbox and input text like this demo, and observe that only white-listed tags are rendered.
+
+        </section>
+    </div><!-- sec-chunk -->
+
+    <div class="sec-chunk">
+        <div id="demo-part-code" class="sec-title">
+            My code - code for making this demo work
+        </div>
+        Coming before September 2011! 
+        <section class="textchunk">
+        Note that you can [customize bleach]
+        <br />
+        [code to bleach]
     </div><!-- sec-chunk -->
 
 {% endblock %}

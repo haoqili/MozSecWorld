@@ -19,15 +19,22 @@
         <div id="demo-part-over" class="sec-title">
             Overview
         </div>
+        
+        <section class="textchunk">
         <p>You will try SQL injections and see that they do not get executed. Make sure you have a basic understanding of [SQL queries].</p>
         <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure that your parameterized queries are working properly.</p>
         <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to set up this demo.</p>
+        
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-demo" class="sec-title">
             SQL Parameterization Demo
         </div>
+        
+        <section class="textchunk">
+        
             <p>This is a SQL query, the one running for this demo:<br />
             <code class="code-indent">query = "INSERT INTO msw_sql_table SET name = 'sql_inj_test', comment = '" + <span class="hl-yellow">myComment</span> + "';"</code>
             </p>
@@ -50,25 +57,35 @@
 
             <p>Last 5 results:</p>
             <p><span id="output"></span></p>
+        
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-verify" class="sec-title">
             How to verify
         </div>
+        
+        <section class="textchunk">
         <p>
         Make a input field like the one above and try malicious queries, like “drop table” above. Then go into your database to see if the query got carried through.</p>
         <p>
         Make sure that your query is actually valid with the correct quotations, invalid queries result in false negatives.
         </p>
+        
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-code" class="sec-title">
             My code - code for making this demo work
         </div>
+        
+        <section class="textchunk">
         <code class="code-indent">cursor.execute("INSERT INTO msw_richtext SET name = 'sql_inj_test', comment = %s", [myComment]) </code>
         More to come before September, 2011!
+        
+        </section>
     </div><!-- sec-chunk -->
 
 {% endblock %}

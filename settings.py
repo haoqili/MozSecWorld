@@ -211,9 +211,6 @@ MINIFY_BUNDLES = {
         'sql_ajax': (
             'js/msw/sql_ajax.js',
         ),
-        'sql_button': (
-            'js/msw/sql_button.js',
-        ),
         'richtext_safeurl': (
             'js/msw/richtext_safeurl.js',
         ),

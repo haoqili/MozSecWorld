@@ -19,15 +19,21 @@
         <div id="demo-part-over" class="sec-title">
             Overview
         </div>
+
+        <section class="textchunk">
         <p>You will learn see the difference between <a href="#demo-part-demo">cookies with or without HttpOnly</a>, make sure you have some knowledge of <a href="http://en.wikipedia.org/wiki/HTTP_cookie" target="_blank">cookies</a>.</p>
         <p>The <a href="#demo-part-verify">how to verify</a> section provides details on how to ensure your cookies have the HttpOnly attribute.</p>
         <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to set HttpOnly for this demo.</p>
+
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-demo" class="sec-title">
             Set-Cookie: HttpOnly Demo
         </div>
+
+        <section class="textchunk">
         <p>There are two cookies on this page, one with the HttpOnly attribute, one without.</p>
         <div class="inside">
             <table>
@@ -55,12 +61,15 @@
         </div>
         <p>You should observe that you can see the contents ("foo") of cookie1, but <span class="hlight">cannot see the contents ("bar") of cookie2, which has HTTPOnly enabled</span> and thus JavaScript is unable to access the cookie value.</p>
 
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-verify" class="sec-title">
             How to verify
         </div>
+
+        <section class="textchunk">
 
         <p>Firefox: <a href="http://getfirebug.com/" target="_blank">Get Firebug</a> and open up this demo page
         <ol>
@@ -95,12 +104,16 @@
         </p>
 
 #}
+
+        </section>
     </div><!-- sec-chunk -->
 
     <div class="sec-chunk">
         <div id="demo-part-code" class="sec-title">
             My code - code for making this demo work
         </div>
+
+        <section class="textchunk">
         <p>In Django <a href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/views.py#L377">views.py (click to go to github)</a>
         <pre>
             response = jingo.render(...)
@@ -114,6 +127,8 @@
         <p>If you are using Django, make sure you have <code>SESSION_COOKIE_HTTPONLY = True</code> in settings.py, since the <a href="https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SESSION_COOKIE_HTTPONLY">default</a> is unfortunately false.</p>
 
         <p><a href="http://playdoh.readthedocs.org/en/latest/">Mozilla's Playdoh</a> automatically have <a href="http://readthedocs.org/docs/playdoh/en/latest/bestpractices.html#mmmmh-cookies">Set-Cookie: HttpOnly</a>, ensure that you have <code>commonware.response.cookies</code> in your settings.py's installed apps.</p>
+
+        </section>
     </div><!-- sec-chunk -->
 
 {% endblock %}
