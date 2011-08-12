@@ -41,7 +41,12 @@ class SafeUrlForm(ModelForm):
         else:
             print "url check bad"
             data = data+"DANGEROUS LINK!!!!!!!!!!!"
-        return bleach.clean(data)
+        print " # # # # # # # #"
+        print data
+        data = bleach.clean(data)
+        print " @ @ @ @ @ @ @ @ @"
+        print data
+        return data
 
 class ReCaptchaField(forms.CharField):
     default_error_messages = {

@@ -4,7 +4,7 @@ MozSecWorld is a reference site to help web developers make their sites more sec
 
 Like other Mozilla projects, MozSecWorld is [completely open source][14]. Feel free to comment, critique, or contribute. 
 
-MozSecWorld will be hosted at mozsecworld.org before August 12th.
+MozSecWorld is running at [https://mozsecworld.org][30], the site will be fully functional by September 20th, 2011..
 
 List of Demos
 ===========
@@ -118,3 +118,5 @@ CEF: inside your project home dir, do: `pip install --no-install --build=vendor-
 [12]: https://github.com/jsocol/django-ratelimit
 [13]: https://wiki.mozilla.org/WebAppSec/Secure_Coding_Guidelines#Uploads
 [14]: https://github.com/haoqili/MozSecWorld 
+
+[30]: https://mozsecworld.org/en-US/msw/

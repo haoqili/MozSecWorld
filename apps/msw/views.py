@@ -465,7 +465,6 @@ def demo(request, input_slug):
     # end no backend calls .......
     #.............................
 
-    p = get_object_or_404(Page, slug=input_slug)
 
 
     if input_slug == "set_cookie_httponly":
@@ -480,30 +479,30 @@ def demo(request, input_slug):
         response.set_cookie('cookie2', 'bar', httponly=True)
         return response
 
-    """
+    #"""
     if input_slug == "trial_safe_url":
         print "hhhhhhhhhhhhhhh"
         form = forms.SafeUrlForm()
         file = 'msw/demos/trial_safe_url.html'
         
         if request.method == "POST":
-            print "in safe url POST"
+            print "in safe url POST####################"
             form = forms.SafeUrlForm(request.POST)
             if form.is_valid():
                 print "VVVVVVVVVVVVVVVVVVVVV"
                 form.save()
             file = 'msw/demos/children/trial_safe_url_table.html'
             
+        print "nononononononon"
         ctx = { 
-            'all_pages_list': Page.objects.all(),
-            'page':p,
             'form': form,
-            'all_safeurl': SafeUrl.objects.all().order_by('-id'),
+            'all_safeurl': SafeUrl.objects.all().order_by('-id')[:5],
             }
         response = jingo.render(request, file, ctx)
         return response
-    """
+    #"""
 
+    p = get_object_or_404(Page, slug=input_slug)
     if input_slug == "richtext_and_safe_url":
         test = bleach.clean('an <script>evil()</script> example')
         file = 'msw/demos/richtext_and_safe_url.html'
