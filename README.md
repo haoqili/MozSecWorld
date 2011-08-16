@@ -2,7 +2,7 @@ About MozSecWorld
 =========
 MozSecWorld is a reference site to help web developers make their sites more secure. It is a running Django web application demonstrating major security paradigms used within Mozilla web applications and security capabilities of modern browsers. Each security feature comes with a live demo, complete with explanations, diagrams, and code.
 
-Like other Mozilla projects, MozSecWorld is [completely open source][14]. Feel free to comment, critique, or contribute. 
+Like other Mozilla projects, MozSecWorld is [completely open source][14]. Feel free to comment, critique, or contribute. Please see the "Set Up" section if you would like to set up MozSecWorld locally.
 
 MozSecWorld is running at [https://mozsecworld.org][30], the site will be fully functional by September 20th, 2011.
 

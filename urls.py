@@ -10,7 +10,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
-    (r'^$', redirect_to, {'url': '/msw'}), 
+    (r'^$', redirect_to, {'url': '/msw/'}), # needs last "/" save one redir
     (r'^msw/', include('msw.urls')), # directs to msw/urls.py
     #(r'^accounts/', include('msw.urls')),
     #(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'apps/msw/templates/msw/demos/login.html'}),
