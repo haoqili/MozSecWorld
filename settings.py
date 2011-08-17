@@ -236,7 +236,7 @@ MINIFY_BUNDLES = {
 ## Middlewares, apps, URL configs.
 
 MIDDLEWARE_CLASSES = (
-    'commons.middleware.LocaleURLMiddleware', # i18n
+    #'commons.middleware.LocaleURLMiddleware', # i18n
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
