@@ -193,7 +193,6 @@ def membersOnly(request):
     return jingo.render(request, 'msw/demos/auth/membersOnly.html', ctx)
 
 def auth_needed(request):
-    print "yaaaaaaaaaaaaaa"
     return jingo.render(request, 'msw/demos/auth/auth_needed.html', {})
     
 @permission_required('msw.superuser_display')

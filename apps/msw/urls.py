@@ -38,7 +38,6 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     url(r'^good_auth/demo/register', views.register, name='register'),
     url(r'^good_auth/demo/logout', 'logout'),
     url(r'^good_auth/demo/membersOnly', 'membersOnly', name='membersOnly'),
-    #url(r'^good_auth/demo/auth_needed', 'auth_needed', name='auth_needed'),
     
     #### Access Control
     url(r'^accesscontrol/demo/membersPost', 'membersPost'),
