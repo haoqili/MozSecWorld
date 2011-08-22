@@ -1,0 +1,15 @@
+{% extends "msw/base.html" %}
+{#{% load url from future %}#}
+
+{% block rightPanelText %}  
+
+  <h2>This page requires you to login in.</h2>
+
+  <p>Please <a href="{{ url('login')}}">login in</a> 
+  or <a href="{{ url('register') }}">register</a>.</p>
+
+  <p>You can use username = <span class="hlight">dell</span> and password = <span class="hlight">abc</span>
+  , if you prefer not to register.</p>
+
+
+{% endblock %}
