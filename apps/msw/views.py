@@ -191,6 +191,10 @@ def membersOnly(request):
         'message': message
     }
     return jingo.render(request, 'msw/demos/auth/membersOnly.html', ctx)
+
+def auth_needed(request):
+    print "yaaaaaaaaaaaaaa"
+    return jingo.render(request, 'msw/demos/auth/auth_needed.html', {})
     
 @permission_required('msw.superuser_display')
 def membersPostSuper(request):
@@ -380,7 +384,7 @@ def detail(request, input_slug):
     return jingo.render(request, file, {'page':p})
 
 
-#@login_required
+@login_required #TODO: just have login_required for image_upload
 def demo(request, input_slug):
     print input_slug
     
@@ -432,6 +436,7 @@ def demo(request, input_slug):
                             {'slug':input_slug, "form":form,
                             })
 
+    #@login_required
     if input_slug == "image_upload":
         print "iOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
         print "iOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"

@@ -33,10 +33,12 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     (r'^parameterized_sql/demo/sql_ajax_server$', 'sql_ajax_server'),
 
     #### Login / Authentication
+    url(r'^auth_needed', 'auth_needed', name='auth_needed'),
     url(r'^good_auth/demo/login', views.login, name='login'),
-    url(r'^good_auth/demo/register', 'register'),
+    url(r'^good_auth/demo/register', views.register, name='register'),
     url(r'^good_auth/demo/logout', 'logout'),
     url(r'^good_auth/demo/membersOnly', 'membersOnly', name='membersOnly'),
+    #url(r'^good_auth/demo/auth_needed', 'auth_needed', name='auth_needed'),
     
     #### Access Control
     url(r'^accesscontrol/demo/membersPost', 'membersPost'),

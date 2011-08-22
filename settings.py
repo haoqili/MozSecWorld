@@ -359,7 +359,7 @@ SESSION_COOKIE_HTTPONLY = True
 
 # The URL where requests are redirected for login, especially when using the login_required() decorator.
 # Default: '/accounts/login/'
-LOGIN_URL = '/msw/templates'
+LOGIN_URL = '/msw/auth_needed'
 
 # The URL where requests are redirected after login when the contrib.auth.login view gets no next parameter.
 # Default: '/accounts/profile/'
