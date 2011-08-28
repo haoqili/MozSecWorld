@@ -1,0 +1,33 @@
+http://127.0.0.1:8000/msw/
+
+Traceback (most recent call last):
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/servers/basehttp.py", line 283, in run
+    self.result = application(self.environ, self.start_response)
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/contrib/staticfiles/handlers.py", line 68, in __call__
+    return self.application(environ, start_response)
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/handlers/wsgi.py", line 250, in __call__
+    self.load_middleware()
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/core/handlers/base.py", line 45, in load_middleware
+    mod = import_module(mw_module)
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/django/django/utils/importlib.py", line 35, in import_module
+    __import__(name)
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/apps/commons/middleware.py", line 16, in <module>
+    from .helpers import urlparams
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/apps/commons/helpers.py", line 10, in <module>
+    from jingo import register
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/jingo/jingo/__init__.py", line 140, in <module>
+    env = get_env()
+
+  File "/Users/haoqili/dev/playdoh/playdoh/playdoh/vendor/src/jingo/jingo/__init__.py", line 60, in get_env
+    e.install_null_translations()
+
+AttributeError: 'Environment' object has no attribute 'install_null_translations'
+
