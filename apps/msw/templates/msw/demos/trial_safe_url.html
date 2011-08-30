@@ -1,0 +1,30 @@
+{% extends "msw/base.html" %}
+
+{% block head_stuff %}
+{% endblock %}
+
+{% block rightPanelText %}
+    <h2>Test URL</h2>
+
+      <form id="myform" action="" method="post">
+      {{ csrf() }}
+      {{ form.as_p() }}
+      <input type="submit" value="Submit" />
+      </form>
+
+      <div id="results">
+          {% include 'msw/demos/children/trial_safe_url_table.html' %}
+      </div>
+
+
+    <p />
+    <h3>What to do</h3>
+        <p>Get bcrypt password encryption with HMAC</p>
+        <p>Get ratelimit that prompts a ReCaptcha if an IP or username has more than 5 submissions per minute.</p>
+
+
+{% endblock %}
+
+{% block body_end %}
+{{ js('richtext_safeurl') }}
+{% endblock %}

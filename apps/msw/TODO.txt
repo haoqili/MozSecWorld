@@ -1,0 +1,25 @@
+Important:
+- draw pictures
+- add code
+* separate databases
+
+M Goodwin's suggestions
+x- be able to save into model safeurl
+x- be able to save correctly into is_safe
+x- move check to model save()
+
+todo: -->
+    in children/trial_safe_url_table.html {{ safe_url_presentation(url) }}  [this is called by demos/trial_safe_url.html]
+    can't get to apps/msw/helpers.py's safe_url_presentation()
+    gives 500
+    error:
+        [30/Aug/2011 01:57:02] "POST /en-US/msw/trial_safe_url/demo/ HTTP/1.1" 500 126160
+- right before presentation, do bleach.linkify(url) on all the save == true ones
+- riht before presentation, do bleach.clean(url) to all
+
+
+
+
+- add links
+- merge commits
+

@@ -373,6 +373,10 @@ def detail(request, input_slug):
 
     file = 'msw/detail.html'
 
+    # TODO: delete this if after trial is over
+    if input_slug == "trial_safe_url":
+        input_slug = "safe_url"
+
     if input_slug in no_db:
        file = 'msw/intro/'+input_slug+'.html' 
        print "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
@@ -385,7 +389,8 @@ def detail(request, input_slug):
 
 @login_required #TODO: just have login_required for image_upload
 def demo(request, input_slug):
-    print input_slug
+    #print "DDDDDDDDDDDDDDDDDDDEMO"
+    #print input_slug
     
     #.............................
     # no backend calls ...........
@@ -493,11 +498,10 @@ def demo(request, input_slug):
             print "in safe url POST####################"
             form = forms.SafeUrlForm(request.POST)
             if form.is_valid():
-                print "VVVVVVVVVVVVVVVVVVVVV"
+                print "saving valid form"
                 form.save()
             file = 'msw/demos/children/trial_safe_url_table.html'
             
-        print "nononononononon"
         ctx = { 
             'form': form,
             'all_safeurl': SafeUrl.objects.all().order_by('-id')[:5],

@@ -1,0 +1,11 @@
+    {% if all_safeurl %}
+        {% for url in all_safeurl %}
+            <p>{{ url.the_url|safe }}</p>
+            {#
+            <p>{{ safe_url_presentation(url) }}</p> 
+            #}
+        {% endfor %}
+    {% else %}
+        <p>Nobody has put in urls.</p>
+    {% endif %}
+

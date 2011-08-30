@@ -28,25 +28,42 @@ from msw import formfield
 class SafeUrlForm(ModelForm):
     class Meta:
         model = SafeUrl
+        # so that is_safe doesn't show
+        fields = ('the_url',) 
 
+    """
     def clean_the_url(self):
         data = self.cleaned_data['the_url']
+        # TODO: add warning for not online
+        # TODO: add warning for slow internet
         print "^^^^^^^^^ SafeUrlForm's clean_the_url ^^^^^^^^"
         print data
         # "http://" automatically inserted if absent
         if urlCheck(data):
-            print "url check good"
-            # adds href to data 
-            data = bleach.linkify(data)
-        else:
-            print "url check bad"
-            data = data+"DANGEROUS LINK!!!!!!!!!!!"
+            # TODO!!!: somehow set is_safe to true
+            print "set is_safe to true"
+ 
+            # wrong: adds href to data 
+            #data = bleach.linkify(data)
+        #wrong else:
+        #    print "url check bad"
+        #    data = data+"DANGEROUS LINK!!!!!!!!!!!"
         print " # # # # # # # #"
         print data
-        data = bleach.clean(data)
-        print " @ @ @ @ @ @ @ @ @"
-        print data
+        #wrong: data = bleach.clean(data)
         return data
+    """
+
+    def save(self):
+        entry = super(SafeUrlForm, self).save(commit=False)
+
+        # check to see if the url is safe or not
+        # default is_safe = False
+        the_url_data = self.cleaned_data['the_url']
+        if urlCheck(the_url_data):
+            entry.is_safe = True
+
+        entry.save()
 
 class ReCaptchaField(forms.CharField):
     default_error_messages = {

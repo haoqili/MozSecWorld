@@ -66,3 +66,19 @@ def recaptcha(context, form):
     d = dict(context.items())
     d.update(form=form)
     return d
+
+@jinja2.contextfunction
+def safe_url_presentation(url_obj):
+    import pdb; pdb.set_trace()
+    print "in the safe url presentatino :D:D:D:D:D:D:D"
+    
+    return "hi"
+    """
+    return url_obj
+    print "print the url object"
+    print url_obj
+    print "url's the_url"
+    print url_obj.the_url
+    print "url's is_safe"
+    print url_obj.is_safe
+    """
