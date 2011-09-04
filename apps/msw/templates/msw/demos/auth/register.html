@@ -4,17 +4,14 @@
 
     <h1>Register</h1>
 
-    <p>{{ message }}</p>
-
     {% if form %}
-        <p>You are currently <strong>{{ user }}</strong>.</p>
         <form action="" method="post">
             {{ csrf() }}
             {{ form.as_p() }}
             <p><input type="submit" value="Register me!"></p>
         </form>
     {% else %}
-        <p>You are logged in as <strong>{{ user }}</strong> </p>
+        <p>You are already logged in as <strong>{{ user }}</strong>. Please log out first before registering.</p>
     {% endif %}
 
 {% endblock %}

@@ -1,12 +1,12 @@
 settings_local.py
 *.pyc
-*.swp
 tmp*
 GoogleSafe*
 Check*
 captchastuff
 media/uploads
 
+speedfix
 OpenSSL
 django-csp
 django-ratelimit

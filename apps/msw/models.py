@@ -9,7 +9,11 @@ from django.db import models
 from django.forms import ModelForm
 from django.template.defaultfilters import slugify
 from django.conf import settings
-from commons.urlresolvers import reverse
+
+# mozmark made pull request in attempt to speed up msw
+# from commons.urlresolvers import reverse
+from django.core.urlresolvers import reverse
+
 # User Profile / Authentication
 from django.contrib.auth.models import User
 

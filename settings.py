@@ -155,7 +155,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.csrf',
     'django.contrib.messages.context_processors.messages',
 
-    # 'commons.context_processors.i18n',
+    'commons.context_processors.i18n',
     'jingo_minify.helpers.build_ids',
     
     'msw.context_processors.global_settings',
@@ -236,7 +236,9 @@ MINIFY_BUNDLES = {
 ## Middlewares, apps, URL configs.
 
 MIDDLEWARE_CLASSES = (
+    # uncommenting the line below makes everything 404
     'commons.middleware.LocaleURLMiddleware', # i18n
+
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

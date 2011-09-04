@@ -4,7 +4,9 @@ import urllib # to refresh recaptcha
 from msw.models import Page, RichText, RichTextForm, SafeUrl
 from msw import forms
 
-from commons.urlresolvers import reverse
+# mozmark made pull request in attempt to speed up msw
+# from commons.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -52,10 +54,6 @@ from msw.models import ImageAttachment
 #       - corresponds to a template's html
 #       - must return a HttpResponse. Simplest one is `return HttpResponse("Hello World!")`
 
-# The dictionary maps keys for the template's {{ matching_key }} to its value. 
-# The key/value can be for a list, because in the template, there is a for loop that goes through each value of the list.
-#       e.g. index's Page.objects.all() is a list of all page (xss, sqlinjection)s
-
 ###########################
 #### Login / Authentication
 
@@ -80,7 +78,6 @@ def recaptchaRefresh():
 @ratelimit(field='username', method='POST')
 def login(request):
     was_limited = getattr(request, 'limited', False)
-    #print "login was_limited = " + str(was_limited)
     redirect_to = reverse('membersOnly')
 
     hasRecaptcha = True
@@ -115,7 +112,6 @@ def login(request):
     request.session.set_test_cookie()
 
     ctx = {
-        'all_pages_list': Page.objects.all(),
         'form': form,
         'redirect_to': redirect_to,
         'has_recaptcha': hasRecaptcha,
@@ -127,10 +123,7 @@ def login(request):
 @ratelimit(field='username', method='POST')
 def register(request):
     was_limited = getattr(request, 'limited', False)
-    #print "register was_limited = " + str(was_limited)
-    message = ""
     if request.user.is_authenticated():
-        message = "You are already logged in to an account."
         form = None
     elif request.method == 'POST':
 
@@ -142,26 +135,18 @@ def register(request):
 
         if form.is_valid():
             form.save()
-            #person = form.cleaned_data["username"]
-            print "VALID REGISTER FORM :D:D:D:D:D:D:D:D!"
-            message = "registered"
-
             # TODO: run authenticate on the user, so we automatically log them in.
             # redirect to login page
             return HttpResponseRedirect(reverse('login'))
-        else:
-            message = "invalid information"
     else:
-        print "New registration form"
+        # A new registration form
         if was_limited: # exceeded threshold
             form = forms.UserCreationCaptchaForm()
         else:
             form = forms.UserCreationForm()
             
     ctx = {
-        'all_pages_list': Page.objects.all(),
         'form': form,
-        'message': message
     }
     return jingo.render(request, 'msw/demos/auth/register.html', ctx)
 
@@ -170,14 +155,11 @@ def logout(request):
     # https://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users
     # When you call logout(), the session data for the current request is completely cleaned out. All existing data is removed.
     if request.user.is_authenticated():
-        print "Logging out authenticated user"
         auth_logout(request)
         message = "logged out!! :D"
     else:
-        message =  "not logged in, so no need to log out"
-        print message
+        message =  "not logged in, so no need to log out."
     ctx = {
-        'all_pages_list': Page.objects.all(),
         'message': message
     }
     return jingo.render(request, 'msw/demos/auth/logout.html', ctx)
@@ -187,7 +169,6 @@ def logout(request):
 def membersOnly(request):
     message = "welcome to the super secret members-only page!"
     ctx = {
-        'all_pages_list': Page.objects.all(),
         'message': message
     }
     return jingo.render(request, 'msw/demos/auth/membersOnly.html', ctx)
@@ -197,10 +178,8 @@ def auth_needed(request):
     
 @permission_required('msw.superuser_display')
 def membersPostSuper(request):
-    print "YIPEEEEEE"
     message = "welcome to the ultra super secret ultra super members-only posting page!"
     ctx = {
-        'all_pages_list': Page.objects.all(),
         'users_list': MembersPostUser.objects.all(),
         'all_texts_list': MembersPostText.objects.all(),        
         'message': message
@@ -209,19 +188,11 @@ def membersPostSuper(request):
     
 def membersPost(request):
     if request.user.has_perm('msw.superuser_display'):
-        print "YEAH!!!!!!!"
         return membersPostSuper(request)
-    print "NOOOOOOO"
     message = "welcome to the super secret members-only posting page!"
-    print "username:"
-    print request.user.username
-    print "users list:"
-    print MembersPostUser.objects.all()
-    print "------"
     oneUserList = set()
     #TODO: ask webdev how to do this better
     for person in MembersPostUser.objects.all():
-        print person.user
         if person.user == request.user.username:
             oneUserList.add(person)
     ctx = {
@@ -234,7 +205,6 @@ def membersPost(request):
 
 def ac_ajax_server(request):
     if request.is_ajax():
-        print "at ac_ajax_server"
         tamperBoo = False
 
         usrInput = request.POST
@@ -334,152 +304,25 @@ def ac_ajax_server(request):
 #### pages:
 
 def index(request):
-    print "^ ^ ^ ^ ^ Welcome to the Index Page ^ ^ ^ "
-    print "request.user: "
-    print request.user
-    if request.user.is_authenticated():
-        print "@ IndexPage and You're logged in :DDDDDDD"
-    else:
-        print "@ IndexPage and You're NOT LOGGED IN :( :(:(:("
-        print "\n@ Index page"
-        print "indexPage ------------------------"
-        print request.session
-        print "indexPage - - - - - - -- - - - -"
-        print "indexPage keys:"
-        print request.session.keys()
-        print "indexPafe items:"
-        print request.session.items()
-        print "&&&&&&&&&&&&&&&&&&&&&&&&"
-        print "@ IndexPage and Not logged in :(:(:(:(:("
     if request.method == "GET":
-        rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
         if 'next' in request.GET:
-            print "XXXXXXXXXXXXXXXXXXXXXXXXXXX" 
-    rendered = jingo.render(request, 'msw/index.html', {"all_pages_list": Page.objects.all()})
+            print "the index page has a 'next'" 
+    rendered = jingo.render(request, 'msw/index.html', {})
     return rendered
 
-no_db = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql", "rich_text",
-         "safe_url", "csp", "access_control", "image_upload"
-         ]
-no_db2 = ["good_auth", "x_frame_options", "set_cookie_httponly", "parameterized_sql",
-         "csp", "access_control",
-          ]
-
 def detail(request, input_slug):
-    
-    # get_object_or_404( model name, model attribute = value to test)
-    # this function is analogous to Page.objects.filter(urlname=msw_urlname)
-    # "urlname" is the attribute of the model, i.e. the column in the db table
-
-    file = 'msw/detail.html'
 
     # TODO: delete this if after trial is over
+    # all demos have a detail
     if input_slug == "trial_safe_url":
         input_slug = "safe_url"
 
-    if input_slug in no_db:
-       file = 'msw/intro/'+input_slug+'.html' 
-       print "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
-       print "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
-       return jingo.render(request, file, {'slug':input_slug})
-
-    p = get_object_or_404(Page, slug=input_slug)
-    return jingo.render(request, file, {'page':p})
-
+    return jingo.render(request, 'msw/intro/'+input_slug+'.html', {'slug':input_slug})
 
 @login_required #TODO: just have login_required for image_upload
 def demo(request, input_slug):
-    #print "DDDDDDDDDDDDDDDDDDDEMO"
-    #print input_slug
-    
-    #.............................
-    # no backend calls ...........
-
-    if input_slug in no_db2:
-        print "2OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        print "2OOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
-
-    if input_slug == "rich_text":
-        print "rOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        print "rOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        form = RichTextForm()
-        if request.method == "POST":
-            print "PPPPPPPPPPPPPPPP"
-            form = RichTextForm(request.POST)
-            if form.is_valid():
-                print "tttttttttttttt"
-                form.save()
-            return jingo.render(request, 'msw/demos/children/rich_table.html', 
-                                {'slug':input_slug, 
-                                 "form":form,
-                                 "all_richtext_list": RichText.objects.values('comment').order_by('-id')[:5],})
-        print "VVVVVVVVVVVV rich_text GET"
-        return jingo.render(request, 'msw/demos/'+input_slug+'.html',
-                            {'slug':input_slug, "form":form,
-                            })
-
-
-    if input_slug == "safe_url":
-        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        form = RichTextForm()
-        if request.method == "POST":
-            print "PPPPPPPPPPPPPPPP"
-            form = RichTextForm(request.POST)
-            if form.is_valid():
-                print "tttttttttttttt"
-                form.save()
-            return jingo.render(request, 'msw/demos/children/safe_url_table.html', 
-                                {'slug':input_slug, 
-                                 "form":form,
-                                 "safe_url_list": RichText.objects.values('name').order_by('-id')[:5],})
-
-        print ":(:(:(:(:("
-        return jingo.render(request, 'msw/demos/'+input_slug+'.html', 
-                            {'slug':input_slug, "form":form,
-                            })
-
-    #@login_required
-    if input_slug == "image_upload":
-        print "iOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        print "iOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        print "\na img upload!"
-        form = forms.ImageAttachmentUploadForm()
-        if request.method == 'POST':
-            #import pdb;
-            #pdb.set_trace();
-            print "in file upload post"
-            form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
-            print "r POST"
-            print request.POST
-            print "r FILES"
-            print request.FILES
-            print "yaaaaaa"
-            if form.is_valid():
-                print "a valid file upload form"
-                image_file = request.FILES['image']
-                print request.user
-                user_object = User.objects.get(username = request.user)
-                img = use_model_upload(image_file, user_object)
-     
-                # POST return
-                return jingo.render(request, 'msw/demos/fileupload_show.html', {'img' : img })
-
-        # image upload GET:
-        return jingo.render(request, 'msw/demos/image_upload.html', {'form': form})
-
-
-
-    # end no backend calls .......
-    #.............................
-
-
 
     if input_slug == "set_cookie_httponly":
-        print "set_cookie_httponly"
-        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-        print "sOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
         response = jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
         # setting httponly=False overrides SESSION_COOKIE_HTTPONLY
         response.set_cookie('cookie1', 'foo', httponly=False)
@@ -488,17 +331,55 @@ def demo(request, input_slug):
         response.set_cookie('cookie2', 'bar', httponly=True)
         return response
 
-    #"""
-    if input_slug == "trial_safe_url":
-        print "hhhhhhhhhhhhhhh"
+    elif input_slug == "rich_text":
+        form = RichTextForm()
+        if request.method == "POST":
+            form = RichTextForm(request.POST)
+            if form.is_valid():
+                form.save()
+            return jingo.render(request, 'msw/demos/children/rich_table.html', 
+                                {'slug':input_slug, 
+                                 "form":form,
+                                 "all_richtext_list": RichText.objects.values('comment').order_by('-id')[:5],})
+        return jingo.render(request, 'msw/demos/'+input_slug+'.html',
+                            {'slug':input_slug, "form":form,
+                            })
+
+    elif input_slug == "safe_url":
+        form = RichTextForm()
+        if request.method == "POST":
+            form = RichTextForm(request.POST)
+            if form.is_valid():
+                form.save()
+            return jingo.render(request, 'msw/demos/children/safe_url_table.html', 
+                                {'slug':input_slug, 
+                                 "form":form,
+                                 "safe_url_list": RichText.objects.values('name').order_by('-id')[:5],})
+        return jingo.render(request, 'msw/demos/'+input_slug+'.html', 
+                            {'slug':input_slug, "form":form,
+                            })
+
+    #@login_required
+    elif input_slug == "image_upload":
+        form = forms.ImageAttachmentUploadForm()
+        if request.method == 'POST':
+            form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                image_file = request.FILES['image']
+                user_object = User.objects.get(username = request.user)
+                img = use_model_upload(image_file, user_object)
+                # POST return
+                return jingo.render(request, 'msw/demos/fileupload_show.html', {'img' : img })
+        # image upload GET:
+        return jingo.render(request, 'msw/demos/image_upload.html', {'form': form})
+
+    elif input_slug == "trial_safe_url":
         form = forms.SafeUrlForm()
         file = 'msw/demos/trial_safe_url.html'
         
         if request.method == "POST":
-            print "in safe url POST####################"
             form = forms.SafeUrlForm(request.POST)
             if form.is_valid():
-                print "saving valid form"
                 form.save()
             file = 'msw/demos/children/trial_safe_url_table.html'
             
@@ -508,7 +389,14 @@ def demo(request, input_slug):
             }
         response = jingo.render(request, file, ctx)
         return response
-    #"""
+
+    # Generic demos return:
+    return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
+
+
+    """ 
+    # TOOD: delete this chunk after safe_url and rich_text have 
+    # their own db
 
     p = get_object_or_404(Page, slug=input_slug)
     if input_slug == "richtext_and_safe_url":
@@ -531,50 +419,7 @@ def demo(request, input_slug):
             'page':p}
         response = jingo.render(request, file, ctx)
         return response
-
-
-    if input_slug == "fileupload":
-        print "\na img upload!"
-        form = forms.ImageAttachmentUploadForm()
-        if request.method == 'POST':
-            #import pdb;
-            #pdb.set_trace();
-            print "in file upload post"
-            form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
-            print "r POST"
-            print request.POST
-            print "r FILES"
-            print request.FILES
-            print "yaaaaaa"
-            if form.is_valid():
-                print "a valid file upload form"
-                image_file = request.FILES['image']
-                print request.user
-                user_object = User.objects.get(username = request.user)
-                img = use_model_upload(image_file, user_object)
-     
-                # POST return
-                return jingo.render(request, 'msw/demos/fileupload_show.html',
-                                    {'all_pages_list': Page.objects.all(),
-                                     'page':p,
-                                     'img' : img })
-
-        # file upload GET:
-
-        file = 'msw/demos/fileupload.html'
-
-        ctx = {
-            'all_pages_list': Page.objects.all(),
-            'form': form,
-            'page':p
-        }
-
-        return jingo.render(request, file, ctx)
-
-
-    # default demo stuff:
-    return jingo.render(request, 'msw/demos/'+input_slug+'.html', {"all_pages_list": Page.objects.all(), 'page':p})
-
+    """
 
 def sql_ajax_server(request):
     if request.is_ajax():
@@ -605,20 +450,12 @@ def sql_ajax_server(request):
         print warning
         return HttpResponse(warning)
 
-
-
-def cookie(request):
-    rendered = jingo.render(request, 'msw/cookie.html', {"title_chunk" : "Cookie Testing", "all_pages_list": Page.objects.all()})
-    return rendered
-
 # X-Frame-Options
 
 # exempt for the test-your-site demo
 @csp_exempt
 def x_frame_options(request):
     input_slug = "x_frame_options"
-    print "xOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-    print "xOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
     return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
 
 def xfo_deny(request):
@@ -675,6 +512,5 @@ def use_model_upload(imgf, user):
 
 def recent_imgs(request):
     return jingo.render(request, 'msw/demos/fileupload_recent.html',
-                        {'all_pages_list': Page.objects.all(),
-                         'img_qset' : ImageAttachment.objects.order_by('id').reverse()[:6]
+                        {'img_qset' : ImageAttachment.objects.order_by('id').reverse()[:6]
                         })
