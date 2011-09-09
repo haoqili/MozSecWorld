@@ -4,10 +4,7 @@ import urllib # to refresh recaptcha
 from msw.models import Page, RichText, RichTextForm, SafeUrl
 from msw import forms
 
-# mozmark made pull request in attempt to speed up msw
-# from commons.urlresolvers import reverse
 from django.core.urlresolvers import reverse
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.template.loader import render_to_string
