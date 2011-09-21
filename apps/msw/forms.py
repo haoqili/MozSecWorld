@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from msw.captcha import submit, displayhtml
-from msw.models import SafeUrl
+from msw.models import SafeUrl, RichText, RichTextInput
 from msw.utils import urlCheck
 
 # Blacklisted Password
@@ -24,6 +24,8 @@ from .models import BlacklistedPassword
 
 # File upload
 from msw import formfield
+
+###### start rich text / safe url ######
 
 class SafeUrlForm(ModelForm):
     class Meta:
@@ -65,6 +67,43 @@ class SafeUrlForm(ModelForm):
 
         entry.save()
 
+# ModelForm https://docs.djangoproject.com/en/dev/topics/forms/modelforms/
+class RichTextForm(ModelForm):
+    class Meta:
+        model = RichText
+    
+    def clean_name(self):
+        data = self.cleaned_data['name']
+        #is it an URL?...does it have "http"
+        # ASSUMING the ENTIRE NAME FIELD is a URL that starts with http:// or https://
+        if "http" in data:
+            if urlCheck(data):
+                data = data # not adding any modifications to daat
+
+                # adds href to data
+                data = bleach.linkify(data)
+    
+            else:
+                data = data+"DANGEROUS LINK!!!!!!!"
+        return bleach.clean(data)
+
+    def clean_comment(self): #comment must match one of the fields of model
+        data = self.cleaned_data['comment']
+        return bleach.clean(data)
+
+class RichTextInputForm(ModelForm):
+    class Meta:
+        model = RichTextInput
+
+    def clean_text(self):
+        data = self.cleaned_data['text']
+        return bleach.clean(data)
+
+###### end rich text / safe url ######
+
+
+###### start captcha stuff ###########
+
 class ReCaptchaField(forms.CharField):
     default_error_messages = {
         'captcha_invalid': _(u'Invalid captcha')
@@ -84,7 +123,6 @@ class ReCaptchaField(forms.CharField):
         if not check_captcha.is_valid:
             raise forms.util.ValidationError(self.error_messages['captcha_invalid'])
         return values[0]
-
 
 class ReCaptcha(forms.widgets.Widget):
     recaptcha_challenge_name = 'recaptcha_challenge_field'
@@ -122,7 +160,7 @@ class UserCreationCaptchaForm(auth_forms.UserCreationForm):
         # super to check that passwords agree
         return super(UserCreationCaptchaForm, self).clean_password2()
 
-#-------- end captcha stuff ------------------------------------------------------
+######## end captcha stuff ###########
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):

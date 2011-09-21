@@ -53,6 +53,7 @@ class Page(models.Model):
 ####################################################
 ##### Safe URL / RichText ##########################
 
+
 class SafeUrl(models.Model):
     the_url = models.URLField()
     is_safe = models.BooleanField(default=False)
@@ -63,6 +64,10 @@ class RichText(models.Model):
 
     def __unicode__(self):
         return self.name + ": " + self.comment
+
+# dividing RichText into separate models
+class RichTextInput(models.Model):
+    text = models.TextField()
 
 ##### Safe URL / RichText ##########################
 ####################################################
@@ -264,30 +269,6 @@ def getUrl(str):
     if "https://" in str:
         return str.replace("https://", "")
     return str
-
-# ModelForm https://docs.djangoproject.com/en/dev/topics/forms/modelforms/
-class RichTextForm(ModelForm):
-    class Meta:
-        model = RichText
-    
-    def clean_name(self):
-        data = self.cleaned_data['name']
-        #is it an URL?...does it have "http"
-        # ASSUMING the ENTIRE NAME FIELD is a URL that starts with http:// or https://
-        if "http" in data:
-            if urlCheck(data):
-                data = data # not adding any modifications to daat
-
-                # adds href to data
-                data = bleach.linkify(data)
-    
-            else:
-                data = data+"DANGEROUS LINK!!!!!!!"
-        return bleach.clean(data)
-
-    def clean_comment(self): #comment must match one of the fields of model
-        data = self.cleaned_data['comment']
-        return bleach.clean(data)
 
 ##### URL CHECK ####################################
 ####################################################

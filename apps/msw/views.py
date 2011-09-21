@@ -1,7 +1,9 @@
 import jingo
 import bleach
 import urllib # to refresh recaptcha
-from msw.models import Page, RichText, RichTextForm, SafeUrl
+#from msw.models import Page, RichText, RichTextForm, SafeUrl
+from msw.models import Page, RichText, SafeUrl, RichTextInput
+from msw.forms import RichTextForm, RichTextInputForm
 from msw import forms
 
 from django.core.urlresolvers import reverse
@@ -329,15 +331,15 @@ def demo(request, input_slug):
         return response
 
     elif input_slug == "rich_text":
-        form = RichTextForm()
+        form = RichTextInputForm()
         if request.method == "POST":
-            form = RichTextForm(request.POST)
+            form = RichTextInputForm(request.POST)
             if form.is_valid():
                 form.save()
             return jingo.render(request, 'msw/demos/children/rich_table.html', 
                                 {'slug':input_slug, 
                                  "form":form,
-                                 "all_richtext_list": RichText.objects.values('comment').order_by('-id')[:5],})
+                                 "all_richtext_list": RichTextInput.objects.values('text').order_by('-id')[:5],})
         return jingo.render(request, 'msw/demos/'+input_slug+'.html',
                             {'slug':input_slug, "form":form,
                             })

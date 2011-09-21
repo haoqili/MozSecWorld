@@ -37,17 +37,21 @@
 
         <section class="textchunk">        
 
-            Try typing in raw HTML here.
-            <div class="warning">
-            To make it work: <br />
-            1. Put html inside the 'Comment' textbox<br />
-            2. Put 'a' inside 'Name'
-            </div>
+            <p>Try typing in raw HTML here.</p>
+
+            <p>For example, copy-paste in:<br />
+            <code class="code-indent" style="color: black; 
+            font-family: Helvetica,sans-serif;">
+            &lt;b&gt;Am I in bold?&lt;/b&gt; 
+            &lt;script&gt;alert("Am I being alerted in a script?")
+            &lt;/script&gt;</code><p/>
+
             <!---------------->
               <form id="myform" action="" method="post">
               {{ csrf() }}
               {{ form.as_p() }}
-              <input type="submit" value="Submit" />
+              <!--<input type="submit" value="Submit" />-->
+              <button>Submit text!</button>
               </form>
 
               <div id="results">
@@ -55,35 +59,33 @@
               </div>
             <!---------------->
 
-            The white-listed of HTML tags is:
+            <p>If you submitted the example above, you should see this output:
+            </p>
+
+            <code class="code-indent" style="color: black; 
+            background-color: white; font-family: Helvetica,sans-serif;">
+            <b>Am I in bold?</b> &lt;script&gt;alert(“Am I being alerted in 
+            a script?”);&lt;/script&gt;
+            </code>
+
+            <p>Observe that:<br />
+            1. The <code>&lt;b&gt;</code> and <code>&lt;/b&gt;</code> tags 
+            are gone from the text because they’re being rendered so that the 
+            text in between them are bolded.<br />
+            2. The <code>&lt;script&gt;</code> and <code>&lt;/script&gt;</code>
+            tags are still present.
+            </p>
+
+            <p><code>&lt;b&gt;</code> got rendered into HTML, because "b" is
+            on bleach's white-list.</p>
+
+            <p>Bleach's white-listed HTML tags:</p>
                 
             <p>['a', 'abbr',   'acronym',   'b',   'blockquote',   'code',   'em',   'i',   'li','ol','strong','ul']</p>
 
-            <p>Everything else, including <code>&lt;script&gt;</code>, is escaped.
-
-            <p>
-            Copy paste this into the textbox
-            <code class="code-indent">
-            Hi I am saying &lt;script&gt;alert(“Hello World!”);&lt;script&gt;, and &lt;b&gt;this text is bolded.&lt;/b&gt;
-            </code>
+            <p>Everything else, including the potentially malicious
+            <code>&lt;script&gt;</code>, is escaped.
             </p>
-
-            <p>The output would be: <br />
-            <code class="code-indent" style="color: black; background-color: white; font-family: Helvetica,sans-serif;">
-                Hi I am saying &lt;script&gt;alert(“Hello World!”);&lt;script&gt;, and <b>this text is bolded.</b>
-            </code>
-
-            Observe that:<br />
-            1. Bold <code>&lt;b&gt;</code> and <code>&lt;/b&gt;</code> tags are gone from the text because they’re being rendered so that the text in between them are bolded.<br />
-            2. JavaScript <code>&lt;script&gt;</code> and <code>&lt;/script&gt;</code> tags are still present.
-            </p>
-
-            <p>Without bleach, the output would be<br />
-            <code class="code-indent" style="color: black; background-color: white; font-family: Helvetica,sans-serif;">
-            Hi I am saying , and this text is bolded.
-            </code>
-            plus you would observe “Hello World!” in a [popup box][link to w3c alert].
-
 
         </section>
     </div><!-- sec-chunk -->
