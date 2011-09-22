@@ -22,7 +22,15 @@
 
         <section class="textchunk">        
         <p>
-        You will type in raw HTML into the textbox, in the back-end we run the input through [bleach], so that html tags not on [bleach’s whitelist] will be escaped. You should have a basic understanding of [html].
+        You will type in raw HTML into the textbox, in the back-end we 
+        run the input through <a target="_blank"
+href="https://github.com/jsocol/bleach"
+        >bleach</a>, so that html tags not on 
+        <a target="_blank"
+href="https://github.com/jsocol/bleach/blob/master/bleach/__init__.py#L20"
+        >bleach’s whitelist</a> will be escaped. 
+        You should have a basic understanding of <a target="_blank"
+        href="http://www.w3schools.com/html/">html</a>.
         </p>
         <p>The <a href="#demo-part-verify">how to verify</a> section describes how you can ensure that bleach is working correctly.</p>
         <p>View the <a href="#demo-part-code">code</a> section to see the code that's used to run bleach.</p>
@@ -77,9 +85,12 @@
             </p>
 
             <p><code>&lt;b&gt;</code> got rendered into HTML, because "b" is
-            on bleach's white-list.</p>
+            on <a target="_blank" href="https://github.com/jsocol/bleach">
+            bleach</a>'s white-list.</p>
 
-            <p>Bleach's white-listed HTML tags:</p>
+            <p><a target="_blank"
+href="https://github.com/jsocol/bleach/blob/master/bleach/__init__.py#L20"
+            >Bleach's white-listed</a> HTML tags:</p>
                 
             <p>['a', 'abbr',   'acronym',   'b',   'blockquote',   'code',   'em',   'i',   'li','ol','strong','ul']</p>
 
@@ -106,11 +117,27 @@
         <div id="demo-part-code" class="sec-title">
             My code - code for making this demo work
         </div>
-        Coming before September 2011! 
+        
         <section class="textchunk">
-        Note that you can [customize bleach]
-        <br />
-        [code to bleach]
+            In <a target="_blank" 
+href="https://github.com/haoqili/MozSecWorld/blob/master/apps/msw/forms.py"
+            >forms.py</a>, I added <code>bleach.clean(data)</code> to this
+            demo's form data.:
+            <pre>
+            <b>import bleach</b>
+
+            class RichTextInputForm(ModeForm):
+                class Meta:
+                    model = RichTextInput
+ 
+                def clean_text(self):
+                    data = self.cleaned_data['text']
+                    return <b>bleach.clean(data)</b>
+            </pre>
+            Where "text" is the name of the input field 
+            (same in the model).
+
+        </section>
     </div><!-- sec-chunk -->
 
 {% endblock %}
