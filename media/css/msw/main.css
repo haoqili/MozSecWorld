@@ -269,3 +269,30 @@ h2 {
     border-radius: 2px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
+
+.diag {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    /*width: 346px;
+    height: 440px;*/
+    width: 403px;
+    height: 513px;
+}
+
+#diag_x_frame {
+    height: 877px;
+}
+
+#diag_image_upload {
+    height: 1106px;
+}
+#diag_httponly {
+    height: 771px;
+}
+#diag_pw_storage {
+    height: 896px;
+}
+

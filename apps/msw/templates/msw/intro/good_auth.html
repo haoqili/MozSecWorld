@@ -95,29 +95,33 @@
             Diagram
         </div>
         <section class="textchunk">
-            Coming before September 2011!
-{#
             <span class="sec-small-title">Password Choice Safety:</span>
             <div class="sec-small-chunk">
-
+                <a href="{{ MEDIA_URL }}img/diagrams/pw_choice.png" 
+                target="_blank"> 
+                <img class="diag"  
+                src="{{ MEDIA_URL }}img/diagrams/pw_choice.png" 
+                alt="password choice diagram" /></a>
             </div>
 
             <span class="sec-small-title">Password Storage Safety:</span>
             <div class="sec-small-chunk">
-                <p class="tofix">
-                    PasswordHash = bcrypt ( HMAC(password & per-user-salt, system nonce)
-                    ** refer to notes *
-                    ** The above algorithm is not right - fix with correct data
-                </p>
-
-
+                <a href="{{ MEDIA_URL }}img/diagrams/pw_storage.png" 
+                target="_blank"> 
+                <img class="diag" id="diag_pw_storage"
+                src="{{ MEDIA_URL }}img/diagrams/pw_storage.png" 
+                alt="password storage diagram" /></a>
             </div>
 
             <span class="sec-small-title">Online Password Attack Prevention:</span>
+                <a href="{{ MEDIA_URL }}img/diagrams/pw_attack.png" 
+                target="_blank"> 
+                <img class="diag"
+                src="{{ MEDIA_URL }}img/diagrams/pw_attack.png" 
+                alt="password attack diagram" /></a>
             <div class="sec-small-chunk">
 
             </div>
-#}
         </section>
     </section><!-- sec-chunk -->
 
