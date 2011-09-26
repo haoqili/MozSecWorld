@@ -1,10 +1,17 @@
 About MozSecWorld
 =========
-MozSecWorld is a reference site to help web developers make their sites more secure. It is a running Django web application demonstrating major security paradigms used within Mozilla web applications and security capabilities of modern browsers. Each security feature comes with a live demo, complete with explanations, diagrams, and code.
+MozSecWorld is a web security reference site. It can teach you simple ways that you can make your own websites more secure. 
+You'll learn through diagrams, explanations, and best of all, *live demos*! :)
+If you are a web developer, you'll find the open-source code for each demo helpful too.
 
-Like other Mozilla projects, MozSecWorld is [completely open source][14]. Feel free to comment, critique, or contribute. Please see the "Set Up" section if you would like to set up MozSecWorld locally.
 
-MozSecWorld is running at [https://mozsecworld.org][30], the site will be fully functional by September 20th, 2011.
+More specifically, MozSecWorld is a running Django web application demonstrating major security paradigms used within Mozilla web applications and security capabilities of modern browsers. Our goal is to help make the web more secure for all.
+
+The MozSecWorld Beta is running at [https://mozsecworld.org][30], the server has some problems that is making clicks very slow. 
+
+Email `mozsecworld at gmail dot com` to receive an update email as soon as the website is functional.
+
+Feel free to email us anything else related to this project. We'd love to hear from you!
 
 
 List of Demos
@@ -42,7 +49,7 @@ Transport Security [coming soon]
 * Full and correct TLS
 * HTTP Strict Transport Security
 
-Setup
+Setup your local version
 ========
 
 1. Get the repository: `git clone https://github.com/haoqili/MozSecWorld`
