@@ -21,6 +21,8 @@ urlpatterns = patterns('msw.views', # gets information from views.py
     url(r'^(?P<input_slug>\w+)/$', views.detail, name='detail'), # goes to views.py's "def detail" with input_slug as an argument.
     url(r'^x_frame_options/demo/$', views.x_frame_options, 
         name='x_frame_options'), # must put here or else below takes affect
+    url(r'^image_upload/demo/$', views.image_upload, 
+        name='image_upload'), # must put here or else below takes affect
     (r'^(?P<input_slug>\w+)/demo/$', 'demo'), 
 
     # N.B.: didn't make '^.*/demo/(?P<slug>\w+)$' because each page has different httpresponse settings, i.e. each page has to have its own function in views.py

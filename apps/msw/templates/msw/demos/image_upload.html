@@ -45,7 +45,11 @@
                 <li>If you uploaded the [bad image], “wget” the source of the uploaded image, observe that the extraneous JavaScript is gone.</li>
             </ol>
             <!---------------->
+            <!-- the check below is now unnecessary because 
+                 you are taken to the login required page if you're not logged in -->
+            {% if not user.username %}
               <div class="warning">You must log in for upload to work.</div>
+            {% endif %}
               <form id="myform" action="" method="post" enctype="multipart/form-data">
               {{ csrf() }}
               {{ form.as_p() }}

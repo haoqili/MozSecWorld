@@ -318,7 +318,6 @@ def detail(request, input_slug):
 
     return jingo.render(request, 'msw/intro/'+input_slug+'.html', {'slug':input_slug})
 
-@login_required #TODO: just have login_required for image_upload
 def demo(request, input_slug):
 
     if input_slug == "set_cookie_httponly":
@@ -358,20 +357,6 @@ def demo(request, input_slug):
                             {'slug':input_slug, "form":form,
                             })
 
-    #@login_required
-    elif input_slug == "image_upload":
-        form = forms.ImageAttachmentUploadForm()
-        if request.method == 'POST':
-            form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
-            if form.is_valid():
-                image_file = request.FILES['image']
-                user_object = User.objects.get(username = request.user)
-                img = use_model_upload(image_file, user_object)
-                # POST return
-                return jingo.render(request, 'msw/demos/fileupload_show.html', {'img' : img })
-        # image upload GET:
-        return jingo.render(request, 'msw/demos/image_upload.html', {'form': form})
-
     elif input_slug == "trial_safe_url":
         form = forms.SafeUrlForm()
         file = 'msw/demos/trial_safe_url.html'
@@ -393,32 +378,19 @@ def demo(request, input_slug):
     return jingo.render(request, 'msw/demos/'+input_slug+'.html', {'slug':input_slug})
 
 
-    """ 
-    # TOOD: delete this chunk after safe_url and rich_text have 
-    # their own db
-
-    p = get_object_or_404(Page, slug=input_slug)
-    if input_slug == "richtext_and_safe_url":
-        test = bleach.clean('an <script>evil()</script> example')
-        file = 'msw/demos/richtext_and_safe_url.html'
-        if request.method == "POST":
-            form = RichTextForm(request.POST)
-            if form.is_valid():
-                form.save()
-            file = 'msw/demos/children/richtext_table.html'
-        else:
-            form = RichTextForm()
-            
-        #context_instance=RequestContext() is for the CSRF token
-        ctx = {
-            "all_pages_list": Page.objects.all(), 
-            "form": form, 
-            "title_chunk" : "Bleach Testing: "+test, 
-            "all_richtext_list": RichText.objects.all().order_by('-id'), 
-            'page':p}
-        response = jingo.render(request, file, ctx)
-        return response
-    """
+@login_required #TODO: just have login_required for image_upload
+def image_upload(request):
+    form = forms.ImageAttachmentUploadForm()
+    if request.method == 'POST':
+        form = forms.ImageAttachmentUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            image_file = request.FILES['image']
+            user_object = User.objects.get(username = request.user)
+            img = use_model_upload(image_file, user_object)
+            # POST return
+            return jingo.render(request, 'msw/demos/fileupload_show.html', {'img' : img })
+    # image upload GET:
+    return jingo.render(request, 'msw/demos/image_upload.html', {'form': form})
 
 def sql_ajax_server(request):
     if request.is_ajax():
