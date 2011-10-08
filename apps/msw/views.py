@@ -118,8 +118,8 @@ def login(request):
 
     return jingo.render(request, 'msw/demos/auth/login.html', ctx)
 
-
-@ratelimit(field='username', method='POST')
+# TODO: Make recaptach work again with register
+#@ratelimit(field='username', method='POST')
 def register(request):
     was_limited = getattr(request, 'limited', False)
     if request.user.is_authenticated():
