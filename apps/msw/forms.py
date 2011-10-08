@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from msw.captcha import submit, displayhtml
-from msw.models import SafeUrl, RichText, RichTextInput
+from msw.models import SafeUrl, RichText, RichTextInput, SafeUrlSimple
 from msw.utils import urlCheck
 
 # Blacklisted Password
@@ -64,8 +64,39 @@ class SafeUrlForm(ModelForm):
         the_url_data = self.cleaned_data['the_url']
         if urlCheck(the_url_data):
             entry.is_safe = True
+            # TODO: later put this linkify to right before presentation
+            #       through apps/msw/helpers.py's safe_url_presentation()
+            #       all the is_safe == True ones
+            # tried to linkify this, halts any more inputs
+            # entry.the_url = bleach.linkify(entry.the_url)
+            #print "ennnnnnnnnnnnnnnnn"
+            #print entry.the_url
+            #print "--------------------"
 
+        # N.B. No need to do bleach.clean(entry.the_url)
+        #      because django url field doesn't let invalid inputs
+        #      such as <script> or random strings proceed 
         entry.save()
+
+class SafeUrlSimpleForm(ModelForm):
+    class Meta:
+        model = SafeUrlSimple
+
+    def clean_urlname(self):
+        data = self.cleaned_data['urlname']
+        #is it an URL?...does it have "http"
+        # ASSUMING the ENTIRE NAME FIELD is a URL that starts with http:// or https://
+        if "http" in data:
+            if urlCheck(data):
+                data = data # not adding any modifications to daat
+
+                # adds href to data
+                data = bleach.linkify(data)
+    
+            else:
+                data = data+"DANGEROUS LINK!!!!!!!"
+        return bleach.clean(data)
+
 
 # ModelForm https://docs.djangoproject.com/en/dev/topics/forms/modelforms/
 class RichTextForm(ModelForm):

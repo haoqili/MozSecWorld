@@ -36,21 +36,22 @@
         <section class="textchunk">
             <!---------------->
             <div class="warning">
-            To make it work: <br />
-            1. Put URL inside 'Name', you must have 'http://'<br />
-            2. Put 'a' inside 'Comment'
+            You must have 'http://'.
             </div>
               <form id="myform" action="" method="post">
               {{ csrf() }}
               {{ form.as_p() }}
-              <input type="submit" value="Submit" />
+              <button>Submit URL</button>
               </form>
 
               <div id="results">
               {% include 'msw/demos/children/safe_url_table.html' %}
               </div>
             <!---------------->
-            <p>Some Google SafeBrowisng black-listed urls to try (don’t actually navigate to these urls!):
+            <p>Some Google SafeBrowisng black-listed urls to try:</p>
+            <div class="warning">
+            Don’t actually navigate to these urls! They're dangerous.
+            </div>
             <ul>
                 <li>http://moffce.ce.ms</li>
             </ul>

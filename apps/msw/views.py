@@ -2,8 +2,8 @@ import jingo
 import bleach
 import urllib # to refresh recaptcha
 #from msw.models import Page, RichText, RichTextForm, SafeUrl
-from msw.models import Page, RichText, SafeUrl, RichTextInput
-from msw.forms import RichTextForm, RichTextInputForm
+from msw.models import Page, RichText, SafeUrl, RichTextInput, SafeUrlSimple
+from msw.forms import RichTextForm, RichTextInputForm, SafeUrlSimpleForm
 from msw import forms
 
 from django.core.urlresolvers import reverse
@@ -342,8 +342,10 @@ def demo(request, input_slug):
         return jingo.render(request, 'msw/demos/'+input_slug+'.html',
                             {'slug':input_slug, "form":form,
                             })
-
+        
     elif input_slug == "safe_url":
+        """
+        TODO: DELETE THIS CHUNK AND RICHTEXTFORM
         form = RichTextForm()
         if request.method == "POST":
             form = RichTextForm(request.POST)
@@ -356,6 +358,20 @@ def demo(request, input_slug):
         return jingo.render(request, 'msw/demos/'+input_slug+'.html', 
                             {'slug':input_slug, "form":form,
                             })
+        """
+        form = SafeUrlSimpleForm()
+        if request.method == "POST":
+            form = SafeUrlSimpleForm(request.POST)
+            if form.is_valid():
+                form.save()
+            return jingo.render(request, 'msw/demos/children/safe_url_table.html', 
+                                {'slug':input_slug, 
+                                 "form":form,
+                                 "safe_url_list": SafeUrlSimple.objects.values('urlname').order_by('-id')[:5],})
+        return jingo.render(request, 'msw/demos/'+input_slug+'.html',
+                            {'slug':input_slug, "form":form,
+                            })
+
 
     elif input_slug == "trial_safe_url":
         form = forms.SafeUrlForm()

@@ -58,6 +58,9 @@ class SafeUrl(models.Model):
     the_url = models.URLField()
     is_safe = models.BooleanField(default=False)
 
+class SafeUrlSimple(models.Model):
+    urlname = models.CharField(max_length=200)
+
 class RichText(models.Model):
     name = models.CharField(max_length=200)
     comment = models.TextField()
